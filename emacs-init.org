@@ -319,31 +319,36 @@
      ;;taken from https://sam217pa.github.io/2016/09/13/from-helm-to-ivy/
      ;; (use-package avy :ensure t :commands (avy-goto-word-1))
 
-     ;; (use-package ivy 
-     ;;   :ensure  t ;ivy-hydra 
-     ;;   :diminish ivy-mode ; does not display ivy in the modeline
-     ;;   :bind (:map ivy-mode-map  ; bind in the ivy buffer
-     ;; 	      ("C-'" . ivy-avy)) ; C-' to ivy-avy
-     ;;   :config
-     ;;   (ivy-mode 1)        ; enable ivy globally at startup
-     ;; 					;
-     ;;   ;; add ‘recentf-mode’ and bookmarks to ‘ivy-switch-buffer’.
-     ;;   (setq ivy-use-virtual-buffers t)
-     ;;   ;; number of result lines to display
-     ;;   (setq ivy-height 10)
-     ;;   ;; does not count candidates
-     ;;   (setq ivy-count-format "")
-     ;;   ;; no regexp by default
-     ;;   (setq ivy-initial-inputs-alist nil)
-     ;;   ;; configure regexp engine.
-     ;;   (setq ivy-re-builders-alist
-     ;; 	;; allow input not in order
-     ;; 	'((t   . ivy--regex-fuzzy)
-     ;; 	  (t   . ivy--regex-ignore-order))))
+     (use-package ivy 
+       :ensure  t ;ivy-hydra 
+       :diminish ivy-mode ; does not display ivy in the modeline
+       :bind (:map ivy-mode-map  ; bind in the ivy buffer
+		   ("C-'" . ivy-avy)) ; C-' to ivy-avy
+       :config
+       (ivy-mode 1)        ; enable ivy globally at startup
+					     ;
+       ;; add ‘recentf-mode’ and bookmarks to ‘ivy-switch-buffer’.
+       (setq ivy-use-virtual-buffers t)
+       ;; number of result lines to display
+       (setq ivy-height 10)
+       ;; does not count candidates
+       (setq ivy-count-format "")
+       ;; no regexp by default
+       (setq ivy-initial-inputs-alist nil)
+       ;; configure regexp engine.
+       (setq ivy-re-builders-alist
+	     ;; allow input not in order
+	     '((t   . ivy--regex-fuzzy)
+	       (t   . ivy--regex-ignore-order))))
 
-     ;; (use-package counsel :ensure t )
-     ;; (use-package swiper :ensure t )
-     ;; (use-package ivy-hydra :ensure t :defer t)
+     ;; (use-package ivy :demand
+     ;;   :config
+     ;;   (setq ivy-use-virtual-buffers t
+     ;; 	ivy-count-format "%d/%d "))
+
+     (use-package counsel :ensure t )
+     (use-package swiper :ensure t )
+     (use-package ivy-hydra :ensure t :defer t)
    #+END_SRC
    
 ** image+
@@ -494,29 +499,29 @@
 	 ;; Targets include this file and any file contributing to the agenda - up to 9 levels deep
 	 ;;
 
-	 (defvar my-org-mobile-sync-timer nil)
+	 ;(defvar my-org-mobile-sync-timer nil)
 
-	 (defvar my-org-mobile-sync-secs (* 60 20))
+	 ;(defvar my-org-mobile-sync-secs (* 60 20))
 
-	 (defun my-org-mobile-sync-pull-and-push ()
-	   (org-mobile-pull)
-	   (org-mobile-push)
-	   (when (fboundp 'sauron-add-event)
-	     (sauron-add-event 'my 3 "Called org-mobile-pull and org-mobile-push")))
+	 ;; (defun my-org-mobile-sync-pull-and-push ()
+	 ;;   (org-mobile-pull)
+	 ;;   (org-mobile-push)
+	 ;;   (when (fboundp 'sauron-add-event)
+	 ;; 	(sauron-add-event 'my 3 "Called org-mobile-pull and org-mobile-push")))
 
-	 (defun my-org-mobile-sync-start ()
-	   "Start automated `org-mobile-push'"
-	   (interactive)
-	   (setq my-org-mobile-sync-timer
-		 (run-with-idle-timer my-org-mobile-sync-secs t
-				      'my-org-mobile-sync-pull-and-push)))
+	 ;; (defun my-org-mobile-sync-start ()
+	 ;;   "Start automated `org-mobile-push'"
+	 ;;   (interactive)
+	 ;;   (setq my-org-mobile-sync-timer
+	 ;; 	    (run-with-idle-timer my-org-mobile-sync-secs t
+	 ;; 				 'my-org-mobile-sync-pull-and-push)))
 
-	 (defun my-org-mobile-sync-stop ()
-	   "Stop automated `org-mobile-push'"
-	   (interactive)
-	   (cancel-timer my-org-mobile-sync-timer))
+	 ;; (defun my-org-mobile-sync-stop ()
+	 ;;   "Stop automated `org-mobile-push'"
+	 ;;   (interactive)
+	 ;;   (cancel-timer my-org-mobile-sync-timer))
 
-	 (my-org-mobile-sync-start)
+	 ;; (my-org-mobile-sync-start)
 
 	 )
        :bind (
