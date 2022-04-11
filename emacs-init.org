@@ -40,7 +40,7 @@
 	    ;;     (evil-collection-init 'alchemist)
 	    ;;     (evil-collection-init 'anaconda-mode)
 	    ;;     (evil-collection-init 'arc-mode)
-		 (evil-collection-init 'avy)
+		 ;; (evil-collection-init 'avy)
 		 (evil-collection-init 'bookmark)
 		 (evil-collection-init 'buff-menu)
 		 (evil-collection-init 'calc)
@@ -97,7 +97,7 @@
 	    ;;     (evil-collection-init 'man)
 		 (evil-collection-init 'magit)
 	    ;;     (evil-collection-init 'magit-todos)
-		 (evil-collection-init 'mu4e)
+		 ;;(evil-collection-init 'mu4e)
 	    ;;     (evil-collection-init 'mu4e-conversation)
 	    ;;     (evil-collection-init 'neotree)
 		 ;;(evil-collection-init 'notmuch)
@@ -252,26 +252,26 @@
    #+END_SRC
 ** elfeed
    #+BEGIN_SRC emacs-lisp :results output silent
-	  (use-package elfeed
-	    :ensure t
-	    ;;:defer t
-	    :commands (elfeed-search-mode elfeed-show-mode)
-	    :init (progn
-		    (use-package elfeed-goodies :ensure t)
-		    (use-package elfeed-org :ensure t))
-	    :config
-	    (progn
-	      (require 'elfeed-goodies)
-	      (elfeed-goodies/setup)
-	      (setq 
-	       elfeed-goodies/powerline-default-separator nil
-	       elfeed-goodies/entry-pane-position 'bottom)
+     ;; (use-package elfeed
+     ;;   :ensure t
+     ;;   ;;:defer t
+     ;;   :commands (elfeed-search-mode elfeed-show-mode)
+     ;;   :init (progn
+     ;; 	  ;; (use-package elfeed-goodies :ensure t)
+     ;; 	  (use-package elfeed-org :ensure t))
+     ;;   :config
+     ;;   (progn
+     ;;     (require 'elfeed-goodies)
+     ;;     (elfeed-goodies/setup)
+     ;;     (setq 
+     ;;      elfeed-goodies/powerline-default-separator nil
+     ;;      elfeed-goodies/entry-pane-position 'bottom)
 
-	      (setq elfeed-db-directory "~/.emacs.d/elfeed")
-	      (require 'elfeed-org)
-	      (elfeed-org)
-	      (setq rmh-elfeed-org-files (list "~/Dropbox/elfeed.org")))
-	      )
+     ;;     (setq elfeed-db-directory "~/.emacs.d/elfeed")
+     ;;     (require 'elfeed-org)
+     ;;     (elfeed-org)
+     ;;     (setq rmh-elfeed-org-files (list "~/Dropbox/elfeed.org")))
+     ;;     )
 
 
 
@@ -317,33 +317,33 @@
    #+BEGIN_SRC emacs-lisp :results output silent
 
      ;;taken from https://sam217pa.github.io/2016/09/13/from-helm-to-ivy/
-     (use-package avy :ensure t :commands (avy-goto-word-1))
+     ;; (use-package avy :ensure t :commands (avy-goto-word-1))
 
-     (use-package ivy 
-       :ensure  t ;ivy-hydra 
-       :diminish ivy-mode ; does not display ivy in the modeline
-       :bind (:map ivy-mode-map  ; bind in the ivy buffer
-		   ("C-'" . ivy-avy)) ; C-' to ivy-avy
-       :config
-       (ivy-mode 1)        ; enable ivy globally at startup
-					     ;
-       ;; add ‘recentf-mode’ and bookmarks to ‘ivy-switch-buffer’.
-       (setq ivy-use-virtual-buffers t)
-       ;; number of result lines to display
-       (setq ivy-height 10)
-       ;; does not count candidates
-       (setq ivy-count-format "")
-       ;; no regexp by default
-       (setq ivy-initial-inputs-alist nil)
-       ;; configure regexp engine.
-       (setq ivy-re-builders-alist
-	     ;; allow input not in order
-	     '((t   . ivy--regex-fuzzy)
-	       (t   . ivy--regex-ignore-order))))
+     ;; (use-package ivy 
+     ;;   :ensure  t ;ivy-hydra 
+     ;;   :diminish ivy-mode ; does not display ivy in the modeline
+     ;;   :bind (:map ivy-mode-map  ; bind in the ivy buffer
+     ;; 	      ("C-'" . ivy-avy)) ; C-' to ivy-avy
+     ;;   :config
+     ;;   (ivy-mode 1)        ; enable ivy globally at startup
+     ;; 					;
+     ;;   ;; add ‘recentf-mode’ and bookmarks to ‘ivy-switch-buffer’.
+     ;;   (setq ivy-use-virtual-buffers t)
+     ;;   ;; number of result lines to display
+     ;;   (setq ivy-height 10)
+     ;;   ;; does not count candidates
+     ;;   (setq ivy-count-format "")
+     ;;   ;; no regexp by default
+     ;;   (setq ivy-initial-inputs-alist nil)
+     ;;   ;; configure regexp engine.
+     ;;   (setq ivy-re-builders-alist
+     ;; 	;; allow input not in order
+     ;; 	'((t   . ivy--regex-fuzzy)
+     ;; 	  (t   . ivy--regex-ignore-order))))
 
-     (use-package counsel :ensure t )
-     (use-package swiper :ensure t )
-     (use-package ivy-hydra :ensure t :defer t)
+     ;; (use-package counsel :ensure t )
+     ;; (use-package swiper :ensure t )
+     ;; (use-package ivy-hydra :ensure t :defer t)
    #+END_SRC
    
 ** image+
@@ -697,12 +697,12 @@
        ;; ;; regular auto-complete initialization
        ;; (require 'auto-complete-config)
        ;; (ac-config-default)
-
+     
        ;; ;; add the emacs-eclim source
        ;; (require 'ac-emacs-eclim-source)
        ;; (ac-emacs-eclim-config)
        ;;     ))
-
+     
    #+END_SRC
    
 ** lisp
@@ -965,68 +965,70 @@
 
 * itself
   #+BEGIN_SRC emacs-lisp 
-    (blink-cursor-mode -1)
-    (delete-selection-mode 1)
-    (electric-pair-mode 1)
-    (global-linum-mode)
-    (global-visual-line-mode t)
-    (menu-bar-mode 0)
-    (prefer-coding-system 'utf-8)
-    (recentf-mode 1)
-    (scroll-bar-mode 0)
-    (set-keyboard-coding-system 'utf-8)
-    (set-selection-coding-system 'utf-8)
-    (set-terminal-coding-system 'utf-8-unix)
-    (defalias 'yes-or-no-p 'y-or-n-p)
-    (tool-bar-mode 0)
-    (tooltip-mode -1)
-    (show-paren-mode 1)
-    (load-theme 'adwaita)
-
-    (setq
-     auto-save-file-name-transforms `((".*" ,temporary-file-directory t))
-     backup-directory-alist `((".*" . ,temporary-file-directory))
-     confirm-kill-processes nil
-     confirm-nonexistent-file-or-buffer nil
-     default-fill-column 80		; toggle wrapping text at the 80th character
-     delete-old-versions t 		; delete excess backup versions silently
-     history-length 250 
-     inhibit-startup-echo-area-message "loganmohseni"
-     inhibit-startup-message t
-     inhibit-startup-screen t
-     initial-scratch-message ";         :D"
-     kill-ring-max 5000                     ;truncate kill ring after 5000 entries
-     load-prefer-newer t
-     locale-coding-system 'utf-8
-     mark-ring-max 5000 
-     recentf-max-saved-items 5000  
-     ring-bell-function 'ignore 	; silent bell when you make a mistake
-     sentence-end-double-space t	; 
-     show-paren-delay 0
-     show-paren-style 'parenthesis
-     show-paren-when-point-inside-paren t
-     split-width-threshold 160
-     switch-to-buffer-preserve-window-point t
-     tab-always-indent 'complete 
-     tooltip-use-echo-area t
-     use-dialog-box nil
-     user-full-name "Logan Mohseni"
-     user-mail-address "mohsenil85@gmail.com"
-     vc-follow-symlinks t 				       ; don't ask for confirmation when opening symlinked file
-     vc-make-backup-files t 		; make backups file even when in version controlled dir
-     version-control t 		; use version control
-     visible-bell t)
-
-
-    (require 'uniquify)
-    (setq uniquify-buffer-name-style 'forward)
-    (winner-mode 1)
-
-    ;;bigger font size for my poor old aching occulars
-    (set-frame-font "-*-Monaco-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1")
-
-
-
+	(blink-cursor-mode -1)
+	(delete-selection-mode 1)
+	(electric-pair-mode 1)
+	(global-linum-mode)
+	(global-visual-line-mode t)
+	(menu-bar-mode 0)
+	(prefer-coding-system 'utf-8)
+	(recentf-mode 1)
+	(scroll-bar-mode 0)
+	(set-keyboard-coding-system 'utf-8)
+	(set-selection-coding-system 'utf-8)
+	(set-terminal-coding-system 'utf-8-unix)
+	(defalias 'yes-or-no-p 'y-or-n-p)
+	(tool-bar-mode 0)
+	(tooltip-mode -1)
+	(show-paren-mode 1)
+	(load-theme 'adwaita)
+    
+	(setq
+	 auto-save-file-name-transforms `((".*" ,temporary-file-directory t))
+	 backup-directory-alist `((".*" . ,temporary-file-directory))
+	 confirm-kill-processes nil
+	 confirm-nonexistent-file-or-buffer nil
+	 default-fill-column 80		; toggle wrapping text at the 80th character
+	 delete-old-versions t 		; delete excess backup versions silently
+	 history-length 250 
+	 inhibit-startup-echo-area-message "loganmohseni"
+	 inhibit-startup-message t
+	 inhibit-startup-screen t
+	 initial-scratch-message ";         :D"
+	 kill-ring-max 5000                     ;truncate kill ring after 5000 entries
+	 load-prefer-newer t
+	 locale-coding-system 'utf-8
+	 mark-ring-max 5000 
+	 recentf-max-saved-items 5000  
+	 ring-bell-function 'ignore 	; silent bell when you make a mistake
+	 sentence-end-double-space t	; 
+	 show-paren-delay 0
+	 show-paren-style 'parenthesis
+	 show-paren-when-point-inside-paren t
+	 split-width-threshold 160
+	 switch-to-buffer-preserve-window-point t
+	 tab-always-indent 'complete 
+	 tooltip-use-echo-area t
+	 use-dialog-box nil
+	 user-full-name "Logan Mohseni"
+	 user-mail-address "mohsenil85@gmail.com"
+	 vc-follow-symlinks t 				       ; don't ask for confirmation when opening symlinked file
+	 vc-make-backup-files t 		; make backups file even when in version controlled dir
+	 version-control t 		; use version control
+	 visible-bell t
+	indicate-empty-lines t
+    )
+    
+    
+	(require 'uniquify)
+	(setq uniquify-buffer-name-style 'forward)
+	(winner-mode 1)
+    
+	;;bigger font size for my poor old aching occulars
+	(set-frame-font "-*-Monaco-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1")
+    
+    
+    
   #+END_SRC
 
   #+RESULTS:
@@ -1415,7 +1417,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 	(global-set-key (kbd "M-X") 'pbcut)
 
 	;;recomended by brew
-	(let ((default-directory "/usr/local/share/emacs/site-lisp/"))
+	(let ((default-directory "/opt/homebrew/share/emacs/site-lisp/"))
 	  (normal-top-level-add-subdirs-to-load-path))
           
 (use-package exec-path-from-shell :ensure t 
@@ -1447,192 +1449,192 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   #+BEGIN_SRC emacs-lisp
 
 
-	(defun exec-offlineimap ()
-	  "execute offlineimap"
-	  (interactive)
-	  (set-process-sentinel
-	   (start-process-shell-command "offlineimap"
-					"*offlineimap*"
-					"offlineimap -o")
-	   '(lambda (process event)
-	      (let ((w (get-buffer-window "*offlineimap*")))
-		(when w
-		  (with-selected-window w (recenter (window-end)))))))
-	  (popwin:display-buffer "*offlineimap*"))
+    ;; 	(defun exec-offlineimap ()
+    ;; 	  "execute offlineimap"
+    ;; 	  (interactive)
+    ;; 	  (set-process-sentinel
+    ;; 	   (start-process-shell-command "offlineimap"
+    ;; 					"*offlineimap*"
+    ;; 					"offlineimap -o")
+    ;; 	   '(lambda (process event)
+    ;; 	      (let ((w (get-buffer-window "*offlineimap*")))
+    ;; 		(when w
+    ;; 		  (with-selected-window w (recenter (window-end)))))))
+    ;; 	  (popwin:display-buffer "*offlineimap*"))
 
-	(add-to-list 'popwin:special-display-config
-		     '("*offlineimap*" :dedicated t :position bottom :stick t
-		       :height 0.4 :noselect t))
+    ;; 	(add-to-list 'popwin:special-display-config
+    ;; 		     '("*offlineimap*" :dedicated t :position bottom :stick t
+    ;; 		       :height 0.4 :noselect t))
 
-	(defun setup-mail-stuff ()
-	  (setq
-	   mail-user-agent 'message-user-agent
-	   message-default-mail-headers "Cc: \nBcc: \n"
-	   message-directory "~/.mail/"
-	   message-kill-buffer-on-exit t
-	   message-send-mail-function 'message-send-mail-with-sendmail
+    ;; 	(defun setup-mail-stuff ()
+    ;; 	  (setq
+    ;; 	   mail-user-agent 'message-user-agent
+    ;; 	   message-default-mail-headers "Cc: \nBcc: \n"
+    ;; 	   message-directory "~/.mail/"
+    ;; 	   message-kill-buffer-on-exit t
+    ;; 	   message-send-mail-function 'message-send-mail-with-sendmail
 
-	   send-mail-function 'message-send-mail-with-sendmail
-	   sendmail-program "/usr/local/bin/msmtp"
-	   ))
+    ;; 	   send-mail-function 'message-send-mail-with-sendmail
+    ;; 	   sendmail-program "/usr/local/bin/msmtp"
+    ;; 	   ))
 
-    ;;     (use-package notmuch
-    ;;       :config
-    ;;       (setup-mail-stuff)
-    ;;       (setq
-    ;;       notmuch-show-all-tags-list t
-    ;;       notmuch-show-logo nil
-    ;;       notmuch-search-oldest-first nil)
-    ;; )
+    ;;     ;;     (use-package notmuch
+    ;;     ;;       :config
+    ;;     ;;       (setup-mail-stuff)
+    ;;     ;;       (setq
+    ;;     ;;       notmuch-show-all-tags-list t
+    ;;     ;;       notmuch-show-logo nil
+    ;;     ;;       notmuch-search-oldest-first nil)
+    ;;     ;; )
 
-	(defun setup-mu4e-stuff ( os-type )
-	  (let ((mu-bin (if (eq os-type 'darwin)
-			    "/usr/local/bin/mu"
-			  "/usr/bin/mu")))
-	    (setq
+    ;; 	(defun setup-mu4e-stuff ( os-type )
+    ;; 	  (let ((mu-bin (if (eq os-type 'darwin)
+    ;; 			    "/usr/local/bin/mu"
+    ;; 			  "/usr/bin/mu")))
+    ;; 	    (setq
 
-	     mail-user-agent 'message-user-agent
-	     message-default-mail-headers "Cc: \nBcc: \n"
-	     message-directory "~/.mail/"
-	     message-kill-buffer-on-exit t
-	     message-send-mail-function 'message-send-mail-with-sendmail
+    ;; 	     mail-user-agent 'message-user-agent
+    ;; 	     message-default-mail-headers "Cc: \nBcc: \n"
+    ;; 	     message-directory "~/.mail/"
+    ;; 	     message-kill-buffer-on-exit t
+    ;; 	     message-send-mail-function 'message-send-mail-with-sendmail
 
-	     send-mail-function 'message-send-mail-with-sendmail
-	     sendmail-program "/usr/local/bin/msmtp"
+    ;; 	     send-mail-function 'message-send-mail-with-sendmail
+    ;; 	     sendmail-program "/usr/local/bin/msmtp"
 
-	     mu4e-change-filenames-when-moving t
-	     mu4e-compose-format-flowed t
-	     mu4e-compose-signature-auto-include nil
-	     mu4e-confirm-quit nil
-	     mu4e-context-policy 'pick-first
-	     mu4e-get-mail-command "offlineimap"
-	     mu4e-headers-auto-update t
-	     mu4e-index-update-in-background nil
-	     mu4e-update-interval nil
-	     mu4e-hide-index-messages t
-	     mu4e-headers-skip-duplicates t
-	     mu4e-mu-binary mu-bin 
-	     mu4e-reply-to-address  "mohsenil85@gmail.com"
-	     mu4e-sent-messages-behavior 'delete
-	     mu4e-show-images t
-	     mu4e-update-interval 120
-
-
-	     mu4e-maildir (expand-file-name "~/.mail/")
-
-	     mu4e-trash-folder (lambda (msg)
-				 (if (and msg
-					  (mu4e-message-contact-field-matches
-					   msg
-					   :to "logan.mohseni@singlemindconsulting.com"))
-				     "/localSmc/[Gmail].Trash"
-				   "/localPersonal/[Gmail].Trash"))  
-
-	     mu4e-sent-folder (lambda (msg)
-				(if (and msg
-					 (mu4e-message-contact-field-matches
-					  msg
-					  :to "logan.mohseni@singlemindconsulting.com"))
-				    "/localSmc/[Gmail].Sent Mail"
-				  "/localPersonal/[Gmail].Sent Mail"))  
-
-	     mu4e-drafts-folder (lambda (msg)
-				  (if (and msg
-					   (mu4e-message-contact-field-matches
-					    msg
-					    :to "logan.mohseni@singlemindconsulting.com"))
-				      "/localSmc/[Gmail].Drafts"
-				    "/localPersonal/[Gmail].Drafts"))  
-	     )))
-
-	(defun setup-contexts ()
-	  (require 'mu4e-contrib)
-	  (use-package evil-mu4e :ensure t)
-	  (setq mu4e-contexts
-		`( 
-		  ,(make-mu4e-context
-		    :name "private"
-		    :enter-func (lambda ()
-				  (mu4e-message "Entering Private context"))
-		    :leave-func (lambda ()
-				  (mu4e-message "Leaving Private context"))
-		    ;; we match based on the contact-fields of the message
-		    :match-func (lambda (msg)
-				  (when msg 
-				    (mu4e-message-contact-field-matches 
-				     msg 
-				     :to "mohsenil85@gmail.com")))
-		    :vars '(
-			    (mu4e-reply-to-address . "mohsenil85@gmail.com")
-			    (user-mail-address . "mohsenil85@gmail.com"  )
-			    (user-full-name   . "Logan Mohseni" )
-			    (mu4e-compose-signature . nil)
-
-			    (mu4e-maildir-shortcuts .
-						    (
-						     ("/localPersonal/INBOX" . ?i)
-						     ("/localPersonal/[Gmail].Sent Mail" . ?s)
-						     ("/localPersonal/[Gmail].Trash" . ?t)
-						     ("/localPersonal/[Gmail].All Mail" . ?a)
-						     ("/localPersonal/[Gmail].Drafts" . ?d)))
+    ;; 	     mu4e-change-filenames-when-moving t
+    ;; 	     mu4e-compose-format-flowed t
+    ;; 	     mu4e-compose-signature-auto-include nil
+    ;; 	     mu4e-confirm-quit nil
+    ;; 	     mu4e-context-policy 'pick-first
+    ;; 	     mu4e-get-mail-command "offlineimap"
+    ;; 	     mu4e-headers-auto-update t
+    ;; 	     mu4e-index-update-in-background nil
+    ;; 	     mu4e-update-interval nil
+    ;; 	     mu4e-hide-index-messages t
+    ;; 	     mu4e-headers-skip-duplicates t
+    ;; 	     mu4e-mu-binary mu-bin 
+    ;; 	     mu4e-reply-to-address  "mohsenil85@gmail.com"
+    ;; 	     mu4e-sent-messages-behavior 'delete
+    ;; 	     mu4e-show-images t
+    ;; 	     mu4e-update-interval 120
 
 
-			    ))
+    ;; 	     mu4e-maildir (expand-file-name "~/.mail/")
 
-		  ,(make-mu4e-context
-		    :name "work"
-		    :enter-func (lambda ()
-				  (mu4e-message "Entering Work context"))
-		    :leave-func (lambda ()
-				  (mu4e-message "Leaving Work context"))
-		    ;; we match based on the contact-fields of the message
-		    :match-func (lambda (msg)
-				  (when msg 
-				    (mu4e-message-contact-field-matches 
-				     msg 
-				     :to "logan.mohseni@singlemindconsulting.com")))
-		    :vars '( 
-			    (mu4e-reply-to-address . "logan.mohseni@singlemindconsulting.com")
-			    (user-mail-address . "logan.mohseni@singlemindconsulting.com"  )
-			    (user-full-name   . "Logan Mohseni")
-			    (mu4e-maildir-shortcuts .
-						    (
-						     ("/localSmc/INBOX" . ?i)
-						     ("/localSmc/[Gmail].Sent Mail" . ?s)
-						     ("/localSmc/[Gmail].Trash" . ?t)
-						     ("/localSmc/[Gmail].All Mail" . ?a)
-						     ("/localSmc/[Gmail].Drafts" . ?d)))
+    ;; 	     mu4e-trash-folder (lambda (msg)
+    ;; 				 (if (and msg
+    ;; 					  (mu4e-message-contact-field-matches
+    ;; 					   msg
+    ;; 					   :to "logan.mohseni@singlemindconsulting.com"))
+    ;; 				     "/localSmc/[Gmail].Trash"
+    ;; 				   "/localPersonal/[Gmail].Trash"))  
+
+    ;; 	     mu4e-sent-folder (lambda (msg)
+    ;; 				(if (and msg
+    ;; 					 (mu4e-message-contact-field-matches
+    ;; 					  msg
+    ;; 					  :to "logan.mohseni@singlemindconsulting.com"))
+    ;; 				    "/localSmc/[Gmail].Sent Mail"
+    ;; 				  "/localPersonal/[Gmail].Sent Mail"))  
+
+    ;; 	     mu4e-drafts-folder (lambda (msg)
+    ;; 				  (if (and msg
+    ;; 					   (mu4e-message-contact-field-matches
+    ;; 					    msg
+    ;; 					    :to "logan.mohseni@singlemindconsulting.com"))
+    ;; 				      "/localSmc/[Gmail].Drafts"
+    ;; 				    "/localPersonal/[Gmail].Drafts"))  
+    ;; 	     )))
+
+    ;; 	(defun setup-contexts ()
+    ;; 	  (require 'mu4e-contrib)
+    ;; 	  (use-package evil-mu4e :ensure t)
+    ;; 	  (setq mu4e-contexts
+    ;; 		`( 
+    ;; 		  ,(make-mu4e-context
+    ;; 		    :name "private"
+    ;; 		    :enter-func (lambda ()
+    ;; 				  (mu4e-message "Entering Private context"))
+    ;; 		    :leave-func (lambda ()
+    ;; 				  (mu4e-message "Leaving Private context"))
+    ;; 		    ;; we match based on the contact-fields of the message
+    ;; 		    :match-func (lambda (msg)
+    ;; 				  (when msg 
+    ;; 				    (mu4e-message-contact-field-matches 
+    ;; 				     msg 
+    ;; 				     :to "mohsenil85@gmail.com")))
+    ;; 		    :vars '(
+    ;; 			    (mu4e-reply-to-address . "mohsenil85@gmail.com")
+    ;; 			    (user-mail-address . "mohsenil85@gmail.com"  )
+    ;; 			    (user-full-name   . "Logan Mohseni" )
+    ;; 			    (mu4e-compose-signature . nil)
+
+    ;; 			    (mu4e-maildir-shortcuts .
+    ;; 						    (
+    ;; 						     ("/localPersonal/INBOX" . ?i)
+    ;; 						     ("/localPersonal/[Gmail].Sent Mail" . ?s)
+    ;; 						     ("/localPersonal/[Gmail].Trash" . ?t)
+    ;; 						     ("/localPersonal/[Gmail].All Mail" . ?a)
+    ;; 						     ("/localPersonal/[Gmail].Drafts" . ?d)))
 
 
-			    (mu4e-compose-signature .
-						    "<#part type=text/html>
-		<html>
-		<head>
-		  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">
-		</head>
-		<body>
-		<p style=\"margin: 0.0px 0.0px 0.0px 0.0px; line-height: 14.0px; font: 12.0px Arial; color: #38678f; -webkit-text-stroke: #38678f; background-color: #ffffff\"><span \">Logan Mohseni | <i>Software Developer</i></span></p>
-		<p style=\"margin: 0.0px 0.0px 0.0px 0.0px; line-height: 15.0px; font: 12.0px Arial; color: #666666; -webkit-text-stroke: #666666; background-color: #ffffff\"><span style=\"font: 13.0px 'Trebuchet MS'; font-kerning: none\"><b>single</b></span><span style=\"font: 13.0px 'Trebuchet MS'; font-kerning: none; color: #ff931e; -webkit-text-stroke: 0px #ff931e\"><b>mind |</b></span><span class=\"font-kerning: none; color: #222222; -webkit-text-stroke: 0px #222222\"> </span><span \"><b><i>research • design • build • support</i></b></span></p>
-		<p style=\"margin: 0.0px 0.0px 0.0px 0.0px; line-height: 14.0px; font: 12.0px Arial; color: #38678f; -webkit-text-stroke: #38678f; background-color: #ffffff\"><span \">2100 NW 22nd Ave | Suite A | Portland | Oregon | 97210</span></p>
-		<p style=\"margin: 0.0px 0.0px 0.0px 0.0px; line-height: 15.0px; font: 12.0px Arial; color: #666666; -webkit-text-stroke: #666666; background-color: #ffffff\"><span style=\"font-kerning: none; color: #666666; -webkit-text-stroke: 0px #666666\"><b>@</b></span><span style=\"font-kerning: none; color: #38678f\">: <a href=\"mailto:logan.mohseni@singlemindconsulting.com\"><span span=\"text-decoration: underline ; font-kerning: none; color: #0000ee\">logan.mohseni@singlemindconsulting.com</span></a></span></p>
-		</body>
-		</html>
-		 <#/part>" 
-						    )
-			    )))))
+    ;; 			    ))
+
+    ;; 		  ,(make-mu4e-context
+    ;; 		    :name "work"
+    ;; 		    :enter-func (lambda ()
+    ;; 				  (mu4e-message "Entering Work context"))
+    ;; 		    :leave-func (lambda ()
+    ;; 				  (mu4e-message "Leaving Work context"))
+    ;; 		    ;; we match based on the contact-fields of the message
+    ;; 		    :match-func (lambda (msg)
+    ;; 				  (when msg 
+    ;; 				    (mu4e-message-contact-field-matches 
+    ;; 				     msg 
+    ;; 				     :to "logan.mohseni@singlemindconsulting.com")))
+    ;; 		    :vars '( 
+    ;; 			    (mu4e-reply-to-address . "logan.mohseni@singlemindconsulting.com")
+    ;; 			    (user-mail-address . "logan.mohseni@singlemindconsulting.com"  )
+    ;; 			    (user-full-name   . "Logan Mohseni")
+    ;; 			    (mu4e-maildir-shortcuts .
+    ;; 						    (
+    ;; 						     ("/localSmc/INBOX" . ?i)
+    ;; 						     ("/localSmc/[Gmail].Sent Mail" . ?s)
+    ;; 						     ("/localSmc/[Gmail].Trash" . ?t)
+    ;; 						     ("/localSmc/[Gmail].All Mail" . ?a)
+    ;; 						     ("/localSmc/[Gmail].Drafts" . ?d)))
 
 
-	 (use-package mu4e  
-	;;   :if (memq window-system '(mac ns))
-	 ;;  :defer t
-	    :load-path "~/builds/mu/mu4e"
-	   ;;;:quelpa (mu4e :path "~/builds/mu/mu4e" :fetcher file)
-	   :config
-	   (require 'mu4e)
-	   (setup-mail-stuff)
-	   (setup-mu4e-stuff 'darwin )
-	  (setup-contexts)
-	   ) ;;end usep mu4e
+    ;; 			    (mu4e-compose-signature .
+    ;; 						    "<#part type=text/html>
+    ;; 		<html>
+    ;; 		<head>
+    ;; 		  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">
+    ;; 		</head>
+    ;; 		<body>
+    ;; 		<p style=\"margin: 0.0px 0.0px 0.0px 0.0px; line-height: 14.0px; font: 12.0px Arial; color: #38678f; -webkit-text-stroke: #38678f; background-color: #ffffff\"><span \">Logan Mohseni | <i>Software Developer</i></span></p>
+    ;; 		<p style=\"margin: 0.0px 0.0px 0.0px 0.0px; line-height: 15.0px; font: 12.0px Arial; color: #666666; -webkit-text-stroke: #666666; background-color: #ffffff\"><span style=\"font: 13.0px 'Trebuchet MS'; font-kerning: none\"><b>single</b></span><span style=\"font: 13.0px 'Trebuchet MS'; font-kerning: none; color: #ff931e; -webkit-text-stroke: 0px #ff931e\"><b>mind |</b></span><span class=\"font-kerning: none; color: #222222; -webkit-text-stroke: 0px #222222\"> </span><span \"><b><i>research • design • build • support</i></b></span></p>
+    ;; 		<p style=\"margin: 0.0px 0.0px 0.0px 0.0px; line-height: 14.0px; font: 12.0px Arial; color: #38678f; -webkit-text-stroke: #38678f; background-color: #ffffff\"><span \">2100 NW 22nd Ave | Suite A | Portland | Oregon | 97210</span></p>
+    ;; 		<p style=\"margin: 0.0px 0.0px 0.0px 0.0px; line-height: 15.0px; font: 12.0px Arial; color: #666666; -webkit-text-stroke: #666666; background-color: #ffffff\"><span style=\"font-kerning: none; color: #666666; -webkit-text-stroke: 0px #666666\"><b>@</b></span><span style=\"font-kerning: none; color: #38678f\">: <a href=\"mailto:logan.mohseni@singlemindconsulting.com\"><span span=\"text-decoration: underline ; font-kerning: none; color: #0000ee\">logan.mohseni@singlemindconsulting.com</span></a></span></p>
+    ;; 		</body>
+    ;; 		</html>
+    ;; 		 <#/part>" 
+    ;; 						    )
+    ;; 			    )))))
+
+
+    ;; ;;	 (use-package mu4e  
+    ;; ;;	;;   :if (memq window-system '(mac ns))
+    ;; ;;	 ;;  :defer t
+    ;; ;;	    :load-path "~/builds/mu/mu4e"
+    ;; ;;	   ;;;:quelpa (mu4e :path "~/builds/mu/mu4e" :fetcher file)
+    ;; ;;	   :config
+    ;; ;;	   (require 'mu4e)
+    ;; ;;	   (setup-mail-stuff)
+    ;; ;;	   (setup-mu4e-stuff 'darwin )
+    ;; ;;	  (setup-contexts)
+    ;; ;;	   ) ;;end usep mu4e
 
 
 
@@ -2201,8 +2203,10 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
    #+END_SRC
 * secrets??
   #+BEGIN_SRC emacs-lisp
-    (load-file "~/.emacs.d/secrets.el.gpg")
+   ;; (load-file "~/.emacs.d/secrets.el.gpg")
   #+END_SRC
 
   #+RESULTS:
   : t
+
+  
