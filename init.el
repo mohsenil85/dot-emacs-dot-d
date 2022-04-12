@@ -32,7 +32,7 @@
 ;;used in debugging
 ;;(use-package evil :ensure t :config (evil-mode 1))
 ;;(setq debug-on-error t)
-(use-package org :ensure org-plus-contrib)
+(use-package org :ensure org-contrib)
 
 (require 'ob-tangle)
 

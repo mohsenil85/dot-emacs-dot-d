@@ -1913,7 +1913,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
    #+END_SRC
 ** evil-org
    #+BEGIN_SRC emacs-lisp :results output silent
-   ;  (use-package evil-org :ensure t :defer t  :init (require 'evil-org))  
+      (use-package evil-org :ensure t :defer t  :init (require 'evil-org))  
    #+END_SRC
     
 ** evil-rsi
