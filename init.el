@@ -32,8 +32,8 @@
 ;;used in debugging
 ;;(use-package evil :ensure t :config (evil-mode 1))
 ;;(setq debug-on-error t)
-(use-package org :ensure org-contrib)
-
+(use-package org :ensure t)	
+-
 (require 'ob-tangle)
 
 
