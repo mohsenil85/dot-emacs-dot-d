@@ -1044,7 +1044,7 @@
    #+BEGIN_SRC emacs-lisp :results output silent
 
 
-     (require 'cl)
+     ;;(require 'cl)
 
      (defun copy-filename-to-clip ()
        "Put the current file name on the clipboard"
@@ -1893,7 +1893,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
       ; ))
    #+END_SRC
    
-** deft org
+* deft org
    #+BEGIN_SRC emacs-lisp :results output silent
 ;  (use-package deft 
 ;    :ensure t
@@ -1913,7 +1913,14 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
    #+END_SRC
 ** evil-org
    #+BEGIN_SRC emacs-lisp :results output silent
-      (use-package evil-org :ensure t :defer t  :init (require 'evil-org))  
+	;; (use-package evil-org :ensure t :defer t  :init (require 'evil-org))  
+       (use-package evil-org
+     :ensure t
+     :after org
+     :hook (org-mode . (lambda () evil-org-mode))
+     :config
+     (require 'evil-org-agenda)
+     (evil-org-agenda-set-keys)) 
    #+END_SRC
     
 ** evil-rsi
