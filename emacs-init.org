@@ -171,39 +171,39 @@
 vinagresque
 #+BEGIN_SRC emacs-lisp :results output silent
 
-  (use-package dired
-    :demand
-    :bind (:map dired-mode-map 
-		(("`" . dired-toggle-read-only)
-		 ("j" .  evil-next-line)
-		 ("k" . evil-previous-line)
-		 ( "-" .  dired-up-directory)
-		 ("~" . (lambda ()(interactive) (find-alternate-file "~/")))
-		 ("RET" . dired-find-file)
-		 ("C-<return>" . dired-find-file-other-window) 
-		 ("/" . evil-search-forward) 
-		 )
-		)
+  ;; (use-package dired
+  ;;   :demand
+  ;;   :bind (:map dired-mode-map 
+  ;; 		(("`" . dired-toggle-read-only)
+  ;; 		 ("j" .  evil-next-line)
+  ;; 		 ("k" . evil-previous-line)
+  ;; 		 ( "-" .  dired-up-directory)
+  ;; 		 ("~" . (lambda ()(interactive) (find-alternate-file "~/")))
+  ;; 		 ("RET" . dired-find-file)
+  ;; 		 ("C-<return>" . dired-find-file-other-window) 
+  ;; 		 ("/" . evil-search-forward) 
+  ;; 		 )
+  ;; 		)
 
-    :init
-    (add-to-list 'evil-emacs-state-modes 'dired-mode)
-    :config
-    (use-package dired+
-      :quelpa (dired+ :fetcher url :url "https://www.emacswiki.org/emacs/download/dired+.el")
-      :defer 1
-      :init
-      (setq diredp-hide-details-initially-flag t)
-      (setq diredp-hide-details-propagate-flag t)
-      :config
-      (diredp-toggle-find-file-reuse-dir 1))
+  ;;   :init
+  ;;   (add-to-list 'evil-emacs-state-modes 'dired-mode)
+  ;;   :config
+  ;;   (use-package dired+
+  ;;     :straight (dired+ :fetcher url :url "https://www.emacswiki.org/emacs/download/dired+.el")
+  ;;     :defer 1
+  ;;     :init
+  ;;     (setq diredp-hide-details-initially-flag t)
+  ;;     (setq diredp-hide-details-propagate-flag t)
+  ;;     :config
+  ;;     (diredp-toggle-find-file-reuse-dir 1))
 
-    )
+  ;;   )
 
 
-  (eval-after-load "evil-mode"
-    '(progn
-       (add-to-list 'evil-emacs-state-modes 'dired-mode)
-       ))
+  ;; (eval-after-load "evil-mode"
+  ;;   '(progn
+  ;;      (add-to-list 'evil-emacs-state-modes 'dired-mode)
+  ;;      ))
 
 
 
@@ -859,13 +859,13 @@ general lisp stuff
 
      ;;;; elisp-slime-nav
   ;; jump to elisp definition (function, symbol etc.) and back, show doc
-  (use-package elisp-slime-nav
-    :demand
-    :quelpa (elisp-slime-nav :repo "purcell/elisp-slime-nav" :fetcher github)
-    :bind
-    ("<f1> <f1>" . elisp-slime-nav-describe-elisp-thing-at-point)
-    :diminish
-    :hook ((emacs-lisp-mode ielm-mode lisp-interaction-mode) . elisp-slime-nav-mode))
+  ;; (use-package elisp-slime-nav
+  ;;   :demand
+  ;;   :quelpa (elisp-slime-nav :repo "purcell/elisp-slime-nav" :fetcher github)
+  ;;   :bind
+  ;;   ("<f1> <f1>" . elisp-slime-nav-describe-elisp-thing-at-point)
+  ;;   :diminish
+  ;;   :hook ((emacs-lisp-mode ielm-mode lisp-interaction-mode) . elisp-slime-nav-mode))
 
 
 
@@ -1241,7 +1241,7 @@ taken from: https://www.bytedude.com/useful-emacs-shortcuts/
     )
   ;; Automatically save all file-visiting buffers when Emacs loses focus.
   (add-hook 'focus-out-hook 'save-all)
-  (add-hook 'focus-out-hook '(lambda () (message "ran focus out hook")))
+  ;;(add-hook 'focus-out-hook '(lambda () (message "ran focus out hook")))
 
 #+END_SRC
 ** enhanced window manip fns
