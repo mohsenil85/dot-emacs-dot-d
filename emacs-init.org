@@ -309,16 +309,16 @@ vinagresque
   ;;   :config
   ;;     (require 'git-gutter-fringe)
   ;;     (global-git-gutter-mode t))
-  (use-package git-gutter
-    :hook (prog-mode . git-gutter-mode)
-    :config
-    (setq git-gutter:update-interval 0.02))
+  ;; (use-package git-gutter
+  ;;   :hook (prog-mode . git-gutter-mode)
+  ;;   :config
+  ;;   (setq git-gutter:update-interval 0.02))
 
-  (use-package git-gutter-fringe
-    :config
-    (define-fringe-bitmap 'git-gutter-fr:added [224] nil nil '(center repeated))
-    (define-fringe-bitmap 'git-gutter-fr:modified [224] nil nil '(center repeated))
-    (define-fringe-bitmap 'git-gutter-fr:deleted [128 192 224 240] nil nil 'bottom))
+  ;; (use-package git-gutter-fringe
+  ;;   :config
+  ;;   (define-fringe-bitmap 'git-gutter-fr:added [224] nil nil '(center repeated))
+  ;;   (define-fringe-bitmap 'git-gutter-fr:modified [224] nil nil '(center repeated))
+  ;;   (define-fringe-bitmap 'git-gutter-fr:deleted [128 192 224 240] nil nil 'bottom))
 
 
 #+END_SRC
@@ -398,11 +398,12 @@ vinagresque
    
 ** magit
 #+BEGIN_SRC emacs-lisp :results output silent
-  ;; (use-package magit 
-  ;;   :ensure t
-  ;;   :defer t
-  ;;   :config       
-  ;;     (use-package evil-magit :ensure t ))
+    (use-package magit 
+      :ensure t
+      :defer t
+      :config       
+	;(use-package evil-magit :ensure t )
+  )
 #+END_SRC
    
 ** ag
@@ -735,86 +736,86 @@ general lisp stuff
 		   'common-lisp-indent-function)))
 
 
-  (use-package smartparens
-    :ensure t
-    ;;:diminish ""
+  ;; (use-package smartparens
+  ;;   :ensure t
+  ;;   ;;:diminish ""
 
-    :init 
-    (require 'smartparens-config)
+  ;;   :init 
+  ;;   (require 'smartparens-config)
 
-    (unbind-key  "C-M-f" smartparens-strict-mode-map)
-    (unbind-key  "C-M-b" smartparens-strict-mode-map)
-    (unbind-key  "C-M-u" smartparens-strict-mode-map)
-    (unbind-key  "C-M-d" smartparens-strict-mode-map)
-    (unbind-key  "C-M-p" smartparens-strict-mode-map)
-    (unbind-key  "C-M-n" smartparens-strict-mode-map)
-    (unbind-key  "M-s"   smartparens-strict-mode-map)
-    (unbind-key  "M-<up>" smartparens-strict-mode-map)
-    (unbind-key  "M-<down>"  smartparens-strict-mode-map)
-    (unbind-key  "M-r" smartparens-strict-mode-map)
-    (unbind-key  "M-(" smartparens-strict-mode-map)
-    (unbind-key  "C-)"  smartparens-strict-mode-map)
-    (unbind-key  "C-<right>" smartparens-strict-mode-map)
-    (unbind-key  "C-}" smartparens-strict-mode-map)
-    (unbind-key  "C-<left>" smartparens-strict-mode-map)
-    (unbind-key  "C-(" smartparens-strict-mode-map)
-    (unbind-key  "C-M-<left>" smartparens-strict-mode-map)
-    (unbind-key  "C-{" smartparens-strict-mode-map)
-    (unbind-key  "C-M-<right>" smartparens-strict-mode-map)
-    (unbind-key  "M-S" smartparens-strict-mode-map)
-    (unbind-key  "M-j" smartparens-strict-mode-map)
-    (unbind-key  "M-?" smartparens-strict-mode-map)
+  ;;   (unbind-key  "C-M-f" smartparens-strict-mode-map)
+  ;;   (unbind-key  "C-M-b" smartparens-strict-mode-map)
+  ;;   (unbind-key  "C-M-u" smartparens-strict-mode-map)
+  ;;   (unbind-key  "C-M-d" smartparens-strict-mode-map)
+  ;;   (unbind-key  "C-M-p" smartparens-strict-mode-map)
+  ;;   (unbind-key  "C-M-n" smartparens-strict-mode-map)
+  ;;   (unbind-key  "M-s"   smartparens-strict-mode-map)
+  ;;   (unbind-key  "M-<up>" smartparens-strict-mode-map)
+  ;;   (unbind-key  "M-<down>"  smartparens-strict-mode-map)
+  ;;   (unbind-key  "M-r" smartparens-strict-mode-map)
+  ;;   (unbind-key  "M-(" smartparens-strict-mode-map)
+  ;;   (unbind-key  "C-)"  smartparens-strict-mode-map)
+  ;;   (unbind-key  "C-<right>" smartparens-strict-mode-map)
+  ;;   (unbind-key  "C-}" smartparens-strict-mode-map)
+  ;;   (unbind-key  "C-<left>" smartparens-strict-mode-map)
+  ;;   (unbind-key  "C-(" smartparens-strict-mode-map)
+  ;;   (unbind-key  "C-M-<left>" smartparens-strict-mode-map)
+  ;;   (unbind-key  "C-{" smartparens-strict-mode-map)
+  ;;   (unbind-key  "C-M-<right>" smartparens-strict-mode-map)
+  ;;   (unbind-key  "M-S" smartparens-strict-mode-map)
+  ;;   (unbind-key  "M-j" smartparens-strict-mode-map)
+  ;;   (unbind-key  "M-?" smartparens-strict-mode-map)
 
-    (add-hook 'emacs-lisp-mode-hook #'evil-smartparens-mode)
+  ;;   (add-hook 'emacs-lisp-mode-hook #'evil-smartparens-mode)
 
 
-    :config
-    (general-define-key
-     :keymaps 'smartparens-mode-map
-     :prefix ","
-     "s" 'sp-splice-sexp
-     "w" 'sp-wrap-round
-     "(" 'sp-wrap-round
-     "[" 'sp-wrap-curly
-     "{" 'sp-wrap-square
-     "o" 'sp-split-sexp
-     "j" 'sp-join-sexp
-     "r" 'sp-raise-sexp
-     )
-    (general-define-key
-     :keymaps 'smartparens-mode-map
-     :states '(normal visual motion)
-     ")" 'sp-forward-sexp
-     "(" 'sp-backward-sexp
-     "C-(" 'sp-up-sexp
-     "C-)" 'sp-down-sexp
-     ">" 'sp-forward-slurp-sexp
-     "<" 'sp-backward-slurp-sexp
-     "C->" 'sp-forward-barf-sexp
-     "C-<" 'sp-backward-barf-sexp
-     )
+  ;;   :config
+  ;;   (general-define-key
+  ;;    :keymaps 'smartparens-mode-map
+  ;;    :prefix ","
+  ;;    "s" 'sp-splice-sexp
+  ;;    "w" 'sp-wrap-round
+  ;;    "(" 'sp-wrap-round
+  ;;    "[" 'sp-wrap-curly
+  ;;    "{" 'sp-wrap-square
+  ;;    "o" 'sp-split-sexp
+  ;;    "j" 'sp-join-sexp
+  ;;    "r" 'sp-raise-sexp
+  ;;    )
+  ;;   (general-define-key
+  ;;    :keymaps 'smartparens-mode-map
+  ;;    :states '(normal visual motion)
+  ;;    ")" 'sp-forward-sexp
+  ;;    "(" 'sp-backward-sexp
+  ;;    "C-(" 'sp-up-sexp
+  ;;    "C-)" 'sp-down-sexp
+  ;;    ">" 'sp-forward-slurp-sexp
+  ;;    "<" 'sp-backward-slurp-sexp
+  ;;    "C->" 'sp-forward-barf-sexp
+  ;;    "C-<" 'sp-backward-barf-sexp
+  ;;    )
 
-    (use-package evil-smartparens
-      :ensure t
-      :init 
-      (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode))
-    )
+  ;;   (use-package evil-smartparens
+  ;;     :ensure t
+  ;;     :init 
+  ;;     (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode))
+  ;;   )
 
-  (use-package rainbow-delimiters
-    :ensure t
-    :diminish ""
-    :config
-    (progn
-      (add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode)
-      (add-hook 'lisp-mode-hook #'rainbow-delimiters-mode)
-      (add-hook 'slime-repl-mode-hook #'rainbow-delimiters-mode)
-      (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)))
+  ;; (use-package rainbow-delimiters
+  ;;   :ensure t
+  ;;   :diminish ""
+  ;;   :config
+  ;;   (progn
+  ;;     (add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode)
+  ;;     (add-hook 'lisp-mode-hook #'rainbow-delimiters-mode)
+  ;;     (add-hook 'slime-repl-mode-hook #'rainbow-delimiters-mode)
+  ;;     (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)))
 
-			     ;;;     (eval-after-load "slime"
-			     ;;;       '(progn
-			     ;;;          (define-key evil-normal-state-map (kbd "M-.") 'slime-edit-definition)
-			     ;;;          (define-key evil-normal-state-map (kbd "M-,") 'slime-pop-find-definition-stack)))
-			     ;;;
+  ;; 			   ;;;     (eval-after-load "slime"
+  ;; 			   ;;;       '(progn
+  ;; 			   ;;;          (define-key evil-normal-state-map (kbd "M-.") 'slime-edit-definition)
+  ;; 			   ;;;          (define-key evil-normal-state-map (kbd "M-,") 'slime-pop-find-definition-stack)))
+  ;; 			   ;;;
   ;;      (use-package slime
   ;;        ;;:defer 1
   ;;        ;;:load-path  "~/.emacs.d/vendor/slime"
@@ -1923,14 +1924,18 @@ C-x n w to widen to a page (delineated by ^L chars)
 #+END_SRC
 ** evil-org
 #+BEGIN_SRC emacs-lisp :results output silent
-  (use-package evil-org :ensure t :defer t  :init (require 'evil-org))  
-  ;; (use-package evil-org
-  ;;   :ensure t
-  ;;   :after org
-  ;;   :hook (org-mode . (lambda () evil-org-mode))
-  ;;   :config
-  ;;   (require 'evil-org-agenda)
-  ;;   (evil-org-agenda-s
+      (use-package evil-org
+    :ensure t
+  :defer t  :init (require 'evil-org)
+	:config (evil-org-mode 1)
+	)  
+      ;; (use-package evil-org
+      ;;   :ensure t
+      ;;   :after org
+      ;;   :hook (org-mode . (lambda () evil-org-mode))
+      ;;   :config
+      ;;   (require 'evil-org-agenda)
+      ;;   (evil-org-agenda-s
 #+END_SRC
     
 ** evil-rsi
