@@ -44,7 +44,9 @@
 ;;(use-package evil :ensure t :config (evil-mode 1))
 ;;(setq debug-on-error t)
 
-(use-package org :ensure t)	
+;;(use-package org :ensure t)	
+
+(straight-use-package 'org)
 (require 'ob-tangle)
 
 
