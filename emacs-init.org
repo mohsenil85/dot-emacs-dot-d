@@ -303,12 +303,12 @@
    
 ** git-gutter-fringe
    #+BEGIN_SRC emacs-lisp :results output silent
-  (use-package git-gutter-fringe
-    :ensure t
-    :diminish 
-    :config
-      (require 'git-gutter-fringe)
-      (global-git-gutter-mode t))
+     ;; (use-package git-gutter-fringe
+     ;;   :ensure t
+     ;;   :diminish 
+     ;;   :config
+     ;;     (require 'git-gutter-fringe)
+     ;;     (global-git-gutter-mode t))
 
    #+END_SRC
    
@@ -973,7 +973,6 @@
 	(blink-cursor-mode -1)
 	(delete-selection-mode 1)
 	(electric-pair-mode 1)
-	(global-linum-mode)
 	(global-visual-line-mode t)
 	(menu-bar-mode 0)
 	(prefer-coding-system 'utf-8)
@@ -1913,14 +1912,14 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
    #+END_SRC
 ** evil-org
    #+BEGIN_SRC emacs-lisp :results output silent
-	;; (use-package evil-org :ensure t :defer t  :init (require 'evil-org))  
-       (use-package evil-org
-     :ensure t
-     :after org
-     :hook (org-mode . (lambda () evil-org-mode))
-     :config
-     (require 'evil-org-agenda)
-     (evil-org-agenda-set-keys)) 
+     (use-package evil-org :ensure t :defer t  :init (require 'evil-org))  
+     ;; (use-package evil-org
+     ;;   :ensure t
+     ;;   :after org
+     ;;   :hook (org-mode . (lambda () evil-org-mode))
+     ;;   :config
+     ;;   (require 'evil-org-agenda)
+     ;;   (evil-org-agenda-s
    #+END_SRC
     
 ** evil-rsi
