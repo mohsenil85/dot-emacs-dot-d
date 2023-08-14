@@ -15,28 +15,7 @@
 (setq straight-use-package-by-default t)
 
 
-;; (unless (require 'quelpa nil t)
-;;   (with-temp-buffer
-;;     (url-insert-file-contents "https://framagit.org/steckerhalter/quelpa/raw/master/bootstrap.el")
-;;     (eval-buffer)))
-
-;; (quelpa
-;;  '(quelpa-use-package
-;;    :fetcher git
-;;    :url "https://framagit.org/steckerhalter/quelpa-use-package.git"))
-;; (require 'quelpa-use-package)
-
-
-;; (setq package-archives '(("gnu"       . "https://elpa.gnu.org/packages/")
-;; 			 ("melpa"     . "https://melpa.org/packages/")
-;; 			 ;;("org"       . "http://orgmode.org/elpa/")
-;; 			 ))
-
-;; (unless (package-installed-p 'use-package)
-;;   (package-refresh-contents)
-;;   (package-install 'use-package))
-;; (eval-when-compile
-;;   (require 'use-package))
+(load-file "~/.emacs.d/org-init.el")
 
 (use-package no-littering :ensure t)
 
@@ -46,7 +25,7 @@
 
 ;;(use-package org :ensure t)	
 
-(straight-use-package 'org)
+;;(straight-use-package 'org)
 (require 'ob-tangle)
 
 

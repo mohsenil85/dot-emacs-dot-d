@@ -3,6 +3,14 @@
 #+EMAIL: mohsenil85@gmail.com 
 
 
+* this file
+#+BEGIN_SRC emacs-lisp
+;  (evil-org-mode 1)
+#+END_SRC
+
+#+RESULTS:
+: t
+
 * frontmatter
 ** need to bootstrap org-mode therefore
 ** need to boot strap use-package/quelpa therefore
@@ -28,118 +36,13 @@
     (setq evil-want-keybinding nil)
     :config
     (evil-mode 1)
-  						(add-to-list 'evil-emacs-state-modes 'dired)
+    (add-to-list 'evil-emacs-state-modes 'dired)
     )
 
   (use-package evil-collection
     :after evil
     :ensure t
-    :config 
-    ;;     (evil-collection-init 'ace-jump-mode)
-    (evil-collection-init 'ag)
-    ;;     (evil-collection-init 'alchemist)
-    ;;     (evil-collection-init 'anaconda-mode)
-    ;;     (evil-collection-init 'arc-mode)
-    ;; (evil-collection-init 'avy)
-    (evil-collection-init 'bookmark)
-    (evil-collection-init 'buff-menu)
-    (evil-collection-init 'calc)
-    (evil-collection-init 'calendar)
-    ;;     (evil-collection-init 'cider)
-    ;;     (evil-collection-init 'cmake-mode)
-    ;;     (evil-collection-init 'comint)
-    ;;     (evil-collection-init 'company)
-    (evil-collection-init 'compile)
-    ;;     (evil-collection-init 'custom)
-    ;;     (evil-collection-init 'cus-theme)
-    ;;     (evil-collection-init 'daemons)
-    ;;     (evil-collection-init 'deadgrep)
-    ;;     (evil-collection-init 'debbugs)
-    (evil-collection-init 'debug)
-    ;;     (evil-collection-init 'diff-mode)
-    (evil-collection-init 'doc-view)
-    ;;     (evil-collection-init 'edebug)
-    (evil-collection-init 'ediff)
-    ;; (evil-collection-init 'eldoc)
-    (evil-collection-init 'elfeed)
-    (evil-collection-init 'elisp-mode)
-    (evil-collection-init 'elisp-refs)
-    ;;     (evil-collection-init 'emms)
-    ;;     (evil-collection-init 'epa)
-    ;;     (evil-collection-init 'ert)
-    ;;     (evil-collection-init 'eshell)
-    ;;     (evil-collection-init 'eval-sexp-fu)
-    ;;     (evil-collection-init 'etags-select)
-    (evil-collection-init 'eww)
-    (evil-collection-init 'flycheck)
-    ;;     (evil-collection-init 'free-keys)
-    ;;     (evil-collection-init 'geiser)
-    ;;     (evil-collection-init 'ggtags)
-    ;;     (evil-collection-init 'git-timemachine)
-    ;;     (evil-collection-init 'go-mode)
-    ;;     (evil-collection-init 'grep)
-    ;;     (evil-collection-init 'help)
-    ;;     (evil-collection-init 'guix)
-    ;;     (evil-collection-init 'helm)
-    (evil-collection-init 'ibuffer)
-    ;;     (evil-collection-init 'image)
-    ;;     (evil-collection-init 'image+)
-    (evil-collection-init 'imenu-list)
-    ;;     (evil-collection-init 'indium)
-    (evil-collection-init 'info)
-    (evil-collection-init 'ivy)
-    ;;     (evil-collection-init 'js2-mode)
-    ;;     (evil-collection-init 'log-view)
-    ;;     (evil-collection-init 'lsp-ui-imenu)
-    ;;     (evil-collection-init 'lua-mode)
-    ;;     (evil-collection-init 'kotlin-mode)
-    ;;     (evil-collection-init 'macrostep)
-    ;;     (evil-collection-init 'man)
-    (evil-collection-init 'magit)
-    ;;     (evil-collection-init 'magit-todos)
-    ;;(evil-collection-init 'mu4e)
-    ;;     (evil-collection-init 'mu4e-conversation)
-    ;;     (evil-collection-init 'neotree)
-    ;;(evil-collection-init 'notmuch)
-    ;;     (evil-collection-init 'nov)
-    (evil-collection-init 'occur)
-    ;;     (evil-collection-init 'p4)
-    ;; (evil-collection-init  'package-menu )
-    ;;     (evil-collection-init 'paren)
-    ;;     (evil-collection-init 'pass)
-    (evil-collection-init 'popup)
-    (evil-collection-init 'proced)
-    ;;     (evil-collection-init 'prodigy)
-    ;;     (evil-collection-init 'profiler)
-    ;;     (evil-collection-init 'python)
-    ;;     (evil-collection-init 'quickrun)
-    ;;     (evil-collection-init 'racer)
-    ;;     (evil-collection-init 'realgud)
-    ;;     (evil-collection-init 'reftex)
-    ;;     (evil-collection-init 'rjsx-mode)
-    ;;     (evil-collection-init 'robe)
-    ;;     (evil-collection-init 'ruby-mode)
-    ;;     (evil-collection-init 'rtags)
-    ;;     (evil-collection-init 'simple)
-    ;;     (evil-collection-init 'slime)
-    (evil-collection-init 'term)
-    ;;     (evil-collection-init 'ansi-term)
-    ;;     (evil-collection-init 'multi-term)
-    ;;     (evil-collection-init 'tide)
-    ;;     (evil-collection-init 'transmission)
-    ;;     (evil-collection-init 'typescript-mode)
-    ;;     (evil-collection-init 'vc-annotate)
-    ;;     (evil-collection-init 'vdiff)
-    ;;     (evil-collection-init 'view)
-    ;;     (evil-collection-init 'vlf)
-    (evil-collection-init 'which-key)
-    ;;     (evil-collection-init 'wdired)
-    ;;     (evil-collection-init 'wgrep)
-    ;;     (evil-collection-init 'woman )
-    ;;     (evil-collection-init 'term )
-    ;;     (evil-collection-init 'xref)
-    ;;     (evil-collection-init 'ztree)
-    ;;     (evil-collection-init 'ztree-diff)
+    :config (evil-collection-init)
     )
 
 
@@ -429,147 +332,7 @@ vinagresque
   ;;(use-package recursive-narrow :ensure t :defer t)
 #+END_SRC
 ** org-mode
-#+BEGIN_SRC emacs-lisp :results output silent
-  (use-package org 
-
-    :ensure
-    :diminish 
-    :config
-    (progn
-      (add-to-list 'org-modules 'org-habit)
-      (add-to-list 'org-modules 'org-crypt)
-
-      (setq org-M-RET-may-split-line nil)
-      (setq org-agenda-files '("~/org/"))
-      (setq org-agenda-ndays 1)
-      (setq org-agenda-show-all-dates t)
-      (setq org-agenda-show-inherited-tags 'always)
-      (setq org-agenda-skip-deadline-if-done t)
-      (setq org-agenda-skip-scheduled-if-done t)
-      (setq org-agenda-start-on-weekday nil)
-      (setq org-agenda-todo-ignore-with-date t) ;hide shed. and deadlined from global todo 
-      (setq org-agenda-start-with-follow-mode nil)
-      (setq org-agenda-text-search-extra-files '(agenda-archives))
-      (setq org-catch-invisible-edits t)
-      (setq org-deadline-warning-days 14)
-      (setq org-default-notes-file "~/org/main.org")
-      (setq org-edit-src-persistent-message nil)
-      (setq org-enforce-todo-checkbox-dependencies t)
-      (setq org-enforce-todo-dependencies t)
-      (setq org-indent-mode t)
-      (setq org-log-done 'time)
-      (setq org-log-into-drawer t)
-      (setq org-log-redeadline (quote time))
-      (setq org-log-reschedule (quote time))
-      (setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")
-      (setq org-mobile-inbox-for-pull "~/org/inbox.org")
-      ;;; interfered with dropbox sync
-      ;;;(setq org-mobile-use-encryption t  )
-      ;; org-mobile-encryption-password  set in secrets.el.gpg
-      (setq org-outline-path-complete-in-steps nil)
-      (setq org-refile-allow-creating-parent-nodes (quote confirm))
-      (setq org-refile-targets (quote ((nil :maxlevel . 9) (org-agenda-files :maxlevel . 9))))
-      (setq org-refile-use-outline-path 'file)
-      (setq org-return-follows-link t)
-      (setq org-reverse-note-order t)
-      (setq org-show-hierarchy-above (quote ((default . t))))
-      (setq org-show-siblings (quote ((default) (isearch) (bookmark-jump))))
-      (setq org-use-tag-inheritance t)
-
-
-					  ;(setq org-hide-leading-stars t)
-
-
-      (setq org-todo-keywords
-	    (quote ((sequence "TODO(t)" "NEXT(n)" "|"  "DONE(d!)")
-		    (sequence "WAITING(w@/!)" "|" "SOMEDAY(s)" "CANCELLED(c@/!)")
-		    )))
-
-      (setq org-capture-templates
-	    (quote (("t" "todo" entry (file "~/org/inbox.org" )
-		     "* TODO  %? :FLAGGED:\n%U\n%a\n" )
-
-		    ("f" "fiction" entry (file+headline "~/org/serial-structure.org" "ideas")
-		     "* %? :NOTE:\n%U\n%a\n" )
-		    ("n" "note" entry (file+headline "~/org/notes.org" "notes")
-		     "* %? :NOTE:\n%U\n%a\n" )
-		    ;; ("i" "idea" entry (file+headline "~/org/notes.org" "ideas")
-		    ;;  "* %?\n" )
-		    ;; ("n" "information" entry (file+headline "~/org/index.org" "information")
-		    ;;  "* %?\n" )
-		    ("s" "shopping" checkitem
-		     (file+headline "~/org/main.org" "shopping ")
-		     "- [ ] %?\n")
-		    ("r" "rss" entry
-		     (file+olp "~/Dropbox/elfeed.org" "feeds" "captures")
-		     "*** %^C\n")
-		    ("j" "journal" entry (file+datetree "~/org/notes.org")
-		     "* %?\n %U\n  %i\n  %a")
-		    ("w" "work" entry (file+datetree "~/org/work.org")
-		     "* %?\n %U\n  %i\n  %a")
-		    )))  
-
-
-
-
-      ;; Targets include this file and any file contributing to the agenda - up to 9 levels deep
-      ;;
-
-					  ;(defvar my-org-mobile-sync-timer nil)
-
-					  ;(defvar my-org-mobile-sync-secs (* 60 20))
-
-      ;; (defun my-org-mobile-sync-pull-and-push ()
-      ;;   (org-mobile-pull)
-      ;;   (org-mobile-push)
-      ;;   (when (fboundp 'sauron-add-event)
-      ;; 	(sauron-add-event 'my 3 "Called org-mobile-pull and org-mobile-push")))
-
-      ;; (defun my-org-mobile-sync-start ()
-      ;;   "Start automated `org-mobile-push'"
-      ;;   (interactive)
-      ;;   (setq my-org-mobile-sync-timer
-      ;; 	    (run-with-idle-timer my-org-mobile-sync-secs t
-      ;; 				 'my-org-mobile-sync-pull-and-push)))
-
-      ;; (defun my-org-mobile-sync-stop ()
-      ;;   "Stop automated `org-mobile-push'"
-      ;;   (interactive)
-      ;;   (cancel-timer my-org-mobile-sync-timer))
-
-      ;; (my-org-mobile-sync-start)
-
-      )
-    :bind (
-	   ("C-c l" . org-store-link)
-	   ("C-c a" . org-agenda)
-	   ("C-c b" . org-switchb)
-	   ("C-c c" . org-capture)
-	   ))
-
-
-  (with-eval-after-load "org-agenda" 
-    (define-key org-agenda-mode-map (kbd "J") 'org-agenda-goto-date) 
-    (define-key org-agenda-mode-map (kbd "j") 'evil-next-line) 
-    (define-key org-agenda-mode-map (kbd "k") 'evil-previous-line) 
-
-    )
-
-
-
-  ;;put all DONE into archive
-  (defun my-org-archive-done-tasks ()
-    (interactive)
-    (unless
-	(org-map-entries 'org-archive-subtree "/DONE" 'file)))
-
-
-  ;; (add-hook 'org-mode-hook
-  ;;           (lambda ()
-  ;;             (add-hook 'after-save-hook 'my-org-archive-done-tasks 'make-it-local)))
-
-
-#+END_SRC
+moved to ~/.emacs.d/org-init.el
    
    
 #+BEGIN_SRC emacs-lisp :results output silent
@@ -2098,7 +1861,7 @@ C-x n w to widen to a page (delineated by ^L chars)
     :defer t
     :init (require 'evil-org)
     :hook (org-mode . (lambda () evil-org-mode))
-    :config (evil-org-mode 1)
+   ; :config (evil-org-mode 1)
         )  
   ;; (use-package evil-org
   ;;   :ensure t
