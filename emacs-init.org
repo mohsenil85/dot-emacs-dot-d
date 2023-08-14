@@ -210,16 +210,16 @@ vinagresque
    
 ** git-gutter-fringe
 #+BEGIN_SRC emacs-lisp :results output silent
-  ;; (use-package git-gutter-fringe
-  ;;   :ensure t
-  ;;   :diminish 
-  ;;   :config
-  ;;     (require 'git-gutter-fringe)
-  ;;     (global-git-gutter-mode t))
-  ;; (use-package git-gutter
-  ;;   :hook (prog-mode . git-gutter-mode)
-  ;;   :config
-  ;;   (setq git-gutter:update-interval 0.02))
+  (use-package git-gutter-fringe
+    :ensure t
+    :diminish 
+    :config
+      (require 'git-gutter-fringe)
+      (global-git-gutter-mode t))
+  (use-package git-gutter
+    :hook (prog-mode . git-gutter-mode)
+    :config
+    (setq git-gutter:update-interval 0.02))
 
   ;; (use-package git-gutter-fringe
   ;;   :config
