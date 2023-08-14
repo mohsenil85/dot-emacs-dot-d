@@ -1274,6 +1274,18 @@ https://stackoverflow.com/questions/14881020/emacs-shortcut-to-switch-from-a-hor
 
 #+RESULTS:
 : evil-exit-emacs-state
+** open in webstorm
+#+BEGIN_SRC emacs-lisp
+  (defun open-in-webstorm ()
+    (interactive "")
+    (shell-command (format  "webstorm --line %s %s" (line-number-at-pos)  (buffer-file-name))))
+
+    
+#+END_SRC
+
+#+RESULTS:
+: open-in-webstorm
+
 
 * osx specific 
 handle meta as command
@@ -2009,13 +2021,14 @@ C-x n w to widen to a page (delineated by ^L chars)
   (define-key org-mode-map (kbd "M-}") nil)
 
 
-					  ;(define-key paredit-mode-map (kbd "M-s") nil)
+  					  ;(define-key paredit-mode-map (kbd "M-s") nil)
 
-	 ;;;(global-set-key (kbd "s-o") 'helm-occur) ;;
+  	 ;;;(global-set-key (kbd "s-o") 'helm-occur) ;;
 
   (global-set-key (kbd "C-M-F") 'multi-occur)  
   (global-set-key (kbd "C-M-[") 'winner-undo)
   (global-set-key (kbd "C-M-]") 'winner-redo)
+  (global-set-key (kbd "C-M-e") 'open-in-webstorm )
   (global-set-key (kbd "C-M-f") 'projectile-ag)  ;;search in file
   (global-set-key (kbd "C-M-g") 'magit-status)
   (global-set-key (kbd "C-M-n") 'evil-buffer-new)
