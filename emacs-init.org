@@ -5,11 +5,12 @@
 
 * this file
 #+BEGIN_SRC emacs-lisp
-;  (evil-org-mode 1)
+  ;  (evil-org-mode 1)
+
+  (use-package diminish :ensure t)
 #+END_SRC
 
 #+RESULTS:
-: t
 
 * frontmatter
 ** need to bootstrap org-mode therefore
@@ -218,6 +219,7 @@ vinagresque
       (global-git-gutter-mode t))
   (use-package git-gutter
     :hook (prog-mode . git-gutter-mode)
+  :diminish
     :config
     (setq git-gutter:update-interval 0.02))
 
@@ -323,7 +325,6 @@ vinagresque
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package better-defaults :ensure t :defer t )
   (use-package bind-map :ensure t :defer t)
-  (use-package diminish :ensure t :defer t)
   (use-package emojify :ensure t :defer t )
   (use-package markdown-mode :ensure t :defer t)
   (use-package smex :ensure t :defer t)
@@ -1855,21 +1856,22 @@ C-x n w to widen to a page (delineated by ^L chars)
 #+END_SRC
 ** evil-org
 #+BEGIN_SRC emacs-lisp :results output silent
-  (use-package evil-org
-    :ensure t
-    :after org
-    :defer t
-    :init (require 'evil-org)
-    :hook (org-mode . (lambda () evil-org-mode))
-   ; :config (evil-org-mode 1)
-        )  
   ;; (use-package evil-org
   ;;   :ensure t
   ;;   :after org
+  ;; :diminish
+  ;;   :defer t
+  ;;   :init (require 'evil-org)
   ;;   :hook (org-mode . (lambda () evil-org-mode))
-  ;;   :config
-  ;;   (require 'evil-org-agenda)
-  ;;   (evil-org-agenda-s
+  ;;  ; :config (evil-org-mode 1)
+        ;; )  
+  (use-package evil-org
+    :ensure t
+    :after org
+    :hook (org-mode . (lambda () evil-org-mode))
+    :config
+    (require 'evil-org-agenda)
+  )
 #+END_SRC
     
 ** evil-rsi
