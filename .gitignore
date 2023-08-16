@@ -65,3 +65,4 @@ url*
 /quelpa/*
 /straight/
 /tree-sitter/
+*.elc
