@@ -15,6 +15,43 @@
 : minions-minor-modes-menu
 
 * packages
+** evil
+*** main evil
+    
+#+BEGIN_SRC emacs-lisp :results output silent
+
+  ;;done in the earlier init.el
+  ;;(use-package evil :ensure t :config (evil-mode 1))
+
+  (use-package evil
+    :ensure t
+    :init
+    ;;turn on for evil collection
+    (setq evil-want-integration t)
+    (setq evil-want-keybinding nil)
+    :config
+    (evil-mode 1)
+    (evil-set-undo-system 'undo-redo)
+    (add-to-list 'evil-emacs-state-modes 'dired)
+    )
+
+  (use-package evil-collection
+    :after evil
+    :diminish
+    :ensure t
+    :config
+    (setq evil-collection-want-unimpaired-p nil)
+    (evil-collection-init)
+    )
+
+
+
+  ;; (use-package evil-visual-mark-mode
+  ;;   :ensure t
+  ;;   :config
+  ;;   (evil-visual-mark-mode 1))
+
+#+END_SRC
 ** ag
 
 #+BEGIN_SRC emacs-lisp :results output silent
@@ -185,43 +222,6 @@ vinagresque
 
 #+END_SRC
 *** 
-** evil
-*** main evil
-    
-#+BEGIN_SRC emacs-lisp :results output silent
-
-  ;;done in the earlier init.el
-  ;;(use-package evil :ensure t :config (evil-mode 1))
-
-  (use-package evil
-    :ensure t
-    :init
-    ;;turn on for evil collection
-    (setq evil-want-integration t)
-    (setq evil-want-keybinding nil)
-    :config
-    (evil-mode 1)
-    (evil-set-undo-system 'undo-redo)
-    (add-to-list 'evil-emacs-state-modes 'dired)
-    )
-
-  (use-package evil-collection
-    :after evil
-    :diminish
-    :ensure t
-    :config
-    (setq evil-collection-want-unimpaired-p nil)
-    (evil-collection-init)
-    )
-
-
-
-  ;; (use-package evil-visual-mark-mode
-  ;;   :ensure t
-  ;;   :config
-  ;;   (evil-visual-mark-mode 1))
-
-#+END_SRC
 ** flycheck
 #+BEGIN_SRC emacs-lisp  :results output silent
   (use-package flycheck
@@ -612,6 +612,166 @@ moved to ~/.emacs.d/org-init.el
     :config (which-key-mode ) )
 
 #+END_SRC
+
+
+#+BEGIN_SRC emacs-lisp :results output silent
+  ;; ;;
+  ;; ;; NOTE: USE `lsp_mode` not `eglot`.
+  ;; ;;
+  ;; ;;       `eglot` is only useful if you want to manage `python lsp_server.py`
+  ;; ;;       yourself for debugging purposes
+  ;; ;;
+
+  ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; ;;
+  ;; ;; EGLOT CONFIGURATION
+  ;; ;;
+  ;; ;;   add to init.el
+  ;; ;;
+  ;; ;; NOTE:
+  ;; ;;
+  ;; ;; `eglot` allows you to separately run the server yourself, which can be useful
+  ;; ;; for debugging. `lsp-mode` requires that it launches the process, and then
+  ;; ;; your logs are buried in an emacs buffer somewhere.  If you want to run it
+  ;; ;; yourself:
+  ;; ;;
+  ;; ;;     python lsp_server.py
+  ;; ;;
+  ;; ;; And then just make sure the `lsp_port` you run on is the same one mentioned
+  ;; ;; at the bottom of this config.
+
+
+  ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; ;; LLM Mode
+  ;; ;;
+  ;; ;; This is only useful at the current stage of development, and should be
+  ;; ;; removed once `lsp-mode` is integrated and allows concurrent LSPs per each
+  ;; ;; buffer.
+
+  ;; (define-derived-mode llm-mode fundamental-mode "llm"
+  ;;   "A mode for llm files."
+  ;;   (setq-local comment-start "#")
+  ;;   (setq-local comment-start-skip "#+\\s-*"))
+
+  ;; (defvar llm-mode-map
+  ;;   (let ((map (make-sparse-keymap)))
+  ;;     map)
+  ;;   "Keymap for `llm-mode'.")
+
+  ;; (defvar llm-mode-hook nil)
+
+  ;; (provide 'llm-mode)
+
+  ;; (add-to-list 'auto-mode-alist '("\\.llm\\'" . llm-mode))
+
+
+  ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; ;; LLM Mode (TODO REDUNDANT)
+
+  ;; (add-to-list 'load-path (expand-file-name "~/_/uniteai/"))
+
+  ;; (require 'llm-mode)
+
+  ;; (use-package llm-mode
+  ;;   :straight nil
+  ;;   :ensure nil
+  ;;   :mode ("\\.llm\\'" . llm-mode)
+  ;;   :hook (llm-mode . eglot-ensure))
+
+
+  ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; ;; EGlot
+
+  ;; (use-package eglot
+  ;;   :straight nil
+  ;;   :ensure t
+  ;;   :hook
+  ;;   (eglot--managed-mode . company-mode)
+  ;;   :init
+  ;;   ;; Tell eglot not to ask if you're ok with the server modifying the document.
+  ;;   (setq eglot-confirm-server-initiated-edits nil)
+  ;;   :config
+  ;;   (define-key eglot-mode-map (kbd "M-'") 'eglot-code-actions)
+  ;;   )
+
+
+  ;; ;;;;;;;;;;
+
+  ;; ;; Global stopping
+  ;; (defun eglot-stop ()
+  ;;   (interactive)
+  ;;   (let* ((server (eglot--current-server-or-lose))
+  ;;          (doc (eglot--TextDocumentIdentifier)))
+  ;;     (eglot-execute-command server 'command.stop (vector doc))))
+
+  ;; ;; Example Counter
+  ;; (defun eglot-example-counter ()
+  ;;   (interactive)
+  ;;   (let* ((server (eglot--current-server-or-lose))
+  ;;          (doc (eglot--TextDocumentIdentifier))
+  ;;          (pos (eglot--pos-to-lsp-position (point))))
+  ;;     (eglot-execute-command server 'command.exampleCounter (vector doc pos))))
+
+  ;; ;; Local LLM
+  ;; (defun eglot-local-llm ()
+  ;;   (interactive)
+  ;;   (unless mark-active
+  ;;     (error "No region selected"))
+  ;;   (let* ((server (eglot--current-server-or-lose))
+  ;;          (doc (eglot--TextDocumentIdentifier))
+  ;;          (range (list :start (eglot--pos-to-lsp-position (region-beginning))
+  ;;                       :end (eglot--pos-to-lsp-position (region-end)))))
+  ;;     (eglot-execute-command server 'command.localLlmStream (vector doc range))))
+
+  ;; ;; Transcription
+  ;; (defun eglot-transcribe ()
+  ;;   (interactive)
+  ;;   (let* ((server (eglot--current-server-or-lose))
+  ;;          (doc (eglot--TextDocumentIdentifier))
+  ;;          (pos (eglot--pos-to-lsp-position (point))))
+  ;;     (eglot-execute-command server 'command.transcribe (vector doc pos))))
+
+  ;; ;; OpenAI
+  ;; (defun eglot-openai-gpt ()
+  ;;   (interactive)
+  ;;   (unless mark-active
+  ;;     (error "No region selected"))
+  ;;   (let* ((server (eglot--current-server-or-lose))
+  ;;          (doc (eglot--TextDocumentIdentifier))
+  ;;          (range (list :start (eglot--pos-to-lsp-position (region-beginning))
+  ;;                       :end (eglot--pos-to-lsp-position (region-end)))))
+  ;;     (eglot-execute-command server 'command.openaiAutocompleteStream (vector doc range "FROM_CONFIG_COMPLETION" "FROM_CONFIG"))))
+
+  ;; (defun eglot-openai-chatgpt ()
+  ;;   (interactive)
+  ;;   (unless mark-active
+  ;;     (error "No region selected"))
+  ;;   (let* ((server (eglot--current-server-or-lose))
+  ;;          (doc (eglot--TextDocumentIdentifier))
+  ;;          (range (list :start (eglot--pos-to-lsp-position (region-beginning))
+  ;;                       :end (eglot--pos-to-lsp-position (region-end)))))
+  ;;     (eglot-execute-command server 'command.openaiAutocompleteStream (vector doc range "FROM_CONFIG_CHAT" "FROM_CONFIG"))))
+
+  ;; (add-hook 'llm-mode-hook
+  ;;           (lambda ()
+  ;;             (define-key llm-mode-map (kbd "C-c l s") 'eglot-stop)
+
+  ;;             (define-key llm-mode-map (kbd "C-c l e") 'eglot-example-counter)
+
+  ;;             (define-key llm-mode-map (kbd "C-c l l") 'eglot-local-llm)
+
+  ;;             (define-key llm-mode-map (kbd "C-c l v") 'eglot-transcribe)
+
+  ;;             (define-key llm-mode-map (kbd "C-c l g") 'eglot-openai-gpt)
+  ;;             (define-key llm-mode-map (kbd "C-c l c") 'eglot-openai-chatgpt)
+  ;;             (eglot-ensure)))
+
+  ;; (require 'eglot)
+  ;; (add-to-list 'eglot-server-programs
+  ;;              `(llm-mode . ("localhost" 5033)))
+
+#+END_SRC
+
 * languages
 ** lisp
 general lisp stuff
@@ -788,76 +948,75 @@ general lisp stuff
    
 * itself
 #+BEGIN_SRC emacs-lisp 
-  (blink-cursor-mode -1)
-  (defalias 'yes-or-no-p 'y-or-n-p)
-  (delete-selection-mode 1)
-  (electric-pair-mode 1)
-  (global-display-line-numbers-mode 1)
-  (global-visual-line-mode t)
-  (menu-bar-mode 0)
-  (prefer-coding-system 'utf-8)
-  (recentf-mode 1)
-  (scroll-bar-mode 0)
-  (server-start)
-  (set-keyboard-coding-system 'utf-8)
-  (set-selection-coding-system 'utf-8)
-  (set-terminal-coding-system 'utf-8-unix)
-  (show-paren-mode 1)
-  (tool-bar-mode 0)
-  (tooltip-mode -1)
+    (blink-cursor-mode -1)
+    (defalias 'yes-or-no-p 'y-or-n-p)
+    (delete-selection-mode 1)
+    (electric-pair-mode 1)
+    (global-display-line-numbers-mode 1)
+    (global-visual-line-mode t)
+    (menu-bar-mode 0)
+    (prefer-coding-system 'utf-8)
+    (recentf-mode 1)
+    (scroll-bar-mode 0)
+    (server-start)
+    (set-keyboard-coding-system 'utf-8)
+    (set-selection-coding-system 'utf-8)
+    (set-terminal-coding-system 'utf-8-unix)
+    (show-paren-mode 1)
+    (tool-bar-mode 0)
+    (tooltip-mode -1)
 
-  (setq
-   auto-save-file-name-transforms `((".*" ,temporary-file-directory t))
-   auto-save-visited-interval 1
-   auto-save-visited-mode 1
-   backup-directory-alist `((".*" . ,temporary-file-directory))
-   confirm-kill-processes nil
-   confirm-nonexistent-file-or-buffer nil
-   default-fill-column 80		; toggle wrapping text at the 80th character
-   delete-old-versions t 		; delete excess backup versions silently
-   history-length 250 
-   indicate-empty-lines t
-   inhibit-startup-echo-area-message "loganmohseni"
-   inhibit-startup-message t
-   inhibit-startup-screen t
-   initial-scratch-message ";         :D"
-   kill-ring-max 5000                     ;truncate kill ring after 5000 entries
-   load-prefer-newer t
-   locale-coding-system 'utf-8
-   mark-ring-max 5000 
-   recentf-max-saved-items 5000  
-   ring-bell-function 'ignore 	; silent bell when you make a mistake
-   sentence-end-double-space t	; 
-   shell-file-name "/bin/zsh"
-   explicit-shell-file-name "/bin/zsh"
-   explicit-zsh-args '("--login" "--interactive")
-   show-paren-delay 0
-   show-paren-style 'parenthesis
-   show-paren-when-point-inside-paren t
-   split-width-threshold 160
-   switch-to-buffer-preserve-window-point t
-   tab-always-indent 'complete 
-   tooltip-use-echo-area t
-   use-dialog-box nil
-   user-full-name "Logan Mohseni"
-   user-mail-address "mohsenil85@gmail.com"
-   vc-follow-symlinks t 				       ; don't ask for confirmation when opening symlinked file
-   vc-make-backup-files t 		; make backups file even when in version controlled dir
-   version-control t 		; use version control
-   visible-bell t
-   )
+    (setq
+     auto-save-file-name-transforms `((".*" ,temporary-file-directory t))
+     auto-save-visited-interval 1
+     auto-save-visited-mode 1
+     backup-directory-alist `((".*" . ,temporary-file-directory))
+     confirm-kill-processes nil
+     confirm-nonexistent-file-or-buffer nil
+     default-fill-column 80		; toggle wrapping text at the 80th character
+     delete-old-versions t 		; delete excess backup versions silently
+     history-length 250 
+     indicate-empty-lines t
+     inhibit-startup-echo-area-message "loganmohseni"
+     inhibit-startup-message t
+     inhibit-startup-screen t
+     initial-scratch-message ";         :D"
+     kill-ring-max 5000                     ;truncate kill ring after 5000 entries
+     load-prefer-newer t
+     locale-coding-system 'utf-8
+     mark-ring-max 5000 
+     recentf-max-saved-items 5000  
+     ring-bell-function 'ignore 	; silent bell when you make a mistake
+     sentence-end-double-space t	; 
+     shell-file-name "/bin/zsh"
+     explicit-shell-file-name "/bin/zsh"
+     explicit-zsh-args '("--login" "--interactive")
+     show-paren-delay 0
+     show-paren-style 'parenthesis
+     show-paren-when-point-inside-paren t
+     split-width-threshold 160
+     switch-to-buffer-preserve-window-point t
+     tab-always-indent 'complete 
+     tooltip-use-echo-area t
+     use-dialog-box nil
+     user-full-name "Logan Mohseni"
+     user-mail-address "mohsenil85@gmail.com"
+     vc-follow-symlinks t 				       ; don't ask for confirmation when opening symlinked file
+     vc-make-backup-files t 		; make backups file even when in version controlled dir
+     version-control t 		; use version control
+     visible-bell t
+     )
 
 
-(defun zsh-shell-mode-setup ()
-  (setq-local comint-process-echoes t))
-(add-hook 'shell-mode-hook #'zsh-shell-mode-setup)
+  (defun zsh-shell-mode-setup ()
+    (setq-local comint-process-echoes t))
+  (add-hook 'shell-mode-hook #'zsh-shell-mode-setup)
 
-  (require 'uniquify)
-  (setq uniquify-buffer-name-style 'forward)
-  (winner-mode 1)
+    (require 'uniquify)
+    (setq uniquify-buffer-name-style 'forward)
+    (winner-mode 1)
 
-  ;;bigger font size for my poor old aching occulars
-  (set-frame-font "-*-Monaco-normal-normal-normal-*-16-*-*-*-m-0-iso10646-1")
+    ;; (set-frame-font "-*-Monaco-normal-normal-normal-*-16-*-*-*-m-0-iso10646-1")
 
 
 
@@ -1288,6 +1447,7 @@ toggle fullscreen
 					  ;)
 #+END_SRC
 * deleted
+** unitea
 ** scroll modeline 
 #+BEGIN_SRC emacs-lisp :results output silent
   ;; (use-package mlscroll
@@ -1419,207 +1579,6 @@ toggle fullscreen
 
 #+END_SRC
    
-** email via notmuch
-taken from https://kkatsuyuki.github.io/notmuch-conf/
-#+BEGIN_SRC emacs-lisp
-
-
-  ;; 	(defun exec-offlineimap ()
-  ;; 	  "execute offlineimap"
-  ;; 	  (interactive)
-  ;; 	  (set-process-sentinel
-  ;; 	   (start-process-shell-command "offlineimap"
-  ;; 					"*offlineimap*"
-  ;; 					"offlineimap -o")
-  ;; 	   '(lambda (process event)
-  ;; 	      (let ((w (get-buffer-window "*offlineimap*")))
-  ;; 		(when w
-  ;; 		  (with-selected-window w (recenter (window-end)))))))
-  ;; 	  (popwin:display-buffer "*offlineimap*"))
-
-  ;; 	(add-to-list 'popwin:special-display-config
-  ;; 		     '("*offlineimap*" :dedicated t :position bottom :stick t
-  ;; 		       :height 0.4 :noselect t))
-
-  ;; 	(defun setup-mail-stuff ()
-  ;; 	  (setq
-  ;; 	   mail-user-agent 'message-user-agent
-  ;; 	   message-default-mail-headers "Cc: \nBcc: \n"
-  ;; 	   message-directory "~/.mail/"
-  ;; 	   message-kill-buffer-on-exit t
-  ;; 	   message-send-mail-function 'message-send-mail-with-sendmail
-
-  ;; 	   send-mail-function 'message-send-mail-with-sendmail
-  ;; 	   sendmail-program "/usr/local/bin/msmtp"
-  ;; 	   ))
-
-  ;;     ;;     (use-package notmuch
-  ;;     ;;       :config
-  ;;     ;;       (setup-mail-stuff)
-  ;;     ;;       (setq
-  ;;     ;;       notmuch-show-all-tags-list t
-  ;;     ;;       notmuch-show-logo nil
-  ;;     ;;       notmuch-search-oldest-first nil)
-  ;;     ;; )
-
-  ;; 	(defun setup-mu4e-stuff ( os-type )
-  ;; 	  (let ((mu-bin (if (eq os-type 'darwin)
-  ;; 			    "/usr/local/bin/mu"
-  ;; 			  "/usr/bin/mu")))
-  ;; 	    (setq
-
-  ;; 	     mail-user-agent 'message-user-agent
-  ;; 	     message-default-mail-headers "Cc: \nBcc: \n"
-  ;; 	     message-directory "~/.mail/"
-  ;; 	     message-kill-buffer-on-exit t
-  ;; 	     message-send-mail-function 'message-send-mail-with-sendmail
-
-  ;; 	     send-mail-function 'message-send-mail-with-sendmail
-  ;; 	     sendmail-program "/usr/local/bin/msmtp"
-
-  ;; 	     mu4e-change-filenames-when-moving t
-  ;; 	     mu4e-compose-format-flowed t
-  ;; 	     mu4e-compose-signature-auto-include nil
-  ;; 	     mu4e-confirm-quit nil
-  ;; 	     mu4e-context-policy 'pick-first
-  ;; 	     mu4e-get-mail-command "offlineimap"
-  ;; 	     mu4e-headers-auto-update t
-  ;; 	     mu4e-index-update-in-background nil
-  ;; 	     mu4e-update-interval nil
-  ;; 	     mu4e-hide-index-messages t
-  ;; 	     mu4e-headers-skip-duplicates t
-  ;; 	     mu4e-mu-binary mu-bin 
-  ;; 	     mu4e-reply-to-address  "mohsenil85@gmail.com"
-  ;; 	     mu4e-sent-messages-behavior 'delete
-  ;; 	     mu4e-show-images t
-  ;; 	     mu4e-update-interval 120
-
-
-  ;; 	     mu4e-maildir (expand-file-name "~/.mail/")
-
-  ;; 	     mu4e-trash-folder (lambda (msg)
-  ;; 				 (if (and msg
-  ;; 					  (mu4e-message-contact-field-matches
-  ;; 					   msg
-  ;; 					   :to "logan.mohseni@singlemindconsulting.com"))
-  ;; 				     "/localSmc/[Gmail].Trash"
-  ;; 				   "/localPersonal/[Gmail].Trash"))  
-
-  ;; 	     mu4e-sent-folder (lambda (msg)
-  ;; 				(if (and msg
-  ;; 					 (mu4e-message-contact-field-matches
-  ;; 					  msg
-  ;; 					  :to "logan.mohseni@singlemindconsulting.com"))
-  ;; 				    "/localSmc/[Gmail].Sent Mail"
-  ;; 				  "/localPersonal/[Gmail].Sent Mail"))  
-
-  ;; 	     mu4e-drafts-folder (lambda (msg)
-  ;; 				  (if (and msg
-  ;; 					   (mu4e-message-contact-field-matches
-  ;; 					    msg
-  ;; 					    :to "logan.mohseni@singlemindconsulting.com"))
-  ;; 				      "/localSmc/[Gmail].Drafts"
-  ;; 				    "/localPersonal/[Gmail].Drafts"))  
-  ;; 	     )))
-
-  ;; 	(defun setup-contexts ()
-  ;; 	  (require 'mu4e-contrib)
-  ;; 	  (use-package evil-mu4e :ensure t)
-  ;; 	  (setq mu4e-contexts
-  ;; 		`( 
-  ;; 		  ,(make-mu4e-context
-  ;; 		    :name "private"
-  ;; 		    :enter-func (lambda ()
-  ;; 				  (mu4e-message "Entering Private context"))
-  ;; 		    :leave-func (lambda ()
-  ;; 				  (mu4e-message "Leaving Private context"))
-  ;; 		    ;; we match based on the contact-fields of the message
-  ;; 		    :match-func (lambda (msg)
-  ;; 				  (when msg 
-  ;; 				    (mu4e-message-contact-field-matches 
-  ;; 				     msg 
-  ;; 				     :to "mohsenil85@gmail.com")))
-  ;; 		    :vars '(
-  ;; 			    (mu4e-reply-to-address . "mohsenil85@gmail.com")
-  ;; 			    (user-mail-address . "mohsenil85@gmail.com"  )
-  ;; 			    (user-full-name   . "Logan Mohseni" )
-  ;; 			    (mu4e-compose-signature . nil)
-
-  ;; 			    (mu4e-maildir-shortcuts .
-  ;; 						    (
-  ;; 						     ("/localPersonal/INBOX" . ?i)
-  ;; 						     ("/localPersonal/[Gmail].Sent Mail" . ?s)
-  ;; 						     ("/localPersonal/[Gmail].Trash" . ?t)
-  ;; 						     ("/localPersonal/[Gmail].All Mail" . ?a)
-  ;; 						     ("/localPersonal/[Gmail].Drafts" . ?d)))
-
-
-  ;; 			    ))
-
-  ;; 		  ,(make-mu4e-context
-  ;; 		    :name "work"
-  ;; 		    :enter-func (lambda ()
-  ;; 				  (mu4e-message "Entering Work context"))
-  ;; 		    :leave-func (lambda ()
-  ;; 				  (mu4e-message "Leaving Work context"))
-  ;; 		    ;; we match based on the contact-fields of the message
-  ;; 		    :match-func (lambda (msg)
-  ;; 				  (when msg 
-  ;; 				    (mu4e-message-contact-field-matches 
-  ;; 				     msg 
-  ;; 				     :to "logan.mohseni@singlemindconsulting.com")))
-  ;; 		    :vars '( 
-  ;; 			    (mu4e-reply-to-address . "logan.mohseni@singlemindconsulting.com")
-  ;; 			    (user-mail-address . "logan.mohseni@singlemindconsulting.com"  )
-  ;; 			    (user-full-name   . "Logan Mohseni")
-  ;; 			    (mu4e-maildir-shortcuts .
-  ;; 						    (
-  ;; 						     ("/localSmc/INBOX" . ?i)
-  ;; 						     ("/localSmc/[Gmail].Sent Mail" . ?s)
-  ;; 						     ("/localSmc/[Gmail].Trash" . ?t)
-  ;; 						     ("/localSmc/[Gmail].All Mail" . ?a)
-  ;; 						     ("/localSmc/[Gmail].Drafts" . ?d)))
-
-
-  ;; 			    (mu4e-compose-signature .
-  ;; 						    "<#part type=text/html>
-  ;; 		<html>
-  ;; 		<head>
-  ;; 		  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">
-  ;; 		</head>
-  ;; 		<body>
-  ;; 		<p style=\"margin: 0.0px 0.0px 0.0px 0.0px; line-height: 14.0px; font: 12.0px Arial; color: #38678f; -webkit-text-stroke: #38678f; background-color: #ffffff\"><span \">Logan Mohseni | <i>Software Developer</i></span></p>
-  ;; 		<p style=\"margin: 0.0px 0.0px 0.0px 0.0px; line-height: 15.0px; font: 12.0px Arial; color: #666666; -webkit-text-stroke: #666666; background-color: #ffffff\"><span style=\"font: 13.0px 'Trebuchet MS'; font-kerning: none\"><b>single</b></span><span style=\"font: 13.0px 'Trebuchet MS'; font-kerning: none; color: #ff931e; -webkit-text-stroke: 0px #ff931e\"><b>mind |</b></span><span class=\"font-kerning: none; color: #222222; -webkit-text-stroke: 0px #222222\"> </span><span \"><b><i>research • design • build • support</i></b></span></p>
-  ;; 		<p style=\"margin: 0.0px 0.0px 0.0px 0.0px; line-height: 14.0px; font: 12.0px Arial; color: #38678f; -webkit-text-stroke: #38678f; background-color: #ffffff\"><span \">2100 NW 22nd Ave | Suite A | Portland | Oregon | 97210</span></p>
-  ;; 		<p style=\"margin: 0.0px 0.0px 0.0px 0.0px; line-height: 15.0px; font: 12.0px Arial; color: #666666; -webkit-text-stroke: #666666; background-color: #ffffff\"><span style=\"font-kerning: none; color: #666666; -webkit-text-stroke: 0px #666666\"><b>@</b></span><span style=\"font-kerning: none; color: #38678f\">: <a href=\"mailto:logan.mohseni@singlemindconsulting.com\"><span span=\"text-decoration: underline ; font-kerning: none; color: #0000ee\">logan.mohseni@singlemindconsulting.com</span></a></span></p>
-  ;; 		</body>
-  ;; 		</html>
-  ;; 		 <#/part>" 
-  ;; 						    )
-  ;; 			    )))))
-
-
-  ;; ;;	 (use-package mu4e  
-  ;; ;;	;;   :if (memq window-system '(mac ns))
-  ;; ;;	 ;;  :defer t
-  ;; ;;	    :load-path "~/builds/mu/mu4e"
-  ;; ;;	   ;;;:quelpa (mu4e :path "~/builds/mu/mu4e" :fetcher file)
-  ;; ;;	   :config
-  ;; ;;	   (require 'mu4e)
-  ;; ;;	   (setup-mail-stuff)
-  ;; ;;	   (setup-mu4e-stuff 'darwin )
-  ;; ;;	  (setup-contexts)
-  ;; ;;	   ) ;;end usep mu4e
-
-
-
-
-
-#+END_SRC
-
-#+RESULTS:
-: t
-
 ** helm
 taken from http://tuhdo.github.io/helm-intro.html
 things i need to remember
@@ -1800,8 +1759,9 @@ C-x n w to widen to a page (delineated by ^L chars)
 #+BEGIN_SRC emacs-lisp :results output silent
   ;;;(transient-mark-mode t)
 #+END_SRC
-** inital frame size
+** default font
 #+BEGIN_SRC emacs-lisp :results output silent
+  ;;bigger font size for my poor old aching occulars
        (add-to-list 'default-frame-alist '(font . "-*-Monaco-normal-normal-normal-*-16-*-*-*-m-0-iso10646-1"   )) 
 #+END_SRC
    
@@ -2046,6 +2006,8 @@ C-x n w to widen to a page (delineated by ^L chars)
   ;; (define-key org-mode-map (kbd "M-{") nil)
   ;; (define-key org-mode-map (kbd "M-}") nil)
   (define-key evil-normal-state-map (kbd "M-.") nil)
+  (define-key evil-motion-state-map (kbd "C-y") nil)
+  (define-key evil-motion-state-map (kbd "C-d") nil)
 #+END_SRC
 ** main global meta bindings
 #+BEGIN_SRC emacs-lisp :results output silent
@@ -2107,20 +2069,20 @@ C-x n w to widen to a page (delineated by ^L chars)
   (global-set-key (kbd "C-x ,") 'edit-init-org-file)
   (global-set-key (kbd "C-x <f5>") 'toggle-dark-light-state)
   (global-set-key (kbd "C-x C-,") 'load-init-file)
-  (global-set-key (kbd "C-x M-t") 'vertical-horizontal-swizzle)
   (global-set-key (kbd "C-x C-a") 'mark-whole-buffer)
   (global-set-key (kbd "C-x C-b") 'ibuffer)
   (global-set-key (kbd "C-x C-c") 'halt)
   (global-set-key (kbd "C-x C-j") 'dired-jump)
   (global-set-key (kbd "C-x C-k") 'kill-this-buffer)
   (global-set-key (kbd "C-x C-r") 'counsel-recentf) ;;recent
-  (global-set-key (kbd "M-t") 'swap-buffers)
+  (global-set-key (kbd "C-x M-t") 'vertical-horizontal-swizzle)
   (global-set-key (kbd "C-x g") 'magit-status)
   (global-set-key (kbd "M-/") 'hippie-expand)
   (global-set-key (kbd "M-0") 'delete-window-balance)
   (global-set-key (kbd "M-1") 'delete-other-windows)
   (global-set-key (kbd "M-2") 'split-window-below-focus)
   (global-set-key (kbd "M-3") 'split-window-right-focus)
+  (global-set-key (kbd "M-t") 'swap-buffers)
   (global-set-key (kbd "M-x") 'counsel-M-x) ;;M-x
 
   (define-key evil-normal-state-map (kbd "-") 'dired-jump)
