@@ -3,7 +3,8 @@
 #+EMAIL: mohsenil85@gmail.com 
 
 
-* this file
+* frontmatter
+** diminish
 #+BEGIN_SRC emacs-lisp
   ;  (evil-org-mode 1)
 
@@ -11,56 +12,14 @@
 #+END_SRC
 
 #+RESULTS:
+: minions-minor-modes-menu
 
-* frontmatter
-** need to bootstrap org-mode therefore
-** need to boot strap use-package/quelpa therefore
-** [[file:init.el::(package-initialize)][init.el]]
-*** initalizes quelpa/package/use-package
-*** installs org-mode
-*** tangles this file into an elisp file called emacs-init.el
-*** and loads it
 * packages
-** evil
-*** main evil
-    
+** ag
+
 #+BEGIN_SRC emacs-lisp :results output silent
-
-  ;;done in the earlier init.el
-  ;;(use-package evil :ensure t :config (evil-mode 1))
-
-  (use-package evil
-    :ensure t
-    :init
-    ;;turn on for evil collection
-    (setq evil-want-integration t)
-    (setq evil-want-keybinding nil)
-    :config
-    (evil-mode 1)
-    (evil-set-undo-system 'undo-redo)
-    (add-to-list 'evil-emacs-state-modes 'dired)
-    )
-
-  (use-package evil-collection
-    :after evil
-    :diminish
-    :ensure t
-    :config (evil-collection-init)
-    )
-
-
-  (use-package evil-visual-mark-mode
-    :ensure t
-    :config
-    (evil-visual-mark-mode 1))
-
-#+END_SRC
-** general
-#+BEGIN_SRC emacs-lisp :results output silent
-  (use-package general
-    :ensure t   
-    :defer 1   
-    :config   (setq leader "SPC"))
+  (use-package ag :ensure t :defer t :config (setq ag-highlight-search t)
+    (setq ag-reuse-buffers 't))
 #+END_SRC
 ** bind-key
 #+BEGIN_SRC emacs-lisp
@@ -73,6 +32,55 @@
 
 
 #+END_SRC
+** calfw & friends
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package calfw :ensure t
+    :config
+    (require 'calfw)
+    (use-package calfw-org :ensure t
+      :config
+      (require 'calfw-org)
+      ;;   (setq cfw:org-overwrite-default-keybinding t)
+      )
+    )
+
+
+#+END_SRC
+** company
+#+BEGIN_SRC emacs-lisp :results output silent 
+  (use-package company
+    :ensure t
+    :diminish )
+
+      
+      #+END_SRC
+
+***
+
+** copilot
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package copilot
+    :straight (:host github :repo "zerolfx/copilot.el" :files ("dist" "*.el"))
+    :ensure t
+    ;; :hook (prog-mode . copilot-mode)	;
+    :config
+    (progn
+      (setq copilot-expansion-delay 0.2)
+      (setq copilot-expansion-limit 500)
+      (setq copilot-node-executable "/Users/logan.k.mohseni/.nvm/versions/node/v16.20.2/bin/node" )
+      )
+
+    :bind (("C-c M-f" . copilot-complete)
+  	 :map copilot-completion-map
+  	 ("C-g" . 'copilot-clear-overlay)
+  	 ("M-p" . 'copilot-previous-completion)
+  	 ("M-n" . 'copilot-next-completion)
+  	 ("<tab>" . 'copilot-accept-completion)
+  	 ("M-f" . 'copilot-accept-completion-by-word)
+  	 ("M-<return>" . 'copilot-accept-completion-by-line)))
+
+  #+END_SRC
+
 ** dired
 vinagresque
 #+BEGIN_SRC emacs-lisp :results output silent
@@ -134,29 +142,19 @@ vinagresque
   ;;   )
 
 #+END_SRC
-** savehist
-#+BEGIN_SRC emacs-lisp
-  (use-package savehist
-    :config
-    (setq savehist-file "~/.emacs.d/var/savehist")
-    (setq
-     savehist-additional-variables
-     '(kill-ring
-       mark-ring
-       global-mark-ring
-       search-ring
-       regexp-search-ring
-       extended-command-history))
-    (savehist-mode 1))
+** eat term
+#+BEGIN_SRC emacs-lisp :results output silent
+  
 
-
-#+END_SRC
-
-#+RESULTS:
-: t
-** saveplace
-#+BEGIN_SRC emacs-lisp 
-  (use-package saveplace :config (setq-default save-place t))
+(straight-use-package
+ '(eat :type git
+       :host codeberg
+       :repo "akib/emacs-eat"
+       :files ("*.el" ("term" "term/*.el") "*.texi"
+               "*.ti" ("terminfo/e" "terminfo/e/*")
+               ("terminfo/65" "terminfo/65/*")
+               ("integration" "integration/*")
+               (:exclude ".dir-locals.el" "*-tests.el"))))
 
 
 #+END_SRC
@@ -187,6 +185,43 @@ vinagresque
 
 #+END_SRC
 *** 
+** evil
+*** main evil
+    
+#+BEGIN_SRC emacs-lisp :results output silent
+
+  ;;done in the earlier init.el
+  ;;(use-package evil :ensure t :config (evil-mode 1))
+
+  (use-package evil
+    :ensure t
+    :init
+    ;;turn on for evil collection
+    (setq evil-want-integration t)
+    (setq evil-want-keybinding nil)
+    :config
+    (evil-mode 1)
+    (evil-set-undo-system 'undo-redo)
+    (add-to-list 'evil-emacs-state-modes 'dired)
+    )
+
+  (use-package evil-collection
+    :after evil
+    :diminish
+    :ensure t
+    :config
+    (setq evil-collection-want-unimpaired-p nil)
+    (evil-collection-init)
+    )
+
+
+
+  ;; (use-package evil-visual-mark-mode
+  ;;   :ensure t
+  ;;   :config
+  ;;   (evil-visual-mark-mode 1))
+
+#+END_SRC
 ** flycheck
 #+BEGIN_SRC emacs-lisp  :results output silent
   (use-package flycheck
@@ -211,6 +246,30 @@ vinagresque
 
 #+end_src
    
+** formatter
+#+BEGIN_SRC emacs-lisp
+  ;; (use-package apheleia
+  ;;   :ensure t
+  ;;   :diminish
+  ;;   :config
+  ;;   (apheleia-global-mode t))
+  (use-package prettier
+    :ensure t
+    :diminish
+    :config
+    (global-prettier-mode))
+#+END_SRC
+
+#+RESULTS:
+: t
+
+** general
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package general
+    :ensure t   
+    :defer 1   
+    :config   (setq leader "SPC"))
+#+END_SRC
 ** git-gutter
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package git-gutter
@@ -243,6 +302,216 @@ vinagresque
     )
 
 
+#+END_SRC
+   
+** image+
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package image+
+    :ensure hydra
+    :defer t
+    :config 
+    (progn
+      (eval-after-load 'image+
+	`(when (require 'hydra nil t)
+	   (defhydra imagex-sticky-binding (global-map "C-x C-l")
+	     "Manipulating Image"
+	     ("+" imagex-sticky-zoom-in "zoom in")
+	     ("-" imagex-sticky-zoom-out "zoom out")
+	     ("M" imagex-sticky-maximize "maximize")
+	     ("O" imagex-sticky-restore-original "restore original")
+	     ("S" imagex-sticky-save-image "save file")
+	     ("r" imagex-sticky-rotate-right "rotate right")
+	     ("l" imagex-sticky-rotate-left "rotate left"))))
+      )
+    )
+#+END_SRC
+** keyfreq
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package keyfreq
+    :ensure t
+    :defer t
+    :init
+    (require 'keyfreq)
+    (keyfreq-mode 1)
+    (keyfreq-autosave-mode 1)
+
+    )
+#+END_SRC
+   
+** LSP 
+
+#+BEGIN_SRC emacs-lisp
+  ;; (use-package lsp-mode
+  ;;   :init
+  ;;   ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
+  ;;   (setq lsp-keymap-prefix "C-l")
+  ;;   :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
+  ;;          (typescript-mode . lsp)
+  ;;          (javascript-mode . lsp)
+  ;;          ;; if you want which-key integration
+  ;;          (lsp-mode . lsp-enable-which-key-integration))
+  ;;   :commands lsp)
+
+  ;; ;; optionally
+  ;; (use-package lsp-ui :commands lsp-ui-mode)
+  ;; ;; if you are ivy user
+  ;; (use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
+  ;; ;;(use-package lsp-treemacs :commands lsp-treemacs-errors-list)
+
+  ;; ;; optionally if you want to use debugger
+  ;; ;;(use-package dap-mode :straight nil)
+  ;; ;;(use-package dap-typescript) to load the dap adapter for your language
+
+  ;; ;; optional if you want which-key integration
+  ;; (use-package which-key
+  ;;     :config
+  ;;     (which-key-mode))
+#+END_SRC
+
+#+RESULTS:
+: t
+
+*** 
+
+** magit
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package magit 
+    :ensure t
+    :defer t
+    :config       
+    (define-key transient-map (kbd "<escape>") 'transient-quit-one)
+    )
+#+END_SRC
+   
+** one liners
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package better-defaults :ensure t :defer t )
+  (use-package bind-map :ensure t :defer t)
+  (use-package emojify :ensure t :defer t )
+  (use-package markdown-mode :ensure t :defer t)
+  (use-package smex :ensure t :defer t)
+  (use-package feebleline :ensure t :defer t)
+  (use-package fzf :ensure t :defer t)
+  ;;(use-package recursive-narrow :ensure t :defer t)
+#+END_SRC
+** org-brain
+#+BEGIN_SRC emacs-lisp :results output silent
+  ;; (use-package org-brain :ensure t
+  ;;   :init
+  ;;   (setq org-brain-path "~/Dropbox/org-brain/")
+  ;;   ;; For Evil users
+  ;;   (with-eval-after-load 'evil
+  ;;     (evil-set-initial-state 'org-brain-visualize-mode 'emacs))
+  ;;   :config
+  ;;   (setq org-id-track-globally t)
+  ;;   (setq org-id-locations-file "~/.emacs.d/org-id-locations")
+  ;;   (push '("b" "Brain" plain (function org-brain-goto-end)
+  ;; 	  "* %i%?" :empty-lines 1)
+  ;; 	org-capture-templates)
+  ;;   (setq org-brain-visualize-default-choices 'all)
+  ;;   (setq org-brain-title-max-length 16))
+#+END_SRC
+** org-mode
+moved to ~/.emacs.d/org-init.el
+   
+   
+#+BEGIN_SRC emacs-lisp :results output silent
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '(
+     (lisp . t)
+     (shell . t)
+     (python . t)
+     ))
+
+#+END_SRC
+** page-break-lines
+#+begin_src emacs-lisp
+  (use-package page-break-lines
+    :diminish ""
+    :ensure t 
+    :defer t 
+    :config (global-page-break-lines-mode 1))
+
+#+end_src
+   
+** pass?
+** persistent scratch
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package persistent-scratch :ensure t
+    :config (persistent-scratch-setup-default))
+#+END_SRC
+   
+** powerline
+#+BEGIN_SRC emacs-lisp :results output silent
+    (use-package powerline 
+      :ensure
+      :config (progn
+                (require 'powerline)
+                (powerline-center-evil-theme)
+  ))
+#+END_SRC
+   
+** projectile
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package projectile
+    :ensure t
+  :diminish
+    :config
+    (progn
+      (projectile-global-mode)
+      (setq projectile-completion-system 'ivy)
+      (setq projectile-create-missing-test-files t)
+      (setq projectile-switch-project-action 'projectile-dired)
+      (setq projectile-mode-line '(:eval (format " [%s]" (projectile-project-name))))
+      )
+    (use-package counsel-projectile
+      :ensure t
+      :config
+      (add-hook 'after-init-hook 'counsel-projectile-mode))
+    )
+#+END_SRC
+   
+** savehist
+#+BEGIN_SRC emacs-lisp
+  (use-package savehist
+    :config
+    (setq savehist-file "~/.emacs.d/var/savehist")
+    (setq
+     savehist-additional-variables
+     '(kill-ring
+       mark-ring
+       global-mark-ring
+       search-ring
+       regexp-search-ring
+       extended-command-history))
+    (savehist-mode 1))
+
+
+#+END_SRC
+
+#+RESULTS:
+: t
+** saveplace
+#+BEGIN_SRC emacs-lisp 
+  (use-package saveplace :config (setq-default save-place t))
+
+
+#+END_SRC
+** sentence navigation
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package sentence-navigation
+    :ensure t
+    :bind (:map evil-motion-state-map 
+		((")" . sentence-nav-evil-forward)
+		 ("(" . sentence-nav-evil-backward)
+		 ("g(" . sentence-nav-evil-backward-end)
+		 ("g)" . sentence-nav-evil-forward-end)))
+    :config
+    (progn
+      (define-key evil-outer-text-objects-map "s" 'sentence-nav-evil-a-sentence)
+      (define-key evil-inner-text-objects-map "s" 'sentence-nav-evil-inner-sentence))
+    )
 #+END_SRC
    
 ** swiper et al
@@ -284,192 +553,11 @@ vinagresque
   (use-package ivy-hydra :ensure t :defer t)
 #+END_SRC
    
-** image+
-#+BEGIN_SRC emacs-lisp :results output silent
-  (use-package image+
-    :ensure hydra
-    :defer t
-    :config 
-    (progn
-      (eval-after-load 'image+
-	`(when (require 'hydra nil t)
-	   (defhydra imagex-sticky-binding (global-map "C-x C-l")
-	     "Manipulating Image"
-	     ("+" imagex-sticky-zoom-in "zoom in")
-	     ("-" imagex-sticky-zoom-out "zoom out")
-	     ("M" imagex-sticky-maximize "maximize")
-	     ("O" imagex-sticky-restore-original "restore original")
-	     ("S" imagex-sticky-save-image "save file")
-	     ("r" imagex-sticky-rotate-right "rotate right")
-	     ("l" imagex-sticky-rotate-left "rotate left"))))
-      )
-    )
-#+END_SRC
-** keyfreq
-#+BEGIN_SRC emacs-lisp :results output silent
-  (use-package keyfreq
-    :ensure t
-    :defer t
-    :init
-    (require 'keyfreq)
-    (keyfreq-mode 1)
-    (keyfreq-autosave-mode 1)
-
-    )
-#+END_SRC
-   
-** magit
-#+BEGIN_SRC emacs-lisp :results output silent
-  (use-package magit 
-    :ensure t
-    :defer t
-    :config       
-    (define-key transient-map (kbd "<escape>") 'transient-quit-one)
-    )
-#+END_SRC
-   
-** ag
-
-#+BEGIN_SRC emacs-lisp :results output silent
-  (use-package ag :ensure t :defer t :config (setq ag-highlight-search t)
-    (setq ag-reuse-buffers 't))
-#+END_SRC
-** one liners
-#+BEGIN_SRC emacs-lisp :results output silent
-  (use-package better-defaults :ensure t :defer t )
-  (use-package bind-map :ensure t :defer t)
-  (use-package emojify :ensure t :defer t )
-  (use-package markdown-mode :ensure t :defer t)
-  (use-package smex :ensure t :defer t)
-  (use-package feebleline :ensure t :defer t)
-  (use-package fzf :ensure t :defer t)
-  ;;(use-package recursive-narrow :ensure t :defer t)
-#+END_SRC
-** org-mode
-moved to ~/.emacs.d/org-init.el
-   
-   
-#+BEGIN_SRC emacs-lisp :results output silent
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '(
-     (lisp . t)
-     (shell . t)
-     (python . t)
-     ))
-
-#+END_SRC
-** org-brain
-#+BEGIN_SRC emacs-lisp :results output silent
-  ;; (use-package org-brain :ensure t
-  ;;   :init
-  ;;   (setq org-brain-path "~/Dropbox/org-brain/")
-  ;;   ;; For Evil users
-  ;;   (with-eval-after-load 'evil
-  ;;     (evil-set-initial-state 'org-brain-visualize-mode 'emacs))
-  ;;   :config
-  ;;   (setq org-id-track-globally t)
-  ;;   (setq org-id-locations-file "~/.emacs.d/org-id-locations")
-  ;;   (push '("b" "Brain" plain (function org-brain-goto-end)
-  ;; 	  "* %i%?" :empty-lines 1)
-  ;; 	org-capture-templates)
-  ;;   (setq org-brain-visualize-default-choices 'all)
-  ;;   (setq org-brain-title-max-length 16))
-#+END_SRC
-** calfw & friends
-#+BEGIN_SRC emacs-lisp :results output silent
-  (use-package calfw :ensure t
-    :config
-    (require 'calfw)
-    (use-package calfw-org :ensure t
-      :config
-      (require 'calfw-org)
-      ;;   (setq cfw:org-overwrite-default-keybinding t)
-      )
-    )
-
-
-#+END_SRC
-** page-break-lines
-#+begin_src emacs-lisp
-  (use-package page-break-lines
-    :diminish ""
-    :ensure t 
-    :defer t 
-    :config (global-page-break-lines-mode 1))
-
-#+end_src
-   
-** projectile
-#+BEGIN_SRC emacs-lisp :results output silent
-  (use-package projectile
-    :ensure t
-    :config
-    (progn
-      (projectile-global-mode)
-      (setq projectile-completion-system 'ivy)
-      (setq projectile-create-missing-test-files t)
-      (setq projectile-switch-project-action 'projectile-dired)
-      (setq projectile-mode-line '(:eval (format " [%s]" (projectile-project-name))))
-      )
-    (use-package counsel-projectile
-      :ensure t
-      :config
-      (add-hook 'after-init-hook 'counsel-projectile-mode))
-    )
-#+END_SRC
-   
-** persistent scratch
-#+BEGIN_SRC emacs-lisp :results output silent
-  (use-package persistent-scratch :ensure t
-    :config (persistent-scratch-setup-default))
-#+END_SRC
-   
-** sentence navigation
-#+BEGIN_SRC emacs-lisp :results output silent
-  (use-package sentence-navigation
-    :ensure t
-    :bind (:map evil-motion-state-map 
-		((")" . sentence-nav-evil-forward)
-		 ("(" . sentence-nav-evil-backward)
-		 ("g(" . sentence-nav-evil-backward-end)
-		 ("g)" . sentence-nav-evil-forward-end)))
-    :config
-    (progn
-      (define-key evil-outer-text-objects-map "s" 'sentence-nav-evil-a-sentence)
-      (define-key evil-inner-text-objects-map "s" 'sentence-nav-evil-inner-sentence))
-    )
-#+END_SRC
-   
 ** term
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package term )
 #+END_SRC
 
-** eat term
-#+BEGIN_SRC emacs-lisp :results output silent
-  
-
-(straight-use-package
- '(eat :type git
-       :host codeberg
-       :repo "akib/emacs-eat"
-       :files ("*.el" ("term" "term/*.el") "*.texi"
-               "*.ti" ("terminfo/e" "terminfo/e/*")
-               ("terminfo/65" "terminfo/65/*")
-               ("integration" "integration/*")
-               (:exclude ".dir-locals.el" "*-tests.el"))))
-
-
-#+END_SRC
-** which key
-#+BEGIN_SRC emacs-lisp :results output silent
-  (use-package which-key 
-    :ensure t
-    :diminish ""
-    :config (which-key-mode ) )
-
-#+END_SRC
 ** text-writeroom
 #+BEGIN_SRC emacs-lisp :results output silent
 
@@ -479,42 +567,6 @@ moved to ~/.emacs.d/org-init.el
 
 
 #+END_SRC
-** pass?
-** copilot
-#+BEGIN_SRC emacs-lisp :results output silent
-  (use-package copilot
-    :straight (:host github :repo "zerolfx/copilot.el" :files ("dist" "*.el"))
-    :ensure t
-    ;; :hook (prog-mode . copilot-mode)	;
-    :config
-    (progn
-      (setq copilot-expansion-delay 0.2)
-      (setq copilot-expansion-limit 500)
-      (setq copilot-node-executable "/Users/logan.k.mohseni/.nvm/versions/node/v16.20.2/bin/node" )
-      )
-
-    :bind (("C-c M-f" . copilot-complete)
-  	 :map copilot-completion-map
-  	 ("C-g" . 'copilot-clear-overlay)
-  	 ("M-p" . 'copilot-previous-completion)
-  	 ("M-n" . 'copilot-next-completion)
-  	 ("<tab>" . 'copilot-accept-completion)
-  	 ("M-f" . 'copilot-accept-completion-by-word)
-  	 ("M-<return>" . 'copilot-accept-completion-by-line)))
-
-  #+END_SRC
-
-** company
-#+BEGIN_SRC emacs-lisp :results output silent 
-  (use-package company
-    :ensure t
-    :diminish )
-
-      
-      #+END_SRC
-
-***
-
 ** tree-sitter 
 #+BEGIN_SRC emacs-lisp :results output silent
     (setq treesit-language-source-alist
@@ -552,58 +604,14 @@ moved to ~/.emacs.d/org-init.el
 
 ***
 
-** LSP 
-
-#+BEGIN_SRC emacs-lisp
-  ;; (use-package lsp-mode
-  ;;   :init
-  ;;   ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
-  ;;   (setq lsp-keymap-prefix "C-l")
-  ;;   :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
-  ;;          (typescript-mode . lsp)
-  ;;          (javascript-mode . lsp)
-  ;;          ;; if you want which-key integration
-  ;;          (lsp-mode . lsp-enable-which-key-integration))
-  ;;   :commands lsp)
-
-  ;; ;; optionally
-  ;; (use-package lsp-ui :commands lsp-ui-mode)
-  ;; ;; if you are ivy user
-  ;; (use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
-  ;; ;;(use-package lsp-treemacs :commands lsp-treemacs-errors-list)
-
-  ;; ;; optionally if you want to use debugger
-  ;; ;;(use-package dap-mode :straight nil)
-  ;; ;;(use-package dap-typescript) to load the dap adapter for your language
-
-  ;; ;; optional if you want which-key integration
-  ;; (use-package which-key
-  ;;     :config
-  ;;     (which-key-mode))
-#+END_SRC
-
-#+RESULTS:
-: t
-
-*** 
-
-** formatter
-#+BEGIN_SRC emacs-lisp
-  ;; (use-package apheleia
-  ;;   :ensure t
-  ;;   :diminish
-  ;;   :config
-  ;;   (apheleia-global-mode t))
-  (use-package prettier
+** which key
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package which-key 
     :ensure t
-    :diminish
-    :config
-    (global-prettier-mode))
+    :diminish ""
+    :config (which-key-mode ) )
+
 #+END_SRC
-
-#+RESULTS:
-: t
-
 * languages
 ** lisp
 general lisp stuff
@@ -821,6 +829,8 @@ general lisp stuff
    ring-bell-function 'ignore 	; silent bell when you make a mistake
    sentence-end-double-space t	; 
    shell-file-name "/bin/zsh"
+   explicit-shell-file-name "/bin/zsh"
+   explicit-zsh-args '("--login" "--interactive")
    show-paren-delay 0
    show-paren-style 'parenthesis
    show-paren-when-point-inside-paren t
@@ -837,6 +847,10 @@ general lisp stuff
    visible-bell t
    )
 
+
+(defun zsh-shell-mode-setup ()
+  (setq-local comint-process-echoes t))
+(add-hook 'shell-mode-hook #'zsh-shell-mode-setup)
 
   (require 'uniquify)
   (setq uniquify-buffer-name-style 'forward)
@@ -1941,15 +1955,6 @@ C-x n w to widen to a page (delineated by ^L chars)
 					  ;(use-package paradox :ensure t :defer t)
 #+END_SRC
    
-** powerline
-#+BEGIN_SRC emacs-lisp :results output silent
-  ;; (use-package powerline 
-  ;;   :ensure
-  ;;   :config (progn
-  ;;             (require 'powerline)
-  ;;             (powerline-center-evil-theme)))
-#+END_SRC
-   
 ** tex n friends
 #+BEGIN_SRC emacs-lisp :results output silent
   ;;(use-package tex :ensure auctex :defer t  :config (require 'tex) )
@@ -2105,6 +2110,7 @@ C-x n w to widen to a page (delineated by ^L chars)
   (global-set-key (kbd "C-x M-t") 'vertical-horizontal-swizzle)
   (global-set-key (kbd "C-x C-a") 'mark-whole-buffer)
   (global-set-key (kbd "C-x C-b") 'ibuffer)
+  (global-set-key (kbd "C-x C-c") 'halt)
   (global-set-key (kbd "C-x C-j") 'dired-jump)
   (global-set-key (kbd "C-x C-k") 'kill-this-buffer)
   (global-set-key (kbd "C-x C-r") 'counsel-recentf) ;;recent
@@ -2197,5 +2203,15 @@ C-x n w to widen to a page (delineated by ^L chars)
 
 #+RESULTS:
 : t
+* coda
+** minions
+#+BEGIN_SRC emacs-lisp
+
+  (use-package minions :ensure t :bind ("<S-down-mouse-3>" . #'minions-minor-modes-menu))
+#+END_SRC
+
+#+RESULTS:
+: minions-minor-modes-menu
 
   
+

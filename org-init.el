@@ -35,9 +35,9 @@
       ;;;(setq org-mobile-use-encryption t  )
       ;; org-mobile-encryption-password  set in secrets.el.gpg
       (setq org-outline-path-complete-in-steps nil)
-      (setq org-refile-allow-creating-parent-nodes (quote confirm))
-      (setq org-refile-targets (quote ((nil :maxlevel . 9) (org-agenda-files :maxlevel . 9))))
-      (setq org-refile-use-outline-path 'file)
+      ;;(setq org-refile-allow-creating-parent-nodes (quote confirm)) ;
+      ;;(setq org-refile-targets (quote ((nil :maxlevel . 9) (org-agenda-files :maxlevel . 9))))
+      ;;(setq org-refile-use-outline-path 'buffer-name)
       (setq org-return-follows-link t)
       (setq org-reverse-note-order t)
       (setq org-show-hierarchy-above (quote ((default . t))))
