@@ -5,14 +5,13 @@
 
 * frontmatter
 ** diminish
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp tangle: init1.el :results output silent
   ;  (evil-org-mode 1)
 
   (use-package diminish :ensure t)
 #+END_SRC
 
 #+RESULTS:
-: minions-minor-modes-menu
 
 * packages
 ** evil
@@ -287,8 +286,8 @@ vinagresque
     (global-set-key (kbd "C-x v =") 'git-gutter:popup-hunk)
 
     ;; Jump to next/previous hunk
-    ;; (global-set-key (kbd "C-x p") 'git-gutter:previous-hunk)
-    ;; (global-set-key (kbd "C-x n") 'git-gutter:next-hunk)
+    (global-set-key (kbd "C-x C-p") 'git-gutter:previous-hunk)
+    (global-set-key (kbd "C-x C-n") 'git-gutter:next-hunk)
 
     (setq git-gutter:update-interval 0.2)
     ;; Stage current hunk
@@ -380,7 +379,9 @@ vinagresque
     :defer t
     :config       
     (define-key transient-map (kbd "<escape>") 'transient-quit-one)
+    (setq magit-save-repository-buffers 'dontask)
     )
+
 #+END_SRC
    
 ** one liners
@@ -431,9 +432,12 @@ moved to ~/.emacs.d/org-init.el
     :diminish ""
     :ensure t 
     :defer t 
-    :config (global-page-break-lines-mode 1))
+    :config (global-page-break-lines-mode +1))
 
 #+end_src
+
+#+RESULTS:
+: t
    
 ** pass?
 ** persistent scratch
@@ -2067,6 +2071,7 @@ C-x n w to widen to a page (delineated by ^L chars)
   (global-set-key (kbd "C-c t")  '(lambda()(interactive)(term "zsh")))
   (global-set-key (kbd "C-s") 'swiper)  ;;search in file;;swiper?
   (global-set-key (kbd "C-x ,") 'edit-init-org-file)
+  (global-set-key (kbd "C-x <f2>") 'open-in-webstorm)
   (global-set-key (kbd "C-x <f5>") 'toggle-dark-light-state)
   (global-set-key (kbd "C-x C-,") 'load-init-file)
   (global-set-key (kbd "C-x C-a") 'mark-whole-buffer)
