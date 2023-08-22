@@ -31,7 +31,7 @@
     :config
     (evil-mode 1)
     (evil-set-undo-system 'undo-redo)
-    (add-to-list 'evil-emacs-state-modes 'dired)
+  
     )
 
   (use-package evil-collection
@@ -432,7 +432,7 @@ moved to ~/.emacs.d/org-init.el
     :diminish ""
     :ensure t 
     :defer t 
-    :config (global-page-break-lines-mode +1))
+    :config (global-page-break-lines-mode))
 
 #+end_src
 
@@ -460,13 +460,14 @@ moved to ~/.emacs.d/org-init.el
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package projectile
     :ensure t
-  :diminish
+    :diminish
     :config
     (progn
       (projectile-global-mode)
       (setq projectile-completion-system 'ivy)
       (setq projectile-create-missing-test-files t)
       (setq projectile-switch-project-action 'projectile-dired)
+      (setq projectile-sort-order 'recentf)
       (setq projectile-mode-line '(:eval (format " [%s]" (projectile-project-name))))
       )
     (use-package counsel-projectile
@@ -1419,9 +1420,9 @@ toggle fullscreen
       (pbcopy)
       (delete-region (region-beginning) (region-end)))
 
-    (global-set-key (kbd "M-c") 'pbcopy)
-    (global-set-key (kbd "M-v") 'pbpaste)
-    (global-set-key (kbd "M-X") 'pbcut)
+    (global-set-key (kbd "C-x M-c") 'pbcopy)
+    (global-set-key (kbd "C-x M-v") 'pbpaste)
+    (global-set-key (kbd "C-x M-x") 'pbcut)
 
     ;;recomended by brew
     ;; (let ((default-directory "/opt/homebrew/share/emacs/site-lisp/"))
