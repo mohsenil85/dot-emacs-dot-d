@@ -782,7 +782,7 @@
   (setq uniquify-buffer-name-style 'forward)
   (winner-mode 1)
 
-  ;; (set-frame-font "-*-Monaco-normal-normal-normal-*-16-*-*-*-m-0-iso10646-1")
+(set-frame-font "-*-Monaco-normal-normal-normal-*-16-*-*-*-m-0-iso10646-1")
 
 ;;(require 'cl)
 
