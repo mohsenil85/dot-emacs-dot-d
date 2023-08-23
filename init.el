@@ -15,25 +15,8 @@
 (setq straight-use-package-by-default t)
 
 (use-package no-littering :ensure t)
-;; (load-file "~/.emacs.d/org-init.el")
-
-
-;; ;;used in debugging
-;; ;;(use-package evil :ensure t :config (evil-mode 1))
-;; ;;(setq debug-on-error t)
-
-;; ;;(use-package org :ensure t)	
-
-;; ;;(straight-use-package 'org)
-;; (require 'ob-tangle)
-
-
-;; (org-babel-load-file
-;;  (expand-file-name "emacs-init.org"
-;; 		   user-emacs-directory))
 
 (use-package org 
-
   :ensure
   :diminish 
   :config
@@ -163,6 +146,7 @@
 
 
 
+
 ;;put all DONE into archive
 (defun my-org-archive-done-tasks ()
   (interactive)
@@ -182,6 +166,16 @@
    (shell . t)
    (python . t)
    ))
+
+  (defun org-babel-tangle-config ()
+  (when (string-equal (buffer-file-name)
+			(expand-file-name "~/.emacs.d/emacs-init.org"))
+    (let ((org-config-babel-evaluate nil))
+	(org-babel-tangle))))
+
+(add-hook 'org-mode-hook
+	    (lambda ()
+	      (add-hook 'after-save-hook #'org-babel-tangle-config)))
 
 ;  (evil-org-mode 1)
 
@@ -221,6 +215,7 @@
 (use-package evil-org
   :ensure t
   :after org
+  :diminish
   :hook (org-mode . (lambda () (evil-org-mode +1)))
   :config
   (require 'evil-org-agenda)
@@ -1764,6 +1759,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (global-set-key (kbd "C-c t")  '(lambda()(interactive)(term "zsh")))
 (global-set-key (kbd "C-s") 'swiper)  ;;search in file;;swiper?
 (global-set-key (kbd "C-x ,") 'edit-init-org-file)
+(global-set-key (kbd "C-h C-/") 'which-key-show-major-mode)
 (global-set-key (kbd "C-x <f2>") 'open-in-webstorm)
 (global-set-key (kbd "C-x <f5>") 'toggle-dark-light-state)
 (global-set-key (kbd "C-x C-,") 'load-init-file)
