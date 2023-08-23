@@ -206,8 +206,6 @@
   (use-package diminish :ensure t)
 #+END_SRC
 
-
-* packages
 ** evil
 *** main evil
     
@@ -245,6 +243,19 @@
   ;;   (evil-visual-mark-mode 1))
 
 #+END_SRC
+*** evil-org
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package evil-org
+    :ensure t
+    :after org
+    :hook (org-mode . (lambda () (evil-org-mode +1)))
+    :config
+    (require 'evil-org-agenda)
+    (evil-org-agenda-set-keys))
+#+END_SRC
+    
+
+* packages
 ** ag
 
 #+BEGIN_SRC emacs-lisp :results output silent
@@ -1994,26 +2005,6 @@ C-x n w to widen to a page (delineated by ^L chars)
   ;;   :load-path "~/Projects/elisp/evil-evilified-state/")
 
 #+END_SRC
-** evil-org
-#+BEGIN_SRC emacs-lisp :results output silent
-  ;; (use-package evil-org
-  ;;   :ensure t
-  ;;   :after org
-  ;; :diminish
-  ;;   :defer t
-  ;;   :init (require 'evil-org)
-  ;;   :hook (org-mode . (lambda () evil-org-mode))
-  ;;  ; :config (evil-org-mode 1)
-        ;; )  
-  (use-package evil-org
-    :ensure t
-    :after org
-    :hook (org-mode . (evil-org-mode))
-    :config
-    (require 'evil-org-agenda)
-  )
-#+END_SRC
-    
 ** evil-rsi
 #+BEGIN_SRC emacs-lisp :results output silent
   ;;;      (use-package evil-rsi 

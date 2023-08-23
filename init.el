@@ -218,6 +218,14 @@
 ;;   :config
 ;;   (evil-visual-mark-mode 1))
 
+(use-package evil-org
+  :ensure t
+  :after org
+  :hook (org-mode . (lambda () (evil-org-mode +1)))
+  :config
+  (require 'evil-org-agenda)
+  (evil-org-agenda-set-keys))
+
 (use-package ag :ensure t :defer t :config (setq ag-highlight-search t)
   (setq ag-reuse-buffers 't))
 
@@ -1593,23 +1601,6 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 ;;   (use-package evil-evilified-state
 ;;   :load-path "~/Projects/elisp/evil-evilified-state/")
-
-;; (use-package evil-org
-;;   :ensure t
-;;   :after org
-;; :diminish
-;;   :defer t
-;;   :init (require 'evil-org)
-;;   :hook (org-mode . (lambda () evil-org-mode))
-;;  ; :config (evil-org-mode 1)
-      ;; )  
-(use-package evil-org
-  :ensure t
-  :after org
-  :hook (org-mode . (evil-org-mode))
-  :config
-  (require 'evil-org-agenda)
-)
 
 ;;;      (use-package evil-rsi 
 ;;;	 :diminish ""
