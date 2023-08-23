@@ -180,7 +180,7 @@
 
 (defun org-babel-tangle-config ()
   (when (string-equal (buffer-file-name)
-		      (expand-file-name "~/.emacs.d/emacs-init.org"))
+		      (expand-file-name "~/.emacs.d/init.org"))
     (let ((org-config-babel-evaluate nil))
       (org-babel-tangle))))
 
@@ -811,9 +811,9 @@
 
 (defun edit-init-org-file ()
   (interactive)
-  (if (string= buffer-file-name  (expand-file-name ".emacs.d/emacs-init.org" "~") ) ;; weirdness around the actual buffer file name of 
+  (if (string= buffer-file-name  (expand-file-name ".emacs.d/init.org" "~") ) ;; weirdness around the actual buffer file name of 
       (find-file (concat "~/.emacs.d/init.el"))
-    (find-file (concat "~/.emacs.d/emacs-init.org"))))
+    (find-file (concat "~/.emacs.d/init.org"))))
 
 
 
@@ -1110,7 +1110,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (global-set-key (kbd "C-h h") 'not-anymore)
 (global-set-key (kbd "C-h C-a") 'not-anymore)
 
-(set-register ?e (cons 'file "~/.emacs.d/emacs-init.org"))
+(set-register ?e (cons 'file "~/.emacs.d/init.org"))
 (set-register ?o (cons 'file "~/org/main.org"))
 (set-register ?i (cons 'file "~/org/inbox.org"))
 (set-register ?n (cons 'file "~/org/notes.org"))

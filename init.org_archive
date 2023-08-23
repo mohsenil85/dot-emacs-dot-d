@@ -163,26 +163,26 @@ things i need to remember
 :ARCHIVE_CATEGORY: emacs-init
 :END:
 #+BEGIN_SRC emacs-lisp :results output silent
-  ;; (use-package elfeed
-  ;;   :ensure t
-  ;;   ;;:defer t
-  ;;   :commands (elfeed-search-mode elfeed-show-mode)
-  ;;   :init (progn
-  ;; 	  ;; (use-package elfeed-goodies :ensure t)
-  ;; 	  (use-package elfeed-org :ensure t))
-  ;;   :config
-  ;;   (progn
-  ;;     (require 'elfeed-goodies)
-  ;;     (elfeed-goodies/setup)
-  ;;     (setq 
-  ;;      elfeed-goodies/powerline-default-separator nil
-  ;;      elfeed-goodies/entry-pane-position 'bottom)
+  (use-package elfeed
+    :ensure t
+    ;;:defer t
+    :commands (elfeed-search-mode elfeed-show-mode)
+    :init (progn
+  	  ;; (use-package elfeed-goodies :ensure t)
+  	  (use-package elfeed-org :ensure t))
+    :config
+    (progn
+      (require 'elfeed-goodies)
+      (elfeed-goodies/setup)
+      (setq 
+       elfeed-goodies/powerline-default-separator nil
+       elfeed-goodies/entry-pane-position 'bottom)
 
-  ;;     (setq elfeed-db-directory "~/.emacs.d/elfeed")
-  ;;     (require 'elfeed-org)
-  ;;     (elfeed-org)
-  ;;     (setq rmh-elfeed-org-files (list "~/Dropbox/elfeed.org")))
-  ;;     )
+      (setq elfeed-db-directory "~/.emacs.d/elfeed")
+      (require 'elfeed-org)
+      (elfeed-org)
+      (setq rmh-elfeed-org-files (list "~/Dropbox/elfeed.org")))
+      )
 
 
 
@@ -738,18 +738,6 @@ C-x n w to widen to a page (delineated by ^L chars)
   ;;;(transient-mark-mode t)
 #+END_SRC
 
-* default font
-:PROPERTIES:
-:ARCHIVE_TIME: 2023-08-23 Wed 15:42
-:ARCHIVE_FILE: ~/.emacs.d/emacs-init.org
-:ARCHIVE_OLPATH: deleted
-:ARCHIVE_CATEGORY: emacs-init
-:END:
-#+BEGIN_SRC emacs-lisp :results output silent
-  ;;bigger font size for my poor old aching occulars
-       (add-to-list 'default-frame-alist '(font . "-*-Monaco-normal-normal-normal-*-16-*-*-*-m-0-iso10646-1"   )) 
-#+END_SRC
-   
 
 * inital buffer
 :PROPERTIES:

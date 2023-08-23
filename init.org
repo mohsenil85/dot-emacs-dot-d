@@ -205,7 +205,7 @@
 
   (defun org-babel-tangle-config ()
     (when (string-equal (buffer-file-name)
-  		      (expand-file-name "~/.emacs.d/emacs-init.org"))
+  		      (expand-file-name "~/.emacs.d/init.org"))
       (let ((org-config-babel-evaluate nil))
         (org-babel-tangle))))
 
@@ -958,9 +958,20 @@ general lisp stuff
     (setq uniquify-buffer-name-style 'forward)
     (winner-mode 1)
 
-  (set-frame-font "-*-Monaco-normal-normal-normal-*-16-*-*-*-m-0-iso10646-1")
 
 
+** default font
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-08-23 Wed 15:42
+:ARCHIVE_FILE: ~/.emacs.d/emacs-init.org
+:ARCHIVE_OLPATH: deleted
+:ARCHIVE_CATEGORY: emacs-init
+:END:
+#+BEGIN_SRC emacs-lisp :results output silent
+  ;;bigger font size for my poor old aching occulars
+       (add-to-list 'default-frame-alist '(font . "-*-Monaco-normal-normal-normal-*-16-*-*-*-m-0-iso10646-1"   )) 
+#+END_SRC
+   
 
 #+END_SRC
 
@@ -999,9 +1010,9 @@ general lisp stuff
 
   (defun edit-init-org-file ()
     (interactive)
-    (if (string= buffer-file-name  (expand-file-name ".emacs.d/emacs-init.org" "~") ) ;; weirdness around the actual buffer file name of 
+    (if (string= buffer-file-name  (expand-file-name ".emacs.d/init.org" "~") ) ;; weirdness around the actual buffer file name of 
         (find-file (concat "~/.emacs.d/init.el"))
-      (find-file (concat "~/.emacs.d/emacs-init.org"))))
+      (find-file (concat "~/.emacs.d/init.org"))))
 
 
 
@@ -1413,7 +1424,7 @@ toggle fullscreen
 #+END_SRC
 ** registers
 #+BEGIN_SRC emacs-lisp :results output silent
-  (set-register ?e (cons 'file "~/.emacs.d/emacs-init.org"))
+  (set-register ?e (cons 'file "~/.emacs.d/init.org"))
   (set-register ?o (cons 'file "~/org/main.org"))
   (set-register ?i (cons 'file "~/org/inbox.org"))
   (set-register ?n (cons 'file "~/org/notes.org"))
