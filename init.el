@@ -1,3 +1,6 @@
+ (setq package-enable-at-startup nil)
+ (setq custom-file  "~/.emacs.d/var/custom" )
+
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
@@ -782,7 +785,8 @@
   (setq uniquify-buffer-name-style 'forward)
   (winner-mode 1)
 
-(set-frame-font "-*-Monaco-normal-normal-normal-*-16-*-*-*-m-0-iso10646-1")
+;;bigger font size for my poor old aching occulars
+     (add-to-list 'default-frame-alist '(font . "-*-Monaco-normal-normal-normal-*-16-*-*-*-m-0-iso10646-1"   ))
 
 ;;(require 'cl)
 

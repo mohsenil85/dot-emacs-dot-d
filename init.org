@@ -5,6 +5,11 @@
 
 
 * frontmatter
+** early init
+#+BEGIN_SRC emacs-lisp :results output silent
+   (setq package-enable-at-startup nil)
+   (setq custom-file  "~/.emacs.d/var/custom" )
+#+END_SRC
 ** straight
 #+BEGIN_SRC emacs-lisp :results output silent
 
@@ -254,6 +259,7 @@
 
 #+END_SRC
 *** evil-org
+
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package evil-org
     :ensure t
@@ -889,7 +895,7 @@ general lisp stuff
 #+END_SRC
    
 * itself
-#+BEGIN_SRC emacs-lisp 
+#+BEGIN_SRC emacs-lisp :results output silent
     (blink-cursor-mode -1)
     (defalias 'yes-or-no-p 'y-or-n-p)
     (delete-selection-mode 1)
@@ -959,21 +965,16 @@ general lisp stuff
     (winner-mode 1)
 
 
+#+END_SRC
+
 
 ** default font
-:PROPERTIES:
-:ARCHIVE_TIME: 2023-08-23 Wed 15:42
-:ARCHIVE_FILE: ~/.emacs.d/emacs-init.org
-:ARCHIVE_OLPATH: deleted
-:ARCHIVE_CATEGORY: emacs-init
-:END:
 #+BEGIN_SRC emacs-lisp :results output silent
   ;;bigger font size for my poor old aching occulars
        (add-to-list 'default-frame-alist '(font . "-*-Monaco-normal-normal-normal-*-16-*-*-*-m-0-iso10646-1"   )) 
 #+END_SRC
    
 
-#+END_SRC
 
 #+RESULTS:
 

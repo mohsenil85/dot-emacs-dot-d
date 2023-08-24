@@ -1,13 +1,13 @@
 #    -*- mode: org -*-
 
 
-Archived entries from file /Users/logan.k.mohseni/.emacs.d/emacs-init.org
+Archived entries from file /Users/logan.k.mohseni/.emacs.d/init.org
 
 
 * helm
 :PROPERTIES:
 :ARCHIVE_TIME: 2023-08-23 Wed 15:32
-:ARCHIVE_FILE: ~/.emacs.d/emacs-init.org
+:ARCHIVE_FILE: ~/.emacs.d/init.org
 :ARCHIVE_OLPATH: deleted
 :ARCHIVE_CATEGORY: emacs-init
 :END:
@@ -103,7 +103,7 @@ things i need to remember
 * mu4e based email stuff
 :PROPERTIES:
 :ARCHIVE_TIME: 2023-08-23 Wed 15:33
-:ARCHIVE_FILE: ~/.emacs.d/emacs-init.org
+:ARCHIVE_FILE: ~/.emacs.d/init.org
 :ARCHIVE_OLPATH: deleted
 :ARCHIVE_CATEGORY: emacs-init
 :END:
@@ -137,7 +137,7 @@ things i need to remember
 * dumb-jump
 :PROPERTIES:
 :ARCHIVE_TIME: 2023-08-23 Wed 15:37
-:ARCHIVE_FILE: ~/.emacs.d/emacs-init.org
+:ARCHIVE_FILE: ~/.emacs.d/init.org
 :ARCHIVE_OLPATH: packages
 :ARCHIVE_CATEGORY: emacs-init
 :END:
@@ -158,7 +158,7 @@ things i need to remember
 * elfeed
 :PROPERTIES:
 :ARCHIVE_TIME: 2023-08-23 Wed 15:37
-:ARCHIVE_FILE: ~/.emacs.d/emacs-init.org
+:ARCHIVE_FILE: ~/.emacs.d/init.org
 :ARCHIVE_OLPATH: packages
 :ARCHIVE_CATEGORY: emacs-init
 :END:
@@ -192,7 +192,7 @@ things i need to remember
 * LSP 
 :PROPERTIES:
 :ARCHIVE_TIME: 2023-08-23 Wed 15:38
-:ARCHIVE_FILE: ~/.emacs.d/emacs-init.org
+:ARCHIVE_FILE: ~/.emacs.d/init.org
 :ARCHIVE_OLPATH: packages
 :ARCHIVE_CATEGORY: emacs-init
 :END:
@@ -234,7 +234,7 @@ things i need to remember
 * org-brain
 :PROPERTIES:
 :ARCHIVE_TIME: 2023-08-23 Wed 15:39
-:ARCHIVE_FILE: ~/.emacs.d/emacs-init.org
+:ARCHIVE_FILE: ~/.emacs.d/init.org
 :ARCHIVE_OLPATH: packages
 :ARCHIVE_CATEGORY: emacs-init
 :END:
@@ -258,7 +258,7 @@ things i need to remember
 * llm
 :PROPERTIES:
 :ARCHIVE_TIME: 2023-08-23 Wed 15:40
-:ARCHIVE_FILE: ~/.emacs.d/emacs-init.org
+:ARCHIVE_FILE: ~/.emacs.d/init.org
 :ARCHIVE_OLPATH: packages
 :ARCHIVE_CATEGORY: emacs-init
 :END:
@@ -425,7 +425,7 @@ things i need to remember
 * package mode
 :PROPERTIES:
 :ARCHIVE_TIME: 2023-08-23 Wed 15:41
-:ARCHIVE_FILE: ~/.emacs.d/emacs-init.org
+:ARCHIVE_FILE: ~/.emacs.d/init.org
 :ARCHIVE_OLPATH: functionaria
 :ARCHIVE_CATEGORY: emacs-init
 :END:
@@ -455,7 +455,7 @@ things i need to remember
 * scroll modeline 
 :PROPERTIES:
 :ARCHIVE_TIME: 2023-08-23 Wed 15:42
-:ARCHIVE_FILE: ~/.emacs.d/emacs-init.org
+:ARCHIVE_FILE: ~/.emacs.d/init.org
 :ARCHIVE_OLPATH: deleted
 :ARCHIVE_CATEGORY: emacs-init
 :END:
@@ -471,7 +471,7 @@ things i need to remember
 * javascript
 :PROPERTIES:
 :ARCHIVE_TIME: 2023-08-23 Wed 15:42
-:ARCHIVE_FILE: ~/.emacs.d/emacs-init.org
+:ARCHIVE_FILE: ~/.emacs.d/init.org
 :ARCHIVE_OLPATH: deleted
 :ARCHIVE_CATEGORY: emacs-init
 :END:
@@ -495,7 +495,7 @@ things i need to remember
 * typescript
 :PROPERTIES:
 :ARCHIVE_TIME: 2023-08-23 Wed 15:42
-:ARCHIVE_FILE: ~/.emacs.d/emacs-init.org
+:ARCHIVE_FILE: ~/.emacs.d/init.org
 :ARCHIVE_OLPATH: deleted
 :ARCHIVE_CATEGORY: emacs-init
 :END:
@@ -529,7 +529,7 @@ things i need to remember
 * cpp
 :PROPERTIES:
 :ARCHIVE_TIME: 2023-08-23 Wed 15:42
-:ARCHIVE_FILE: ~/.emacs.d/emacs-init.org
+:ARCHIVE_FILE: ~/.emacs.d/init.org
 :ARCHIVE_OLPATH: deleted
 :ARCHIVE_CATEGORY: emacs-init
 :END:
@@ -577,7 +577,7 @@ things i need to remember
 * java
 :PROPERTIES:
 :ARCHIVE_TIME: 2023-08-23 Wed 15:42
-:ARCHIVE_FILE: ~/.emacs.d/emacs-init.org
+:ARCHIVE_FILE: ~/.emacs.d/init.org
 :ARCHIVE_OLPATH: deleted
 :ARCHIVE_CATEGORY: emacs-init
 :END:
@@ -621,7 +621,7 @@ things i need to remember
 * el-get
 :PROPERTIES:
 :ARCHIVE_TIME: 2023-08-23 Wed 15:42
-:ARCHIVE_FILE: ~/.emacs.d/emacs-init.org
+:ARCHIVE_FILE: ~/.emacs.d/init.org
 :ARCHIVE_OLPATH: deleted
 :ARCHIVE_CATEGORY: emacs-init
 :END:
@@ -643,7 +643,7 @@ things i need to remember
 * local packages
 :PROPERTIES:
 :ARCHIVE_TIME: 2023-08-23 Wed 15:42
-:ARCHIVE_FILE: ~/.emacs.d/emacs-init.org
+:ARCHIVE_FILE: ~/.emacs.d/init.org
 :ARCHIVE_OLPATH: deleted
 :ARCHIVE_CATEGORY: emacs-init
 :END:
@@ -659,7 +659,7 @@ things i need to remember
 * set inital directroy to home
 :PROPERTIES:
 :ARCHIVE_TIME: 2023-08-23 Wed 15:42
-:ARCHIVE_FILE: ~/.emacs.d/emacs-init.org
+:ARCHIVE_FILE: ~/.emacs.d/init.org
 :ARCHIVE_OLPATH: deleted
 :ARCHIVE_CATEGORY: emacs-init
 :END:
@@ -671,7 +671,7 @@ things i need to remember
 * browse with eww
 :PROPERTIES:
 :ARCHIVE_TIME: 2023-08-23 Wed 15:42
-:ARCHIVE_FILE: ~/.emacs.d/emacs-init.org
+:ARCHIVE_FILE: ~/.emacs.d/init.org
 :ARCHIVE_OLPATH: deleted
 :ARCHIVE_CATEGORY: emacs-init
 :END:
@@ -682,7 +682,7 @@ things i need to remember
 * text-mode stuff
 :PROPERTIES:
 :ARCHIVE_TIME: 2023-08-23 Wed 15:42
-:ARCHIVE_FILE: ~/.emacs.d/emacs-init.org
+:ARCHIVE_FILE: ~/.emacs.d/init.org
 :ARCHIVE_OLPATH: deleted
 :ARCHIVE_CATEGORY: emacs-init
 :END:
@@ -703,7 +703,7 @@ things i need to remember
 * Mode line defaults
 :PROPERTIES:
 :ARCHIVE_TIME: 2023-08-23 Wed 15:42
-:ARCHIVE_FILE: ~/.emacs.d/emacs-init.org
+:ARCHIVE_FILE: ~/.emacs.d/init.org
 :ARCHIVE_OLPATH: deleted
 :ARCHIVE_CATEGORY: emacs-init
 :END:
@@ -716,7 +716,7 @@ things i need to remember
 * narrow-to-region
 :PROPERTIES:
 :ARCHIVE_TIME: 2023-08-23 Wed 15:42
-:ARCHIVE_FILE: ~/.emacs.d/emacs-init.org
+:ARCHIVE_FILE: ~/.emacs.d/init.org
 :ARCHIVE_OLPATH: deleted
 :ARCHIVE_CATEGORY: emacs-init
 :END:
@@ -730,7 +730,7 @@ C-x n w to widen to a page (delineated by ^L chars)
 * mark mode
 :PROPERTIES:
 :ARCHIVE_TIME: 2023-08-23 Wed 15:42
-:ARCHIVE_FILE: ~/.emacs.d/emacs-init.org
+:ARCHIVE_FILE: ~/.emacs.d/init.org
 :ARCHIVE_OLPATH: deleted
 :ARCHIVE_CATEGORY: emacs-init
 :END:
@@ -742,7 +742,7 @@ C-x n w to widen to a page (delineated by ^L chars)
 * inital buffer
 :PROPERTIES:
 :ARCHIVE_TIME: 2023-08-23 Wed 15:42
-:ARCHIVE_FILE: ~/.emacs.d/emacs-init.org
+:ARCHIVE_FILE: ~/.emacs.d/init.org
 :ARCHIVE_OLPATH: deleted
 :ARCHIVE_CATEGORY: emacs-init
 :END:
@@ -761,7 +761,7 @@ C-x n w to widen to a page (delineated by ^L chars)
 * ac mode
 :PROPERTIES:
 :ARCHIVE_TIME: 2023-08-23 Wed 15:42
-:ARCHIVE_FILE: ~/.emacs.d/emacs-init.org
+:ARCHIVE_FILE: ~/.emacs.d/init.org
 :ARCHIVE_OLPATH: deleted
 :ARCHIVE_CATEGORY: emacs-init
 :END:
@@ -782,7 +782,7 @@ C-x n w to widen to a page (delineated by ^L chars)
 * deft org
 :PROPERTIES:
 :ARCHIVE_TIME: 2023-08-23 Wed 15:42
-:ARCHIVE_FILE: ~/.emacs.d/emacs-init.org
+:ARCHIVE_FILE: ~/.emacs.d/init.org
 :ARCHIVE_OLPATH: deleted
 :ARCHIVE_CATEGORY: emacs-init
 :END:
@@ -801,7 +801,7 @@ C-x n w to widen to a page (delineated by ^L chars)
 * evil-evilified-state
 :PROPERTIES:
 :ARCHIVE_TIME: 2023-08-23 Wed 15:42
-:ARCHIVE_FILE: ~/.emacs.d/emacs-init.org
+:ARCHIVE_FILE: ~/.emacs.d/init.org
 :ARCHIVE_OLPATH: deleted
 :ARCHIVE_CATEGORY: emacs-init
 :END:
@@ -814,7 +814,7 @@ C-x n w to widen to a page (delineated by ^L chars)
 * evil-rsi
 :PROPERTIES:
 :ARCHIVE_TIME: 2023-08-23 Wed 15:42
-:ARCHIVE_FILE: ~/.emacs.d/emacs-init.org
+:ARCHIVE_FILE: ~/.emacs.d/init.org
 :ARCHIVE_OLPATH: deleted
 :ARCHIVE_CATEGORY: emacs-init
 :END:
@@ -830,7 +830,7 @@ C-x n w to widen to a page (delineated by ^L chars)
 * exwm
 :PROPERTIES:
 :ARCHIVE_TIME: 2023-08-23 Wed 15:42
-:ARCHIVE_FILE: ~/.emacs.d/emacs-init.org
+:ARCHIVE_FILE: ~/.emacs.d/init.org
 :ARCHIVE_OLPATH: deleted
 :ARCHIVE_CATEGORY: emacs-init
 :END:
@@ -842,7 +842,7 @@ C-x n w to widen to a page (delineated by ^L chars)
 * flx
 :PROPERTIES:
 :ARCHIVE_TIME: 2023-08-23 Wed 15:42
-:ARCHIVE_FILE: ~/.emacs.d/emacs-init.org
+:ARCHIVE_FILE: ~/.emacs.d/init.org
 :ARCHIVE_OLPATH: deleted
 :ARCHIVE_CATEGORY: emacs-init
 :END:
@@ -854,7 +854,7 @@ C-x n w to widen to a page (delineated by ^L chars)
 * helm-swoop
 :PROPERTIES:
 :ARCHIVE_TIME: 2023-08-23 Wed 15:42
-:ARCHIVE_FILE: ~/.emacs.d/emacs-init.org
+:ARCHIVE_FILE: ~/.emacs.d/init.org
 :ARCHIVE_OLPATH: deleted
 :ARCHIVE_CATEGORY: emacs-init
 :END:
@@ -907,7 +907,7 @@ C-x n w to widen to a page (delineated by ^L chars)
 * no-littering
 :PROPERTIES:
 :ARCHIVE_TIME: 2023-08-23 Wed 15:42
-:ARCHIVE_FILE: ~/.emacs.d/emacs-init.org
+:ARCHIVE_FILE: ~/.emacs.d/init.org
 :ARCHIVE_OLPATH: deleted
 :ARCHIVE_CATEGORY: emacs-init
 :END:
@@ -918,7 +918,7 @@ C-x n w to widen to a page (delineated by ^L chars)
 * org-ac
 :PROPERTIES:
 :ARCHIVE_TIME: 2023-08-23 Wed 15:42
-:ARCHIVE_FILE: ~/.emacs.d/emacs-init.org
+:ARCHIVE_FILE: ~/.emacs.d/init.org
 :ARCHIVE_OLPATH: deleted
 :ARCHIVE_CATEGORY: emacs-init
 :END:
@@ -937,7 +937,7 @@ C-x n w to widen to a page (delineated by ^L chars)
 * paradox --better package search
 :PROPERTIES:
 :ARCHIVE_TIME: 2023-08-23 Wed 15:42
-:ARCHIVE_FILE: ~/.emacs.d/emacs-init.org
+:ARCHIVE_FILE: ~/.emacs.d/init.org
 :ARCHIVE_OLPATH: deleted
 :ARCHIVE_CATEGORY: emacs-init
 :END:
@@ -949,7 +949,7 @@ C-x n w to widen to a page (delineated by ^L chars)
 * tex n friends
 :PROPERTIES:
 :ARCHIVE_TIME: 2023-08-23 Wed 15:43
-:ARCHIVE_FILE: ~/.emacs.d/emacs-init.org
+:ARCHIVE_FILE: ~/.emacs.d/init.org
 :ARCHIVE_OLPATH: deleted
 :ARCHIVE_CATEGORY: emacs-init
 :END:
@@ -968,7 +968,7 @@ C-x n w to widen to a page (delineated by ^L chars)
 * vimmish fold
 :PROPERTIES:
 :ARCHIVE_TIME: 2023-08-23 Wed 15:43
-:ARCHIVE_FILE: ~/.emacs.d/emacs-init.org
+:ARCHIVE_FILE: ~/.emacs.d/init.org
 :ARCHIVE_OLPATH: deleted
 :ARCHIVE_CATEGORY: emacs-init
 :END:
@@ -985,7 +985,7 @@ C-x n w to widen to a page (delineated by ^L chars)
 * yasnippet
 :PROPERTIES:
 :ARCHIVE_TIME: 2023-08-23 Wed 15:43
-:ARCHIVE_FILE: ~/.emacs.d/emacs-init.org
+:ARCHIVE_FILE: ~/.emacs.d/init.org
 :ARCHIVE_OLPATH: deleted
 :ARCHIVE_CATEGORY: emacs-init
 :END:
@@ -1007,7 +1007,7 @@ C-x n w to widen to a page (delineated by ^L chars)
 * paren stuff
 :PROPERTIES:
 :ARCHIVE_TIME: 2023-08-23 Wed 15:43
-:ARCHIVE_FILE: ~/.emacs.d/emacs-init.org
+:ARCHIVE_FILE: ~/.emacs.d/init.org
 :ARCHIVE_OLPATH: deleted
 :ARCHIVE_CATEGORY: emacs-init
 :END:
@@ -1058,7 +1058,7 @@ C-x n w to widen to a page (delineated by ^L chars)
 * main global meta bindings
 :PROPERTIES:
 :ARCHIVE_TIME: 2023-08-23 Wed 15:45
-:ARCHIVE_FILE: ~/.emacs.d/emacs-init.org
+:ARCHIVE_FILE: ~/.emacs.d/init.org
 :ARCHIVE_OLPATH: interface
 :ARCHIVE_CATEGORY: emacs-init
 :END:
