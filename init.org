@@ -5,11 +5,6 @@
 
 
 * frontmatter
-** early init
-#+BEGIN_SRC emacs-lisp :results output silent
-   (setq package-enable-at-startup nil)
-   (setq custom-file  "~/.emacs.d/var/custom" )
-#+END_SRC
 ** straight
 #+BEGIN_SRC emacs-lisp :results output silent
 

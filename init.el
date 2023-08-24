@@ -1,6 +1,3 @@
- (setq package-enable-at-startup nil)
- (setq custom-file  "~/.emacs.d/var/custom" )
-
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
