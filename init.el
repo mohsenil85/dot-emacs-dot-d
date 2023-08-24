@@ -1126,7 +1126,6 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 ;; (use-package gandalf-theme :ensure t)
 ;; (use-package mbo70s-theme :ensure t)
 ;; (use-package warm-night-theme  :ensure t )
-;; (use-package soft-morning-theme :ensure t )
 ;; (use-package twilight-bright-theme :ensure t )
 ;; (use-package standard-themes :ensure t )
 ;; (use-package alect-themes :ensure t)
@@ -1141,16 +1140,25 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 ;; (use-package minimal-theme :ensure t)
 
 
+(use-package humanoid-themes :ensure t)
+(use-package soft-morning-theme :ensure t )
 (use-package soft-charcoal-theme :ensure t )
 (use-package hydandata-light-theme :ensure t)
+(use-package standard-themes :ensure t )
 
 (defun load-dark ()
   (load-theme 'soft-charcoal t)
   (setq dark-light-state :dark ))
+;; (defun load-dark ()
+;;   (load-theme 'humanoid-dark t)
+;;   (setq dark-light-state :dark ))
 
 (defun load-light ()
-  (load-theme 'hydandata-light t)
+  (load-theme 'humanoid-light t)
   (setq dark-light-state :light ))
+;; (defun load-light ()
+;;   (load-theme 'hydandata-light t)
+;;   (setq dark-light-state :light ))
 
 (defun toggle-dark-light-state ()
   (interactive)
