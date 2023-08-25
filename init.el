@@ -422,6 +422,7 @@
 (use-package smex :ensure t :defer t)
 (use-package feebleline :ensure t :defer t)
 (use-package fzf :ensure t :defer t)
+(use-package origami :ensure t :defer t )
 ;;(use-package recursive-narrow :ensure t :defer t)
 
 (use-package page-break-lines
