@@ -714,6 +714,19 @@
 (use-package ob-ipython :ensure t :defer t)
 					  ;(use-package ein :ensure)
 
+(use-package tide
+ :ensure t
+ :after (company flycheck)
+ :hook ((typescript-ts-mode . tide-setup)
+        (tsx-ts-mode . tide-setup)
+        (typescript-ts-mode . tide-hl-identifier-mode)
+        (before-save . tide-format-before-save))) 
+
+(use-package jest-test-mode 
+:ensure t 
+:commands jest-test-mode
+:hook (typescript-mode js-mode typescript-tsx-mode))
+
 (blink-cursor-mode -1)
   (defalias 'yes-or-no-p 'y-or-n-p)
   (delete-selection-mode 1)
@@ -1160,14 +1173,19 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 ;;   (load-theme 'hydandata-light t)
 ;;   (setq dark-light-state :light ))
 
+(defun reset-themes()
+  (mapc #'disable-theme custom-enabled-themes)
+  (powerline-reset))
+
 (defun toggle-dark-light-state ()
   (interactive)
-  (mapc #'disable-theme custom-enabled-themes)
+  (reset-themes)
   (if (eq dark-light-state :dark)
       (load-light)
     (load-dark)))
 
 (defun init-themes ()
+(reset-themes)
   (load-dark))
 
 (init-themes)
