@@ -1,5 +1,5 @@
 #    -*- mode: org -*-
-
+x
 
 Archived entries from file /Users/logan.k.mohseni/.emacs.d/init.org
 
@@ -1115,3 +1115,48 @@ C-x n w to widen to a page (delineated by ^L chars)
   (global-set-key (kbd "s-z") 'undo-tree-visualize)
 #+END_SRC
 
+
+* swiper ivy counsel et al
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-08-26 Sat 11:13
+:ARCHIVE_FILE: ~/.emacs.d/init.org
+:ARCHIVE_OLPATH: packages
+:ARCHIVE_CATEGORY: init
+:END:
+   
+#+BEGIN_SRC emacs-lisp :results output silent
+
+  ;;taken from https://sam217pa.github.io/2016/09/13/from-helm-to-ivy/
+  ;; (use-package avy :ensure t :commands (avy-goto-word-1))
+
+  (use-package ivy 
+    :ensure  t ;ivy-hydra 
+    :diminish ivy-mode ; does not display ivy in the modeline
+    :bind (:map ivy-mode-map  ; bind in the ivy buffer
+  		("C-'" . ivy-avy)) ; C-' to ivy-avy
+    :config
+    (ivy-mode 1)        ; enable ivy globally at startup
+  					  ;
+    ;; add ‘recentf-mode’ and bookmarks to ‘ivy-switch-buffer’.
+    (setq ivy-use-virtual-buffers t)
+    ;; number of result lines to display
+    (setq ivy-height 10)
+    ;; does not count candidates
+    (setq ivy-count-format "")
+    ;; no regexp by default
+    (setq ivy-initial-inputs-alist nil)
+    ;; configure regexp engine.
+    (setq ivy-re-builders-alist
+  	  ;; allow input not in order
+  	  '((t   . ivy--regex-fuzzy)
+  	    (t   . ivy--regex-ignore-order))))
+
+  ;; (use-package ivy :demand
+  ;;   :config
+  ;;   (setq ivy-use-virtual-buffers t
+  ;; 	ivy-count-format "%d/%d "))
+
+  ;; (use-package counsel :ensure t )
+  (use-package ivy-hydra :ensure t :defer t)
+#+END_SRC
+   

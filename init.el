@@ -423,6 +423,7 @@
 (use-package feebleline :ensure t :defer t)
 (use-package fzf :ensure t :defer t)
 (use-package origami :ensure t :defer t )
+(use-package swiper :ensure t )
 ;;(use-package recursive-narrow :ensure t :defer t)
 
 (use-package page-break-lines
@@ -441,22 +442,28 @@
               (powerline-center-evil-theme)
 ))
 
+(use-package paren
+:ensure nil
+:init
+(setq show-paren-delay 0)
+:config
+(show-paren-mode +1))
+
 (use-package projectile
   :ensure t
   :diminish
   :config
-  (progn
     (projectile-global-mode)
-    (setq projectile-completion-system 'ivy)
+    (setq projectile-completion-system 'default)
     (setq projectile-create-missing-test-files t)
     (setq projectile-switch-project-action 'projectile-dired)
     (setq projectile-sort-order 'recentf)
     (setq projectile-mode-line '(:eval (format " [%s]" (projectile-project-name))))
-    )
-  (use-package counsel-projectile
-    :ensure t
-    :config
-    (add-hook 'after-init-hook 'counsel-projectile-mode))
+
+  ;; (use-package counsel-projectile
+  ;;   :ensure t
+  ;;   :config
+  ;;   (add-hook 'after-init-hook 'counsel-projectile-mode))
   )
 
 (use-package savehist
@@ -486,40 +493,6 @@
     (define-key evil-outer-text-objects-map "s" 'sentence-nav-evil-a-sentence)
     (define-key evil-inner-text-objects-map "s" 'sentence-nav-evil-inner-sentence))
   )
-
-;;taken from https://sam217pa.github.io/2016/09/13/from-helm-to-ivy/
-;; (use-package avy :ensure t :commands (avy-goto-word-1))
-
-(use-package ivy 
-  :ensure  t ;ivy-hydra 
-  :diminish ivy-mode ; does not display ivy in the modeline
-  :bind (:map ivy-mode-map  ; bind in the ivy buffer
-		("C-'" . ivy-avy)) ; C-' to ivy-avy
-  :config
-  (ivy-mode 1)        ; enable ivy globally at startup
-					  ;
-  ;; add ‘recentf-mode’ and bookmarks to ‘ivy-switch-buffer’.
-  (setq ivy-use-virtual-buffers t)
-  ;; number of result lines to display
-  (setq ivy-height 10)
-  ;; does not count candidates
-  (setq ivy-count-format "")
-  ;; no regexp by default
-  (setq ivy-initial-inputs-alist nil)
-  ;; configure regexp engine.
-  (setq ivy-re-builders-alist
-	  ;; allow input not in order
-	  '((t   . ivy--regex-fuzzy)
-	    (t   . ivy--regex-ignore-order))))
-
-;; (use-package ivy :demand
-;;   :config
-;;   (setq ivy-use-virtual-buffers t
-;; 	ivy-count-format "%d/%d "))
-
-(use-package counsel :ensure t )
-(use-package swiper :ensure t )
-(use-package ivy-hydra :ensure t :defer t)
 
 (use-package term )
 
@@ -561,6 +534,45 @@
   :ensure t
   :diminish ""
   :config (which-key-mode ) )
+
+;; Enable vertico
+  (use-package vertico
+    :init
+    (vertico-mode)
+
+    ;; Different scroll margin
+    ;; (setq vertico-scroll-margin 0)
+
+    ;; Show more candidates
+    (setq vertico-count 20)
+
+    ;; Grow and shrink the Vertico minibuffer
+    (setq vertico-resize t)
+
+    ;; Optionally enable cycling for `vertico-next' and `vertico-previous'.
+    (setq vertico-cycle t)
+    )
+
+  ;; Persist history over Emacs restarts. Vertico sorts by history position.
+  (use-package savehist
+    :init
+    (savehist-mode))
+
+  ;; Enable rich annotations using the Marginalia package
+(use-package marginalia
+  ;; Bind `marginalia-cycle' locally in the minibuffer.  To make the binding
+  ;; available in the *Completions* buffer, add it to the
+  ;; `completion-list-mode-map'.
+  :bind (:map minibuffer-local-map
+         ("M-A" . marginalia-cycle))
+
+  ;; The :init section is always executed.
+  :init
+
+  ;; Marginalia must be activated in the :init section of use-package such that
+  ;; the mode gets enabled right away. Note that this forces loading the
+  ;; package.
+  (marginalia-mode))
 
 (defvar lispular-modes-list
   'emacs-lisp-mode-hook
@@ -728,73 +740,102 @@
 :commands jest-test-mode
 :hook (typescript-mode js-mode typescript-tsx-mode))
 
-(blink-cursor-mode -1)
-  (defalias 'yes-or-no-p 'y-or-n-p)
-  (delete-selection-mode 1)
-  (electric-pair-mode 1)
-  (global-display-line-numbers-mode 1)
-  (global-visual-line-mode t)
-  (menu-bar-mode 0)
-  (prefer-coding-system 'utf-8)
-  (recentf-mode 1)
-  (scroll-bar-mode 0)
-  (server-start)
-  (set-keyboard-coding-system 'utf-8)
-  (set-selection-coding-system 'utf-8)
-  (set-terminal-coding-system 'utf-8-unix)
-  (show-paren-mode 1)
-  (tool-bar-mode 0)
-  (tooltip-mode -1)
+(use-package emacs
+  :init
+  ;; Add prompt indicator to `completing-read-multiple'.
+  ;; We display [CRM<separator>], e.g., [CRM,] if the separator is a comma.
+  (defun crm-indicator (args)
+    (cons (format "[CRM%s] %s"
+                  (replace-regexp-in-string
+                   "\\`\\[.*?]\\*\\|\\[.*?]\\*\\'" ""
+                   crm-separator)
+                  (car args))
+          (cdr args)))
+  (advice-add #'completing-read-multiple :filter-args #'crm-indicator)
 
-  (setq
-   auto-save-file-name-transforms `((".*" ,temporary-file-directory t))
-   auto-save-visited-interval 1
-   auto-save-visited-mode 1
-   backup-directory-alist `((".*" . ,temporary-file-directory))
-   confirm-kill-processes nil
-   confirm-nonexistent-file-or-buffer nil
-   default-fill-column 80		; toggle wrapping text at the 80th character
-   delete-old-versions t 		; delete excess backup versions silently
-   history-length 250 
-   indicate-empty-lines t
-   inhibit-startup-echo-area-message "loganmohseni"
-   inhibit-startup-message t
-   inhibit-startup-screen t
-   initial-scratch-message ";         :D"
-   kill-ring-max 5000                     ;truncate kill ring after 5000 entries
-   load-prefer-newer t
-   locale-coding-system 'utf-8
-   mark-ring-max 5000 
-   recentf-max-saved-items 5000  
-   ring-bell-function 'ignore 	; silent bell when you make a mistake
-   sentence-end-double-space t	; 
-   shell-file-name "/bin/zsh"
-   explicit-shell-file-name "/bin/zsh"
-   explicit-zsh-args '("--login" "--interactive")
-   show-paren-delay 0
-   show-paren-style 'parenthesis
-   show-paren-when-point-inside-paren t
-   split-width-threshold 160
-   switch-to-buffer-preserve-window-point t
-   tab-always-indent 'complete 
-   tooltip-use-echo-area t
-   use-dialog-box nil
-   user-full-name "Logan Mohseni"
-   user-mail-address "mohsenil85@gmail.com"
-   vc-follow-symlinks t 				       ; don't ask for confirmation when opening symlinked file
-   vc-make-backup-files t 		; make backups file even when in version controlled dir
-   version-control t 		; use version control
-   visible-bell t
-   )
+  ;; Do not allow the cursor in the minibuffer prompt
+  (setq minibuffer-prompt-properties
+        '(read-only t cursor-intangible t face minibuffer-prompt))
+  (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
+
+  ;; Emacs 28: Hide commands in M-x which do not work in the current mode.
+  ;; Vertico commands are hidden in normal buffers.
+  ;; (setq read-extended-command-predicate
+  ;;       #'command-completion-default-include-p)
+
+  ;; Enable recursive minibuffers
+
+    (blink-cursor-mode -1)
+    (defalias 'yes-or-no-p 'y-or-n-p)
+    (delete-selection-mode 1)
+    (electric-pair-mode 1)
+    (global-display-line-numbers-mode 1)
+    (global-visual-line-mode t)
+    (menu-bar-mode 0)
+    (prefer-coding-system 'utf-8)
+    (recentf-mode 1)
+    (scroll-bar-mode 0)
+    (server-start)
+    (set-keyboard-coding-system 'utf-8)
+    (set-selection-coding-system 'utf-8)
+    (set-terminal-coding-system 'utf-8-unix)
+    (tool-bar-mode 0)
+    (tooltip-mode -1)
+
+    (setq
+     auto-save-file-name-transforms `((".*" ,temporary-file-directory t))
+     auto-save-visited-interval 1
+     auto-save-visited-mode 1
+     backup-directory-alist `((".*" . ,temporary-file-directory))
+     confirm-kill-processes nil
+     confirm-nonexistent-file-or-buffer nil
+     default-fill-column 80		; toggle wrapping text at the 80th character
+     delete-old-versions t 		; delete excess backup versions silently
+     enable-recursive-minibuffers t
+     explicit-shell-file-name "/bin/zsh"
+     explicit-zsh-args '("--login" "--interactive")
+     history-length 250 
+     indicate-empty-lines t
+     inhibit-startup-echo-area-message "loganmohseni"
+     inhibit-startup-message t
+     inhibit-startup-screen t
+     initial-scratch-message ";         :D"
+     kill-ring-max 5000                     ;truncate kill ring after 5000 entries
+     load-prefer-newer t
+     locale-coding-system 'utf-8
+     mark-ring-max 5000 
+     recentf-max-saved-items 5000  
+     ring-bell-function 'ignore 	; silent bell when you make a mistake
+     sentence-end-double-space t	; 
+     shell-file-name "/bin/zsh"
+     show-paren-delay 0
+     show-paren-style 'parenthesis
+     show-paren-when-point-inside-paren t
+     split-width-threshold 160
+     switch-to-buffer-preserve-window-point t
+     tab-always-indent 'complete 
+     tooltip-use-echo-area t
+     use-dialog-box nil
+     user-full-name "Logan Mohseni"
+     user-mail-address "mohsenil85@gmail.com"
+     vc-follow-symlinks t 				       ; don't ask for confirmation when opening symlinked file
+     vc-make-backup-files t 		; make backups file even when in version controlled dir
+     version-control t 		; use version control
+     visible-bell t
+     )
+
+)
+
+  
 
 
-(defun zsh-shell-mode-setup ()
-  (setq-local comint-process-echoes t))
-(add-hook 'shell-mode-hook #'zsh-shell-mode-setup)
+  (defun zsh-shell-mode-setup ()
+    (setq-local comint-process-echoes t))
+  (add-hook 'shell-mode-hook #'zsh-shell-mode-setup)
 
-  (require 'uniquify)
-  (setq uniquify-buffer-name-style 'forward)
-  (winner-mode 1)
+    (require 'uniquify)
+    (setq uniquify-buffer-name-style 'forward)
+    (winner-mode 1)
 
 ;;bigger font size for my poor old aching occulars
      (add-to-list 'default-frame-alist '(font . "-*-Monaco-normal-normal-normal-*-16-*-*-*-m-0-iso10646-1"   ))
@@ -1106,7 +1147,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (global-set-key (kbd "C-x C-c") 'halt)
 (global-set-key (kbd "C-x C-j") 'dired-jump)
 (global-set-key (kbd "C-x C-k") 'kill-this-buffer)
-(global-set-key (kbd "C-x C-r") 'counsel-recentf) ;;recent
+;;(global-set-key (kbd "C-x C-r") 'counsel-recentf) ;;recent
 (global-set-key (kbd "C-x M-t") 'vertical-horizontal-swizzle)
 (global-set-key (kbd "C-x g") 'magit-status)
 (global-set-key (kbd "M-/") 'hippie-expand)
@@ -1115,7 +1156,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (global-set-key (kbd "M-2") 'split-window-below-focus)
 (global-set-key (kbd "M-3") 'split-window-right-focus)
 (global-set-key (kbd "M-t") 'swap-buffers)
-(global-set-key (kbd "M-x") 'counsel-M-x) ;;M-x
+;;(global-set-key (kbd "M-x") 'counsel-M-x) ;;M-x
 
 (define-key evil-normal-state-map (kbd "-") 'dired-jump)
 
