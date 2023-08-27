@@ -1,0 +1,47 @@
+Create Both
+Expunge Both
+SyncState *
+
+
+IMAPAccount gmail
+# Address to connect to
+Host imap.gmail.com
+User mohsenil85@gmail.com
+PassCmd "cat ~/.gmail.pass"
+AuthMechs LOGIN
+SSLType IMAPS
+SSLVersions TLSv1.2
+
+IMAPstore gmail-remote
+Account gmail
+
+MaildirStore gmail-local
+# The trailing "/" is important
+Path ~/Maildir/gmail/
+Inbox ~/Maildir/gmail/Inbox
+SubFolders Verbatim 
+
+Channel gmail-inbox
+Far :gmail-remote:
+Near :gmail-local:
+#Patterns "INBOX"
+Patterns *  !"[Gmail]/Sent Mail" !"[Gmail]/Drafts" !"[Gmail]/Trash"   
+#Patterns * 
+
+Channel gmail-sent
+Far :gmail-remote:"[Gmail]/Sent Mail"
+Near :gmail-local:sent2
+
+Channel gmail-trash
+Far :gmail-remote:"[Gmail]/Trash"
+Near :gmail-local:trash
+
+Channel gmail-drafts
+Far :gmail-remote:"[Gmail]/Drafts"
+Near :gmail-local:drafts
+
+Group gmail
+Channel gmail-inbox
+Channel gmail-sent
+Channel gmail-trash
+Channel gmail-drafts
