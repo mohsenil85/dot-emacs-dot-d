@@ -757,22 +757,24 @@
   (setq
    message-send-mail-function 'sendmail-send-it
    message-sendmail-envelope-from 'header
+   send-mail-function 'sendmail-send-it
+   sendmail-program (executable-find "msmtp")
+
    mu4e-attachments-dir "~/Downloads"
    mu4e-change-filenames-when-moving t
+   mu4e-completing-read-function 'completing-read
    mu4e-compose-format-flowed nil
    mu4e-date-format "%y/%m/%d"
    mu4e-get-mail-command  "mbsync -a"
    mu4e-headers-date-format "%Y/%m/%d"
+   mu4e-mu-binary (executable-find "mu")
+   mu4e-read-option-use-builtin nil
    mu4e-view-show-addresses t
    mu4e-view-show-images t
    mue4e-headers-skip-duplicates  t
-   send-mail-function 'sendmail-send-it
-   sendmail-program (executable-find "msmtp")
 
 
    mu4e-maildir       "~/Maildir/gmail"   ;; top-level Maildir
-   ;; note that these folders below must start with /
-   ;; the paths are relative to maildir root
    mu4e-refile-folder "/gmail/Archive"
    mu4e-sent-folder   "/gmail/[Gmail]/Sent Mail"
    mu4e-drafts-folder "/gmail/[Gmail]/Drafts"
@@ -780,11 +782,11 @@
    )
 
   (setq   mu4e-maildir-shortcuts
-	  '(("/gmail/INBOX" . ?i)
-     	    ("/gmail/[Gmail]/Sent Mail" . ?I)
-     	    ("/example/INBOX" . ?e)
-     	    ("/example/Sent" . ?E))
-       	  )
+  	  '(("/gmail/INBOX" . ?i)
+       	    ("/gmail/[Gmail]/Sent Mail" . ?I)
+       	    ("/example/INBOX" . ?e)
+       	    ("/example/Sent" . ?E))
+          )
 
   (require 'smtpmail)
 

@@ -1,6 +1,7 @@
 Create Both
 Expunge Both
 SyncState *
+CopyArrivalDate yes
 
 
 IMAPAccount gmail
