@@ -767,7 +767,7 @@
    mu4e-date-format "%y/%m/%d"
    mu4e-get-mail-command  "mbsync -a"
    mu4e-headers-date-format "%Y/%m/%d"
-   mu4e-mu-binary (executable-find "mu")
+   mu4e-mu-binary "/opt/homebrew/bin/mu"
    mu4e-read-option-use-builtin nil
    mu4e-view-show-addresses t
    mu4e-view-show-images t
