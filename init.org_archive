@@ -4,6 +4,229 @@ x
 Archived entries from file /Users/logan.k.mohseni/.emacs.d/init.org
 
 
+* ac mode
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-08-23 Wed 15:42
+:ARCHIVE_FILE: ~/.emacs.d/init.org
+:ARCHIVE_OLPATH: deleted
+:ARCHIVE_CATEGORY: emacs-init
+:END:
+#+BEGIN_SRC emacs-lisp :results output silent
+					  ;      (use-package auto-complete
+					  ;        :ensure
+					  ;        :config
+					  ;        (progn
+					  ;          (require 'auto-complete-config)
+					  ;          (add-to-list 'ac-dictionary-directories "~/.emacs.d/dict/")
+					  ;          (ac-config-default)
+					  ;          (ac-set-trigger-key "TAB")
+					  ;          (ac-set-trigger-key "<tab>")
+					  ; ))
+#+END_SRC
+   
+* browse with eww
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-08-23 Wed 15:42
+:ARCHIVE_FILE: ~/.emacs.d/init.org
+:ARCHIVE_OLPATH: deleted
+:ARCHIVE_CATEGORY: emacs-init
+:END:
+#+BEGIN_SRC emacs-lisp :results output silent
+  ;; (setq browse-url-browser-function 'eww-browse-url)
+#+END_SRC
+
+* cpp
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-08-23 Wed 15:42
+:ARCHIVE_FILE: ~/.emacs.d/init.org
+:ARCHIVE_OLPATH: deleted
+:ARCHIVE_CATEGORY: emacs-init
+:END:
+#+BEGIN_SRC emacs-lisp :results output silent
+  ;;from http://cachestocaches.com/2015/8/c-completion-emacs/
+					  ; (use-package irony
+					  ;   :ensure t
+					  ;   :defer t
+					  ;   :init
+					  ;   (add-hook 'c++-mode-hook 'irony-mode)
+					  ;   (add-hook 'c-mode-hook 'irony-mode)
+					  ;   (add-hook 'objc-mode-hook 'irony-mode)
+					  ;   :config
+					  ;   ;; replace the `completion-at-point' and `complete-symbol' bindings in
+					  ;   ;; irony-mode's buffers by irony-mode's function
+					  ;   (defun my-irony-mode-hook ()
+					  ;     (define-key irony-mode-map [remap completion-at-point]
+					  ;       'irony-completion-at-point-async)
+					  ;     (define-key irony-mode-map [remap complete-symbol]
+					  ;       'irony-completion-at-point-async))
+					  ;   (add-hook 'irony-mode-hook 'my-irony-mode-hook)
+					  ;   (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+					  ;   )
+
+					  ; ;; == company-mode ==
+					  ; (use-package company
+					  ;   :ensure t
+					  ;   :defer t
+					  ;   :init (add-hook 'after-init-hook 'global-company-mode)
+					  ;   :config
+					  ;   (use-package company-irony :ensure t :defer t)
+					  ;   (setq company-idle-delay              nil
+					  ; 	company-minimum-prefix-length   2
+					  ; 	company-show-numbers            t
+					  ; 	company-tooltip-limit           20
+					  ; 	company-dabbrev-downcase        nil
+					  ; 	company-backends                '((company-irony company-gtags))
+					  ; 	)
+					  ;   :bind ("C-;" . company-complete-common)
+					  ;   )
+
+#+END_SRC
+   
+* deft org
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-08-23 Wed 15:42
+:ARCHIVE_FILE: ~/.emacs.d/init.org
+:ARCHIVE_OLPATH: deleted
+:ARCHIVE_CATEGORY: emacs-init
+:END:
+#+BEGIN_SRC emacs-lisp :results output silent
+					  ;  (use-package deft 
+					  ;    :ensure t
+					  ;    :config (progn
+					  ;              (setq
+					  ;               deft-extension "org"
+					  ;               deft-directory "~/org/"
+					  ;               deft-text-mode 'org-mode)
+					  ;              (global-set-key (kbd "H-d") 'deft)))
+#+END_SRC
+
+* dumb-jump
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-08-23 Wed 15:37
+:ARCHIVE_FILE: ~/.emacs.d/init.org
+:ARCHIVE_OLPATH: packages
+:ARCHIVE_CATEGORY: emacs-init
+:END:
+#+BEGIN_SRC emacs-lisp :results output silent
+  ;;re-write using M-.
+  ;; (use-package dumb-jump
+  ;; :ensure t 
+  ;; :defer t 
+  ;;   :bind (("M-g o" . dumb-jump-go-other-window)
+  ;; 	 ("M-g j" . dumb-jump-go)
+  ;; 	 ("M-g x" . dumb-jump-go-prefer-external)
+  ;; 	 ("M-g z" . dumb-jump-go-prefer-external-other-window))
+  ;;   :config (setq dumb-jump-selector 'helm)
+  ;;   )
+
+#+END_SRC
+
+* el-get
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-08-23 Wed 15:42
+:ARCHIVE_FILE: ~/.emacs.d/init.org
+:ARCHIVE_OLPATH: deleted
+:ARCHIVE_CATEGORY: emacs-init
+:END:
+#+BEGIN_SRC emacs-lisp
+  ;;    (use-package el-get :ensure t
+  ;;    :config
+
+  ;;  (require 'el-get)
+  ;; (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
+  ;; (el-get 'sync)
+  ;; )
+
+#+END_SRC
+
+#+RESULTS:
+: t
+
+* elfeed
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-08-23 Wed 15:37
+:ARCHIVE_FILE: ~/.emacs.d/init.org
+:ARCHIVE_OLPATH: packages
+:ARCHIVE_CATEGORY: emacs-init
+:END:
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package elfeed
+    :ensure t
+    ;;:defer t
+    :commands (elfeed-search-mode elfeed-show-mode)
+    :init (progn
+  	  ;; (use-package elfeed-goodies :ensure t)
+  	  (use-package elfeed-org :ensure t))
+    :config
+    (progn
+      (require 'elfeed-goodies)
+      (elfeed-goodies/setup)
+      (setq 
+       elfeed-goodies/powerline-default-separator nil
+       elfeed-goodies/entry-pane-position 'bottom)
+
+      (setq elfeed-db-directory "~/.emacs.d/elfeed")
+      (require 'elfeed-org)
+      (elfeed-org)
+      (setq rmh-elfeed-org-files (list "~/Dropbox/elfeed.org")))
+      )
+
+
+
+#+END_SRC
+
+* evil-evilified-state
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-08-23 Wed 15:42
+:ARCHIVE_FILE: ~/.emacs.d/init.org
+:ARCHIVE_OLPATH: deleted
+:ARCHIVE_CATEGORY: emacs-init
+:END:
+#+BEGIN_SRC emacs-lisp :results output silent
+  ;;   (use-package evil-evilified-state
+  ;;   :load-path "~/Projects/elisp/evil-evilified-state/")
+
+#+END_SRC
+
+* evil-rsi
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-08-23 Wed 15:42
+:ARCHIVE_FILE: ~/.emacs.d/init.org
+:ARCHIVE_OLPATH: deleted
+:ARCHIVE_CATEGORY: emacs-init
+:END:
+#+BEGIN_SRC emacs-lisp :results output silent
+  ;;;      (use-package evil-rsi 
+  ;;;	 :diminish ""
+  ;;;	 :ensure t 
+  ;;;	 :defer t 
+  ;;;	 :config (evil-rsi-mode 1) )  
+#+END_SRC
+    
+* exwm
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-08-23 Wed 15:42
+:ARCHIVE_FILE: ~/.emacs.d/init.org
+:ARCHIVE_OLPATH: deleted
+:ARCHIVE_CATEGORY: emacs-init
+:END:
+#+BEGIN_SRC emacs-lisp :results output silent
+  ;;  (use-package exwm :ensure t :defer t 
+  ;;    :config (exwm-config-default))
+#+END_SRC
+
+* flx
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-08-23 Wed 15:42
+:ARCHIVE_FILE: ~/.emacs.d/init.org
+:ARCHIVE_OLPATH: deleted
+:ARCHIVE_CATEGORY: emacs-init
+:END:
+#+BEGIN_SRC emacs-lisp :results output silent
+					  ;(use-package flx :ensure t)
+
+#+END_SRC
+
 * helm
 :PROPERTIES:
 :ARCHIVE_TIME: 2023-08-23 Wed 15:32
@@ -99,162 +322,143 @@ things i need to remember
 
 #+END_SRC
     
-
-* mu4e based email stuff
+* helm-swoop
 :PROPERTIES:
-:ARCHIVE_TIME: 2023-08-23 Wed 15:33
+:ARCHIVE_TIME: 2023-08-23 Wed 15:42
 :ARCHIVE_FILE: ~/.emacs.d/init.org
 :ARCHIVE_OLPATH: deleted
 :ARCHIVE_CATEGORY: emacs-init
 :END:
 #+BEGIN_SRC emacs-lisp :results output silent
-  ;; (add-to-list 'load-path  "~/Projects/elisp/mu4e-multi/" )
-  ;;       (require 'mu4e-multi)
+  ;;      (use-package helm-swoop 
+  ;;        :ensure
+  ;;        :config
+  ;;        (progn
+  ;;          (global-set-key (kbd "M-i") 'helm-swoop)
+  ;;          (global-set-key (kbd "M-I") 'helm-swoop-back-to-last-point)
+  ;;          (global-set-key (kbd "C-c M-i") 'helm-multi-swoop)
+  ;;          (global-set-key (kbd "C-x M-i") 'helm-multi-swoop-all)
+  ;;
+  ;;          ;; When doing isearch, hand the word over to helm-swoop
+  ;;          (define-key isearch-mode-map (kbd "M-i") 'helm-swoop-from-isearch)
+  ;;          ;; From helm-swoop to helm-multi-swoop-all
+  ;;          (define-key helm-swoop-map (kbd "M-i") 'helm-multi-swoop-all-from-helm-swoop)
+  ;;          ;; When doing evil-search, hand the word over to helm-swoop
+  ;;          ;; (define-key evil-motion-state-map (kbd "M-i") 'helm-swoop-from-evil-search)
+  ;;
+  ;;          ;; Instead of helm-multi-swoop-all, you can also use helm-multi-swoop-current-mode
+  ;;          (define-key helm-swoop-map (kbd "M-m") 'helm-multi-swoop-current-mode-from-helm-swoop)
+  ;;
+  ;;          ;; Move up and down like isearch
+  ;;          (define-key helm-swoop-map (kbd "C-r") 'helm-previous-line)
+  ;;          (define-key helm-swoop-map (kbd "C-s") 'helm-next-line)
+  ;;          (define-key helm-multi-swoop-map (kbd "C-r") 'helm-previous-line)
+  ;;          (define-key helm-multi-swoop-map (kbd "C-s") 'helm-next-line)
+  ;;
+  ;;          ;; Save buffer when helm-multi-swoop-edit complete
+  ;;          (setq helm-multi-swoop-edit-save t)
+  ;;
+  ;;          ;; If this value is t, split window inside the current window
+  ;;          (setq helm-swoop-split-with-multiple-windows nil)
+  ;;
+  ;;          ;; Split direcion. 'split-window-vertically or 'split-window-horizontally
+  ;;          (setq helm-swoop-split-direction 'split-window-vertically)
+  ;;
+  ;;          ;; If nil, you can slightly boost invoke speed in exchange for text color
+  ;;          (setq helm-swoop-speed-or-color nil)
+  ;;
+  ;;          ;; ;; Go to the opposite side of line from the end or beginning of line
+  ;;          (setq helm-swoop-move-to-line-cycle t)
+  ;;
+  ;;          ;; Optional face for line numbers
+  ;;          ;; Face name is `helm-swoop-line-number-face`
+  ;;          (setq helm-swoop-use-line-number-face t)))
 #+END_SRC
-  
-#+BEGIN_SRC emacs-lisp :results output silent
-   (use-package mu4e  
-     ;;:load-path mu-load-path
-     :commands (make-mu4e-context)
-     :init (progn
 
-  	    (when (fboundp 'imagemagick-register-types)
-  	      (imagemagick-register-types))
-  	    )
-     :config
-     (progn
-       (general-define-key
-        :keymaps '(mu4e-view-mode-map mu4e-headers-mode-map)
-        "SPC" 'evil-scroll-page-down
-        "DEL" 'evil-scroll-page-up)
-       )
-     :bind ("C-c m" . mu4e)
-     ))
-
-
-#+END_SRC
-
-* dumb-jump
+* inital buffer
 :PROPERTIES:
-:ARCHIVE_TIME: 2023-08-23 Wed 15:37
+:ARCHIVE_TIME: 2023-08-23 Wed 15:42
 :ARCHIVE_FILE: ~/.emacs.d/init.org
-:ARCHIVE_OLPATH: packages
+:ARCHIVE_OLPATH: deleted
 :ARCHIVE_CATEGORY: emacs-init
 :END:
 #+BEGIN_SRC emacs-lisp :results output silent
-  ;;re-write using M-.
-  ;; (use-package dumb-jump
-  ;; :ensure t 
-  ;; :defer t 
-  ;;   :bind (("M-g o" . dumb-jump-go-other-window)
-  ;; 	 ("M-g j" . dumb-jump-go)
-  ;; 	 ("M-g x" . dumb-jump-go-prefer-external)
-  ;; 	 ("M-g z" . dumb-jump-go-prefer-external-other-window))
-  ;;   :config (setq dumb-jump-selector 'helm)
+					  ;(setq initial-buffer-choice "~/org")
+					  ;(setq initial-buffer-choice "~/org/organizer.org")
+
+					  ;(setq initial-buffer-choice  (bookmark-bmenu-list))
+
+					  ;  (org-agenda-list)
+					  ;  (delete-other-windows)
+					  ;  (org-agenda-day-view)
+#+END_SRC
+   
+* java
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-08-23 Wed 15:42
+:ARCHIVE_FILE: ~/.emacs.d/init.org
+:ARCHIVE_OLPATH: deleted
+:ARCHIVE_CATEGORY: emacs-init
+:END:
+#+BEGIN_SRC emacs-lisp :results output silent
+  ;; (use-package meghanada 
+  ;;   :ensure t
+  ;;   :defer t
+  ;;   :config 
+  ;;   (progn
+  ;;     (add-hook 'java-mode-hook
+  ;; 		(lambda ()
+  ;; 		  ;; meghanada-mode on
+  ;; 		  (meghanada-mode t)
+  ;; 		  (add-hook 'before-save-hook 'meghanada-code-beautify-before-save)))
+  ;;     )
   ;;   )
+  ;; (use-package emacs-eclim :ensure
+  ;;   :config
+  ;;   (progn
+  ;;     (require 'eclim)
+  ;;     (global-eclim-mode)
+  ;;     (setf eclim-eclipse-dirs
+  ;;           '("/Users/lmohseni/java-neon/Eclipse.app/Contents/Eclipse"))
+  ;;     (setf eclim-executable 
+  ;;           '("/Users/lmohseni/java-neon/Eclipse.app/Contents/Eclipse/eclim"))
+  ;; (setq help-at-pt-display-when-idle t)
+  ;; (setq help-at-pt-timer-delay 0.1)
+  ;; (help-at-pt-set-timer)
+  ;; ;; regular auto-complete initialization
+  ;; (require 'auto-complete-config)
+  ;; (ac-config-default)
+
+  ;; ;; add the emacs-eclim source
+  ;; (require 'ac-emacs-eclim-source)
+  ;; (ac-emacs-eclim-config)
+  ;;     ))
 
 #+END_SRC
-
-* elfeed
+   
+* javascript
 :PROPERTIES:
-:ARCHIVE_TIME: 2023-08-23 Wed 15:37
+:ARCHIVE_TIME: 2023-08-23 Wed 15:42
 :ARCHIVE_FILE: ~/.emacs.d/init.org
-:ARCHIVE_OLPATH: packages
+:ARCHIVE_OLPATH: deleted
 :ARCHIVE_CATEGORY: emacs-init
 :END:
+   
 #+BEGIN_SRC emacs-lisp :results output silent
-  (use-package elfeed
-    :ensure t
-    ;;:defer t
-    :commands (elfeed-search-mode elfeed-show-mode)
-    :init (progn
-  	  ;; (use-package elfeed-goodies :ensure t)
-  	  (use-package elfeed-org :ensure t))
-    :config
-    (progn
-      (require 'elfeed-goodies)
-      (elfeed-goodies/setup)
-      (setq 
-       elfeed-goodies/powerline-default-separator nil
-       elfeed-goodies/entry-pane-position 'bottom)
+  (add-to-list 'auto-mode-alist '("\\.json" . js-mode))
+  (autoload 'js2-mode "js2" nil t)
+  (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+  					  ;(use-package ac-js2 :ensure)
 
-      (setq elfeed-db-directory "~/.emacs.d/elfeed")
-      (require 'elfeed-org)
-      (elfeed-org)
-      (setq rmh-elfeed-org-files (list "~/Dropbox/elfeed.org")))
-      )
-
-
+  (defun my-js-mode-stuff ()
+    (setq js2-highlight-level 3)
+    (define-key js-mode-map "{" 'paredit-open-curly)
+    (define-key js-mode-map "}" 'paredit-close-curly-and-newline)
+    )
+  (use-package js2-mode :ensure t :defer t :config (my-js-mode-stuff))
 
 #+END_SRC
-** 
-
-* LSP 
-:PROPERTIES:
-:ARCHIVE_TIME: 2023-08-23 Wed 15:38
-:ARCHIVE_FILE: ~/.emacs.d/init.org
-:ARCHIVE_OLPATH: packages
-:ARCHIVE_CATEGORY: emacs-init
-:END:
-
-#+BEGIN_SRC emacs-lisp
-  (use-package lsp-mode
-    :init
-    ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
-    (setq lsp-keymap-prefix "C-l")
-    :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
-  	 (typescript-mode . lsp)
-  	 (javascript-mode . lsp)
-  	 ;; if you want which-key integration
-  	 (lsp-mode . lsp-enable-which-key-integration))
-    :commands lsp)
-
-  ;; optionally
-  (use-package lsp-ui :commands lsp-ui-mode)
-  ;; if you are ivy user
-  (use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
-  ;;(use-package lsp-treemacs :commands lsp-treemacs-errors-list)
-
-  ;; optionally if you want to use debugger
-  ;;(use-package dap-mode :straight nil)
-  ;;(use-package dap-typescript) to load the dap adapter for your language
-
-  ;; optional if you want which-key integration
-  (use-package which-key
-    :config
-    (which-key-mode))
-#+END_SRC
-
-#+RESULTS:
-: t
-
-** 
-
-
-* org-brain
-:PROPERTIES:
-:ARCHIVE_TIME: 2023-08-23 Wed 15:39
-:ARCHIVE_FILE: ~/.emacs.d/init.org
-:ARCHIVE_OLPATH: packages
-:ARCHIVE_CATEGORY: emacs-init
-:END:
-#+BEGIN_SRC emacs-lisp :results output silent
-  (use-package org-brain :ensure t
-    :init
-    (setq org-brain-path "~/Dropbox/org-brain/")
-    ;; For Evil users
-    (with-eval-after-load 'evil
-      (evil-set-initial-state 'org-brain-visualize-mode 'emacs))
-    :config
-    (setq org-id-track-globally t)
-    (setq org-id-locations-file "~/.emacs.d/org-id-locations")
-    (push '("b" "Brain" plain (function org-brain-goto-end)
-  	  "* %i%?" :empty-lines 1)
-  	org-capture-templates)
-    (setq org-brain-visualize-default-choices 'all)
-    (setq org-brain-title-max-length 16))
-#+END_SRC
-
+   
 * llm
 :PROPERTIES:
 :ARCHIVE_TIME: 2023-08-23 Wed 15:40
@@ -421,225 +625,6 @@ things i need to remember
 
 #+END_SRC
 
-
-* package mode
-:PROPERTIES:
-:ARCHIVE_TIME: 2023-08-23 Wed 15:41
-:ARCHIVE_FILE: ~/.emacs.d/init.org
-:ARCHIVE_OLPATH: functionaria
-:ARCHIVE_CATEGORY: emacs-init
-:END:
-#+BEGIN_SRC emacs-lisp
-  (eval-after-load "evil-mode"	'(progn
-				     (add-to-list 'evil-normal-state-modes 'package-menu-mode)
-
-				     ))
-
-  (general-define-key
-   :keymaps '(package-menu-mode-map )
-   "SPC" 'evil-scroll-page-down
-   "DEL" 'evil-scroll-page-up
-   "I" 'package-menu-mark-install
-   "X" 'package-menu-execute          	  
-   "D" 'package-menu-mark-delete
-   ;;"u" 'package-menu-mark-unmark
-   "RET" 'package-menu-describe-package 
-   "r" 'package-menu-refresh
-   )
-
-#+END_SRC
-
-#+RESULTS:
-
-
-* scroll modeline 
-:PROPERTIES:
-:ARCHIVE_TIME: 2023-08-23 Wed 15:42
-:ARCHIVE_FILE: ~/.emacs.d/init.org
-:ARCHIVE_OLPATH: deleted
-:ARCHIVE_CATEGORY: emacs-init
-:END:
-#+BEGIN_SRC emacs-lisp :results output silent
-  (use-package mlscroll
-    :ensure t
-    :config
-    (setq mlscroll-shortfun-min-width 11) ;truncate which-func, for default mode-line-format's
-    (mlscroll-mode 1))
-#+END_SRC
-
-
-* javascript
-:PROPERTIES:
-:ARCHIVE_TIME: 2023-08-23 Wed 15:42
-:ARCHIVE_FILE: ~/.emacs.d/init.org
-:ARCHIVE_OLPATH: deleted
-:ARCHIVE_CATEGORY: emacs-init
-:END:
-   
-#+BEGIN_SRC emacs-lisp :results output silent
-  (add-to-list 'auto-mode-alist '("\\.json" . js-mode))
-  (autoload 'js2-mode "js2" nil t)
-  (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
-  					  ;(use-package ac-js2 :ensure)
-
-  (defun my-js-mode-stuff ()
-    (setq js2-highlight-level 3)
-    (define-key js-mode-map "{" 'paredit-open-curly)
-    (define-key js-mode-map "}" 'paredit-close-curly-and-newline)
-    )
-  (use-package js2-mode :ensure t :defer t :config (my-js-mode-stuff))
-
-#+END_SRC
-   
-
-* typescript
-:PROPERTIES:
-:ARCHIVE_TIME: 2023-08-23 Wed 15:42
-:ARCHIVE_FILE: ~/.emacs.d/init.org
-:ARCHIVE_OLPATH: deleted
-:ARCHIVE_CATEGORY: emacs-init
-:END:
-#+BEGIN_SRC emacs-lisp :results output silent
-
-  (defun setup-tide-mode ()
-    (interactive)
-    (tide-setup)
-    (flycheck-mode +1)
-    (setq flycheck-check-syntax-automatically '(save mode-enabled))
-    (eldoc-mode +1)
-    (tide-hl-identifier-mode +1)
-    ;; company is an optional dependency. You have to
-    ;; install it separately via package-install
-    ;; `M-x package-install [ret] company`
-    (company-mode +1))
-
-  (use-package tide :ensure t :defer t :config
-    ;; aligns annotation to the right hand side
-    (setq company-tooltip-align-annotations t)
-
-    ;; formats the buffer before saving
-    (add-hook 'before-save-hook 'tide-format-before-save)
-  
-    (add-hook 'typescript-mode-hook #'setup-tide-mode)
-    )   
-
-#+END_SRC
-
-
-* cpp
-:PROPERTIES:
-:ARCHIVE_TIME: 2023-08-23 Wed 15:42
-:ARCHIVE_FILE: ~/.emacs.d/init.org
-:ARCHIVE_OLPATH: deleted
-:ARCHIVE_CATEGORY: emacs-init
-:END:
-#+BEGIN_SRC emacs-lisp :results output silent
-  ;;from http://cachestocaches.com/2015/8/c-completion-emacs/
-					  ; (use-package irony
-					  ;   :ensure t
-					  ;   :defer t
-					  ;   :init
-					  ;   (add-hook 'c++-mode-hook 'irony-mode)
-					  ;   (add-hook 'c-mode-hook 'irony-mode)
-					  ;   (add-hook 'objc-mode-hook 'irony-mode)
-					  ;   :config
-					  ;   ;; replace the `completion-at-point' and `complete-symbol' bindings in
-					  ;   ;; irony-mode's buffers by irony-mode's function
-					  ;   (defun my-irony-mode-hook ()
-					  ;     (define-key irony-mode-map [remap completion-at-point]
-					  ;       'irony-completion-at-point-async)
-					  ;     (define-key irony-mode-map [remap complete-symbol]
-					  ;       'irony-completion-at-point-async))
-					  ;   (add-hook 'irony-mode-hook 'my-irony-mode-hook)
-					  ;   (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-					  ;   )
-
-					  ; ;; == company-mode ==
-					  ; (use-package company
-					  ;   :ensure t
-					  ;   :defer t
-					  ;   :init (add-hook 'after-init-hook 'global-company-mode)
-					  ;   :config
-					  ;   (use-package company-irony :ensure t :defer t)
-					  ;   (setq company-idle-delay              nil
-					  ; 	company-minimum-prefix-length   2
-					  ; 	company-show-numbers            t
-					  ; 	company-tooltip-limit           20
-					  ; 	company-dabbrev-downcase        nil
-					  ; 	company-backends                '((company-irony company-gtags))
-					  ; 	)
-					  ;   :bind ("C-;" . company-complete-common)
-					  ;   )
-
-#+END_SRC
-   
-
-* java
-:PROPERTIES:
-:ARCHIVE_TIME: 2023-08-23 Wed 15:42
-:ARCHIVE_FILE: ~/.emacs.d/init.org
-:ARCHIVE_OLPATH: deleted
-:ARCHIVE_CATEGORY: emacs-init
-:END:
-#+BEGIN_SRC emacs-lisp :results output silent
-  ;; (use-package meghanada 
-  ;;   :ensure t
-  ;;   :defer t
-  ;;   :config 
-  ;;   (progn
-  ;;     (add-hook 'java-mode-hook
-  ;; 		(lambda ()
-  ;; 		  ;; meghanada-mode on
-  ;; 		  (meghanada-mode t)
-  ;; 		  (add-hook 'before-save-hook 'meghanada-code-beautify-before-save)))
-  ;;     )
-  ;;   )
-  ;; (use-package emacs-eclim :ensure
-  ;;   :config
-  ;;   (progn
-  ;;     (require 'eclim)
-  ;;     (global-eclim-mode)
-  ;;     (setf eclim-eclipse-dirs
-  ;;           '("/Users/lmohseni/java-neon/Eclipse.app/Contents/Eclipse"))
-  ;;     (setf eclim-executable 
-  ;;           '("/Users/lmohseni/java-neon/Eclipse.app/Contents/Eclipse/eclim"))
-  ;; (setq help-at-pt-display-when-idle t)
-  ;; (setq help-at-pt-timer-delay 0.1)
-  ;; (help-at-pt-set-timer)
-  ;; ;; regular auto-complete initialization
-  ;; (require 'auto-complete-config)
-  ;; (ac-config-default)
-
-  ;; ;; add the emacs-eclim source
-  ;; (require 'ac-emacs-eclim-source)
-  ;; (ac-emacs-eclim-config)
-  ;;     ))
-
-#+END_SRC
-   
-
-* el-get
-:PROPERTIES:
-:ARCHIVE_TIME: 2023-08-23 Wed 15:42
-:ARCHIVE_FILE: ~/.emacs.d/init.org
-:ARCHIVE_OLPATH: deleted
-:ARCHIVE_CATEGORY: emacs-init
-:END:
-#+BEGIN_SRC emacs-lisp
-  ;;    (use-package el-get :ensure t
-  ;;    :config
-
-  ;;  (require 'el-get)
-  ;; (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
-  ;; (el-get 'sync)
-  ;; )
-
-#+END_SRC
-
-#+RESULTS:
-: t
-
-
 * local packages
 :PROPERTIES:
 :ARCHIVE_TIME: 2023-08-23 Wed 15:42
@@ -655,405 +640,46 @@ things i need to remember
   ;;  (normal-top-level-add-subdirs-to-load-path))
 #+END_SRC
 
-
-* set inital directroy to home
+* LSP 
 :PROPERTIES:
-:ARCHIVE_TIME: 2023-08-23 Wed 15:42
+:ARCHIVE_TIME: 2023-08-23 Wed 15:38
 :ARCHIVE_FILE: ~/.emacs.d/init.org
-:ARCHIVE_OLPATH: deleted
+:ARCHIVE_OLPATH: packages
 :ARCHIVE_CATEGORY: emacs-init
 :END:
-#+BEGIN_SRC emacs-lisp :results output silent
-  ;;;(setq default-directory (getenv "HOME"))
 
+#+BEGIN_SRC emacs-lisp
+  (use-package lsp-mode
+    :init
+    ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
+    (setq lsp-keymap-prefix "C-l")
+    :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
+  	 (typescript-mode . lsp)
+  	 (javascript-mode . lsp)
+  	 ;; if you want which-key integration
+  	 (lsp-mode . lsp-enable-which-key-integration))
+    :commands lsp)
+
+  ;; optionally
+  (use-package lsp-ui :commands lsp-ui-mode)
+  ;; if you are ivy user
+  (use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
+  ;;(use-package lsp-treemacs :commands lsp-treemacs-errors-list)
+
+  ;; optionally if you want to use debugger
+  ;;(use-package dap-mode :straight nil)
+  ;;(use-package dap-typescript) to load the dap adapter for your language
+
+  ;; optional if you want which-key integration
+  (use-package which-key
+    :config
+    (which-key-mode))
 #+END_SRC
 
-* browse with eww
-:PROPERTIES:
-:ARCHIVE_TIME: 2023-08-23 Wed 15:42
-:ARCHIVE_FILE: ~/.emacs.d/init.org
-:ARCHIVE_OLPATH: deleted
-:ARCHIVE_CATEGORY: emacs-init
-:END:
-#+BEGIN_SRC emacs-lisp :results output silent
-  ;; (setq browse-url-browser-function 'eww-browse-url)
-#+END_SRC
+#+RESULTS:
+: t
 
-* text-mode stuff
-:PROPERTIES:
-:ARCHIVE_TIME: 2023-08-23 Wed 15:42
-:ARCHIVE_FILE: ~/.emacs.d/init.org
-:ARCHIVE_OLPATH: deleted
-:ARCHIVE_CATEGORY: emacs-init
-:END:
-#+BEGIN_SRC emacs-lisp :results output silent
-
-  ;; (add-hook 'text-mode-hook 'flyspell-mode)
-
-  ;;;	  (add-hook 'text-mode-hook #'abbrev-mode)
-
-
-
-
-					  ;    ;(add-hook 'text-mode-hook 'writeroom-mode)
-#+END_SRC
-   
-;;; (setq custom-file (make-temp-file "emacs-custom"))  
-
-* Mode line defaults
-:PROPERTIES:
-:ARCHIVE_TIME: 2023-08-23 Wed 15:42
-:ARCHIVE_FILE: ~/.emacs.d/init.org
-:ARCHIVE_OLPATH: deleted
-:ARCHIVE_CATEGORY: emacs-init
-:END:
-#+BEGIN_SRC emacs-lisp :results output silent
-  (line-number-mode t)
-  (column-number-mode t)
-  (size-indication-mode t)
-#+END_SRC
-
-* narrow-to-region
-:PROPERTIES:
-:ARCHIVE_TIME: 2023-08-23 Wed 15:42
-:ARCHIVE_FILE: ~/.emacs.d/init.org
-:ARCHIVE_OLPATH: deleted
-:ARCHIVE_CATEGORY: emacs-init
-:END:
-this is what i'm trying to learn.  
-C-x n p to narrow and
-C-x n w to widen to a page (delineated by ^L chars)
-#+BEGIN_SRC emacs-lisp :results output silent
-					  ;(put 'narrow-to-page 'disabled nil)
-#+END_SRC 
-
-* mark mode
-:PROPERTIES:
-:ARCHIVE_TIME: 2023-08-23 Wed 15:42
-:ARCHIVE_FILE: ~/.emacs.d/init.org
-:ARCHIVE_OLPATH: deleted
-:ARCHIVE_CATEGORY: emacs-init
-:END:
-#+BEGIN_SRC emacs-lisp :results output silent
-  ;;;(transient-mark-mode t)
-#+END_SRC
-
-
-* inital buffer
-:PROPERTIES:
-:ARCHIVE_TIME: 2023-08-23 Wed 15:42
-:ARCHIVE_FILE: ~/.emacs.d/init.org
-:ARCHIVE_OLPATH: deleted
-:ARCHIVE_CATEGORY: emacs-init
-:END:
-#+BEGIN_SRC emacs-lisp :results output silent
-					  ;(setq initial-buffer-choice "~/org")
-					  ;(setq initial-buffer-choice "~/org/organizer.org")
-
-					  ;(setq initial-buffer-choice  (bookmark-bmenu-list))
-
-					  ;  (org-agenda-list)
-					  ;  (delete-other-windows)
-					  ;  (org-agenda-day-view)
-#+END_SRC
-   
-
-* ac mode
-:PROPERTIES:
-:ARCHIVE_TIME: 2023-08-23 Wed 15:42
-:ARCHIVE_FILE: ~/.emacs.d/init.org
-:ARCHIVE_OLPATH: deleted
-:ARCHIVE_CATEGORY: emacs-init
-:END:
-#+BEGIN_SRC emacs-lisp :results output silent
-					  ;      (use-package auto-complete
-					  ;        :ensure
-					  ;        :config
-					  ;        (progn
-					  ;          (require 'auto-complete-config)
-					  ;          (add-to-list 'ac-dictionary-directories "~/.emacs.d/dict/")
-					  ;          (ac-config-default)
-					  ;          (ac-set-trigger-key "TAB")
-					  ;          (ac-set-trigger-key "<tab>")
-					  ; ))
-#+END_SRC
-   
-
-* deft org
-:PROPERTIES:
-:ARCHIVE_TIME: 2023-08-23 Wed 15:42
-:ARCHIVE_FILE: ~/.emacs.d/init.org
-:ARCHIVE_OLPATH: deleted
-:ARCHIVE_CATEGORY: emacs-init
-:END:
-#+BEGIN_SRC emacs-lisp :results output silent
-					  ;  (use-package deft 
-					  ;    :ensure t
-					  ;    :config (progn
-					  ;              (setq
-					  ;               deft-extension "org"
-					  ;               deft-directory "~/org/"
-					  ;               deft-text-mode 'org-mode)
-					  ;              (global-set-key (kbd "H-d") 'deft)))
-#+END_SRC
-
-
-* evil-evilified-state
-:PROPERTIES:
-:ARCHIVE_TIME: 2023-08-23 Wed 15:42
-:ARCHIVE_FILE: ~/.emacs.d/init.org
-:ARCHIVE_OLPATH: deleted
-:ARCHIVE_CATEGORY: emacs-init
-:END:
-#+BEGIN_SRC emacs-lisp :results output silent
-  ;;   (use-package evil-evilified-state
-  ;;   :load-path "~/Projects/elisp/evil-evilified-state/")
-
-#+END_SRC
-
-* evil-rsi
-:PROPERTIES:
-:ARCHIVE_TIME: 2023-08-23 Wed 15:42
-:ARCHIVE_FILE: ~/.emacs.d/init.org
-:ARCHIVE_OLPATH: deleted
-:ARCHIVE_CATEGORY: emacs-init
-:END:
-#+BEGIN_SRC emacs-lisp :results output silent
-  ;;;      (use-package evil-rsi 
-  ;;;	 :diminish ""
-  ;;;	 :ensure t 
-  ;;;	 :defer t 
-  ;;;	 :config (evil-rsi-mode 1) )  
-#+END_SRC
-    
-
-* exwm
-:PROPERTIES:
-:ARCHIVE_TIME: 2023-08-23 Wed 15:42
-:ARCHIVE_FILE: ~/.emacs.d/init.org
-:ARCHIVE_OLPATH: deleted
-:ARCHIVE_CATEGORY: emacs-init
-:END:
-#+BEGIN_SRC emacs-lisp :results output silent
-  ;;  (use-package exwm :ensure t :defer t 
-  ;;    :config (exwm-config-default))
-#+END_SRC
-
-* flx
-:PROPERTIES:
-:ARCHIVE_TIME: 2023-08-23 Wed 15:42
-:ARCHIVE_FILE: ~/.emacs.d/init.org
-:ARCHIVE_OLPATH: deleted
-:ARCHIVE_CATEGORY: emacs-init
-:END:
-#+BEGIN_SRC emacs-lisp :results output silent
-					  ;(use-package flx :ensure t)
-
-#+END_SRC
-
-* helm-swoop
-:PROPERTIES:
-:ARCHIVE_TIME: 2023-08-23 Wed 15:42
-:ARCHIVE_FILE: ~/.emacs.d/init.org
-:ARCHIVE_OLPATH: deleted
-:ARCHIVE_CATEGORY: emacs-init
-:END:
-#+BEGIN_SRC emacs-lisp :results output silent
-  ;;      (use-package helm-swoop 
-  ;;        :ensure
-  ;;        :config
-  ;;        (progn
-  ;;          (global-set-key (kbd "M-i") 'helm-swoop)
-  ;;          (global-set-key (kbd "M-I") 'helm-swoop-back-to-last-point)
-  ;;          (global-set-key (kbd "C-c M-i") 'helm-multi-swoop)
-  ;;          (global-set-key (kbd "C-x M-i") 'helm-multi-swoop-all)
-  ;;
-  ;;          ;; When doing isearch, hand the word over to helm-swoop
-  ;;          (define-key isearch-mode-map (kbd "M-i") 'helm-swoop-from-isearch)
-  ;;          ;; From helm-swoop to helm-multi-swoop-all
-  ;;          (define-key helm-swoop-map (kbd "M-i") 'helm-multi-swoop-all-from-helm-swoop)
-  ;;          ;; When doing evil-search, hand the word over to helm-swoop
-  ;;          ;; (define-key evil-motion-state-map (kbd "M-i") 'helm-swoop-from-evil-search)
-  ;;
-  ;;          ;; Instead of helm-multi-swoop-all, you can also use helm-multi-swoop-current-mode
-  ;;          (define-key helm-swoop-map (kbd "M-m") 'helm-multi-swoop-current-mode-from-helm-swoop)
-  ;;
-  ;;          ;; Move up and down like isearch
-  ;;          (define-key helm-swoop-map (kbd "C-r") 'helm-previous-line)
-  ;;          (define-key helm-swoop-map (kbd "C-s") 'helm-next-line)
-  ;;          (define-key helm-multi-swoop-map (kbd "C-r") 'helm-previous-line)
-  ;;          (define-key helm-multi-swoop-map (kbd "C-s") 'helm-next-line)
-  ;;
-  ;;          ;; Save buffer when helm-multi-swoop-edit complete
-  ;;          (setq helm-multi-swoop-edit-save t)
-  ;;
-  ;;          ;; If this value is t, split window inside the current window
-  ;;          (setq helm-swoop-split-with-multiple-windows nil)
-  ;;
-  ;;          ;; Split direcion. 'split-window-vertically or 'split-window-horizontally
-  ;;          (setq helm-swoop-split-direction 'split-window-vertically)
-  ;;
-  ;;          ;; If nil, you can slightly boost invoke speed in exchange for text color
-  ;;          (setq helm-swoop-speed-or-color nil)
-  ;;
-  ;;          ;; ;; Go to the opposite side of line from the end or beginning of line
-  ;;          (setq helm-swoop-move-to-line-cycle t)
-  ;;
-  ;;          ;; Optional face for line numbers
-  ;;          ;; Face name is `helm-swoop-line-number-face`
-  ;;          (setq helm-swoop-use-line-number-face t)))
-#+END_SRC
-
-* no-littering
-:PROPERTIES:
-:ARCHIVE_TIME: 2023-08-23 Wed 15:42
-:ARCHIVE_FILE: ~/.emacs.d/init.org
-:ARCHIVE_OLPATH: deleted
-:ARCHIVE_CATEGORY: emacs-init
-:END:
-#+BEGIN_SRC emacs-lisp :results output silent
-					  ;  (use-package no-littering :ensure t )
-#+END_SRC
-
-* org-ac
-:PROPERTIES:
-:ARCHIVE_TIME: 2023-08-23 Wed 15:42
-:ARCHIVE_FILE: ~/.emacs.d/init.org
-:ARCHIVE_OLPATH: deleted
-:ARCHIVE_CATEGORY: emacs-init
-:END:
-#+BEGIN_SRC emacs-lisp :results output silent
-  ;;      (use-package org-ac
-  ;;        :ensure
-  ;;        :init
-  ;;        (progn
-  ;;          (require 'org-ac)
-  ;;          ;; Make config suit for you. About the config item, eval the following sexp.
-  ;;          ;; (customize-group "org-ac")
-  ;;          (org-ac/config-default)
-  ;;          ) )  
-#+END_SRC
-
-* paradox --better package search
-:PROPERTIES:
-:ARCHIVE_TIME: 2023-08-23 Wed 15:42
-:ARCHIVE_FILE: ~/.emacs.d/init.org
-:ARCHIVE_OLPATH: deleted
-:ARCHIVE_CATEGORY: emacs-init
-:END:
-#+BEGIN_SRC emacs-lisp :results output silent
-					  ;(use-package paradox :ensure t :defer t)
-#+END_SRC
-   
-
-* tex n friends
-:PROPERTIES:
-:ARCHIVE_TIME: 2023-08-23 Wed 15:43
-:ARCHIVE_FILE: ~/.emacs.d/init.org
-:ARCHIVE_OLPATH: deleted
-:ARCHIVE_CATEGORY: emacs-init
-:END:
-#+BEGIN_SRC emacs-lisp :results output silent
-  ;;(use-package tex :ensure auctex :defer t  :config (require 'tex) )
-
-  ;;(add-hook 'LaTeX-mode-hook (lambda ()
-  ;;  (push 
-  ;;    '("Latexmk" "latexmk -pdf %s" TeX-run-TeX nil t
-  ;;      :help "Run Latexmk on file")
-  ;;    TeX-command-list)))
-
-#+END_SRC
-   
-
-* vimmish fold
-:PROPERTIES:
-:ARCHIVE_TIME: 2023-08-23 Wed 15:43
-:ARCHIVE_FILE: ~/.emacs.d/init.org
-:ARCHIVE_OLPATH: deleted
-:ARCHIVE_CATEGORY: emacs-init
-:END:
-#+BEGIN_SRC emacs-lisp :results output silent
-  ;; (use-package vimish-fold
-  ;;   :ensure t
-  ;;   :config
-  ;;   (progn
-  ;;     (evil-leader/set-key "ff" 'vimish-fold)
-  ;;     (evil-leader/set-key "fd" 'vimish-fold-delete)
-  ;;     ))
-#+END_SRC
-
-* yasnippet
-:PROPERTIES:
-:ARCHIVE_TIME: 2023-08-23 Wed 15:43
-:ARCHIVE_FILE: ~/.emacs.d/init.org
-:ARCHIVE_OLPATH: deleted
-:ARCHIVE_CATEGORY: emacs-init
-:END:
-#+BEGIN_SRC emacs-lisp :results output silent
-  ;; (use-package yasnippet
-  ;;   :ensure t
-  ;;   :diminish ""
-  ;;   :config
-  ;;   (progn
-  ;;   (yas-global-mode 1)
-  ;;     (add-to-list 'yas-snippet-dirs (locate-user-emacs-file "snippets"))
-  ;;     ))
-
-  ;; (use-package common-lisp-snippets
-  ;;   :ensure t
-  ;;   :config (require 'common-lisp-snippets))
-#+END_SRC
-
-* paren stuff
-:PROPERTIES:
-:ARCHIVE_TIME: 2023-08-23 Wed 15:43
-:ARCHIVE_FILE: ~/.emacs.d/init.org
-:ARCHIVE_OLPATH: deleted
-:ARCHIVE_CATEGORY: emacs-init
-:END:
-
-;; (use-package lispy
-;;   :ensure t
-;;   :init
-;;   :config
-;;   (add-hook 'lispy-mode-hook #'lispyville-mode)
-
-;;      (add-hook 'eval-expression-minibuffer-setup-hook 'lispy-mode)
-;;      (add-hook 'lisp-mode-hook             'lispy-mode)
-;;      (add-hook 'slime-repl-mode-hook            'lispy-mode)
-;;      (add-hook 'lisp-interaction-mode-hook 'lispy-mode)
-;;      (add-hook 'scheme-mode-hook           'lispy-mode)
-;;      (add-hook 'emacs-lisp-mode-hook 'lispy-mode)
-;;      (add-hook 'clojure-mode-hook 'lispy-mode)
-;;      (add-hook 'clojurescript-mode-hook 'lispy-mode)
-;;      (add-hook 'clojurec-mode-hook 'lispy-mode)
-;;      )
-
-;; (use-package paredit
-;;   :ensure t
-;;   :init
-;; ;;(unbind-key "C-'" paredit-mode-map)
-;; ;;(unbind-key "C-," pareditorg-mode-map)
-;;   :config 
-;;   (add-hook 'eval-expression-minibuffer-setup-hook 'enable-paredit-mode)
-;;   (add-hook 'lisp-mode-hook             'enable-paredit-mode)
-;;   (add-hook 'slime-repl-mode-hook            'enable-paredit-mode)
-;;   (add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode)
-;;   (add-hook 'scheme-mode-hook           'enable-paredit-mode)
-;;   (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
-;;   (add-hook 'clojure-mode-hook 'enable-paredit-mode)
-;;   (add-hook 'clojurescript-mode-hook 'enable-paredit-mode)
-;;   (add-hook 'clojurec-mode-hook 'enable-paredit-mode)
-
-
-;;   (evil-define-key 'normal paredit-mode ")" 'paredit-forward-up)
-;;   (evil-define-key 'normal paredit-mode "(" 'paredit-backward-up)
-;;   (evil-define-key 'normal paredit-mode (kbd "C-0") 'paredit-backward-down)
-;;   (evil-define-key 'normal paredit-mode (kbd "C-9") 'paredit-forward-down)
-
-
-
-;;   )
+** 
 
 * main global meta bindings
 :PROPERTIES:
@@ -1160,3 +786,358 @@ C-x n w to widen to a page (delineated by ^L chars)
   (use-package ivy-hydra :ensure t :defer t)
 #+END_SRC
    
+* mark mode
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-08-23 Wed 15:42
+:ARCHIVE_FILE: ~/.emacs.d/init.org
+:ARCHIVE_OLPATH: deleted
+:ARCHIVE_CATEGORY: emacs-init
+:END:
+#+BEGIN_SRC emacs-lisp :results output silent
+  ;;;(transient-mark-mode t)
+#+END_SRC
+
+* Mode line defaults
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-08-23 Wed 15:42
+:ARCHIVE_FILE: ~/.emacs.d/init.org
+:ARCHIVE_OLPATH: deleted
+:ARCHIVE_CATEGORY: emacs-init
+:END:
+#+BEGIN_SRC emacs-lisp :results output silent
+  (line-number-mode t)
+  (column-number-mode t)
+  (size-indication-mode t)
+#+END_SRC
+
+* mu4e based email stuff
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-08-23 Wed 15:33
+:ARCHIVE_FILE: ~/.emacs.d/init.org
+:ARCHIVE_OLPATH: deleted
+:ARCHIVE_CATEGORY: emacs-init
+:END:
+#+BEGIN_SRC emacs-lisp :results output silent
+  ;; (add-to-list 'load-path  "~/Projects/elisp/mu4e-multi/" )
+  ;;       (require 'mu4e-multi)
+#+END_SRC
+  
+#+BEGIN_SRC emacs-lisp :results output silent
+   (use-package mu4e  
+     ;;:load-path mu-load-path
+     :commands (make-mu4e-context)
+     :init (progn
+
+  	    (when (fboundp 'imagemagick-register-types)
+  	      (imagemagick-register-types))
+  	    )
+     :config
+     (progn
+       (general-define-key
+        :keymaps '(mu4e-view-mode-map mu4e-headers-mode-map)
+        "SPC" 'evil-scroll-page-down
+        "DEL" 'evil-scroll-page-up)
+       )
+     :bind ("C-c m" . mu4e)
+     ))
+
+
+#+END_SRC
+
+* narrow-to-region
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-08-23 Wed 15:42
+:ARCHIVE_FILE: ~/.emacs.d/init.org
+:ARCHIVE_OLPATH: deleted
+:ARCHIVE_CATEGORY: emacs-init
+:END:
+this is what i'm trying to learn.  
+C-x n p to narrow and
+C-x n w to widen to a page (delineated by ^L chars)
+#+BEGIN_SRC emacs-lisp :results output silent
+					  ;(put 'narrow-to-page 'disabled nil)
+#+END_SRC 
+
+* no-littering
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-08-23 Wed 15:42
+:ARCHIVE_FILE: ~/.emacs.d/init.org
+:ARCHIVE_OLPATH: deleted
+:ARCHIVE_CATEGORY: emacs-init
+:END:
+#+BEGIN_SRC emacs-lisp :results output silent
+					  ;  (use-package no-littering :ensure t )
+#+END_SRC
+
+* org-ac
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-08-23 Wed 15:42
+:ARCHIVE_FILE: ~/.emacs.d/init.org
+:ARCHIVE_OLPATH: deleted
+:ARCHIVE_CATEGORY: emacs-init
+:END:
+#+BEGIN_SRC emacs-lisp :results output silent
+  ;;      (use-package org-ac
+  ;;        :ensure
+  ;;        :init
+  ;;        (progn
+  ;;          (require 'org-ac)
+  ;;          ;; Make config suit for you. About the config item, eval the following sexp.
+  ;;          ;; (customize-group "org-ac")
+  ;;          (org-ac/config-default)
+  ;;          ) )  
+#+END_SRC
+
+* org-brain
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-08-23 Wed 15:39
+:ARCHIVE_FILE: ~/.emacs.d/init.org
+:ARCHIVE_OLPATH: packages
+:ARCHIVE_CATEGORY: emacs-init
+:END:
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package org-brain :ensure t
+    :init
+    (setq org-brain-path "~/Dropbox/org-brain/")
+    ;; For Evil users
+    (with-eval-after-load 'evil
+      (evil-set-initial-state 'org-brain-visualize-mode 'emacs))
+    :config
+    (setq org-id-track-globally t)
+    (setq org-id-locations-file "~/.emacs.d/org-id-locations")
+    (push '("b" "Brain" plain (function org-brain-goto-end)
+  	  "* %i%?" :empty-lines 1)
+  	org-capture-templates)
+    (setq org-brain-visualize-default-choices 'all)
+    (setq org-brain-title-max-length 16))
+#+END_SRC
+
+* package mode
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-08-23 Wed 15:41
+:ARCHIVE_FILE: ~/.emacs.d/init.org
+:ARCHIVE_OLPATH: functionaria
+:ARCHIVE_CATEGORY: emacs-init
+:END:
+#+BEGIN_SRC emacs-lisp
+  (eval-after-load "evil-mode"	'(progn
+				     (add-to-list 'evil-normal-state-modes 'package-menu-mode)
+
+				     ))
+
+  (general-define-key
+   :keymaps '(package-menu-mode-map )
+   "SPC" 'evil-scroll-page-down
+   "DEL" 'evil-scroll-page-up
+   "I" 'package-menu-mark-install
+   "X" 'package-menu-execute          	  
+   "D" 'package-menu-mark-delete
+   ;;"u" 'package-menu-mark-unmark
+   "RET" 'package-menu-describe-package 
+   "r" 'package-menu-refresh
+   )
+
+#+END_SRC
+
+#+RESULTS:
+
+* paradox --better package search
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-08-23 Wed 15:42
+:ARCHIVE_FILE: ~/.emacs.d/init.org
+:ARCHIVE_OLPATH: deleted
+:ARCHIVE_CATEGORY: emacs-init
+:END:
+#+BEGIN_SRC emacs-lisp :results output silent
+					  ;(use-package paradox :ensure t :defer t)
+#+END_SRC
+   
+* paren stuff
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-08-23 Wed 15:43
+:ARCHIVE_FILE: ~/.emacs.d/init.org
+:ARCHIVE_OLPATH: deleted
+:ARCHIVE_CATEGORY: emacs-init
+:END:
+
+;; (use-package lispy
+;;   :ensure t
+;;   :init
+;;   :config
+;;   (add-hook 'lispy-mode-hook #'lispyville-mode)
+
+;;      (add-hook 'eval-expression-minibuffer-setup-hook 'lispy-mode)
+;;      (add-hook 'lisp-mode-hook             'lispy-mode)
+;;      (add-hook 'slime-repl-mode-hook            'lispy-mode)
+;;      (add-hook 'lisp-interaction-mode-hook 'lispy-mode)
+;;      (add-hook 'scheme-mode-hook           'lispy-mode)
+;;      (add-hook 'emacs-lisp-mode-hook 'lispy-mode)
+;;      (add-hook 'clojure-mode-hook 'lispy-mode)
+;;      (add-hook 'clojurescript-mode-hook 'lispy-mode)
+;;      (add-hook 'clojurec-mode-hook 'lispy-mode)
+;;      )
+
+;; (use-package paredit
+;;   :ensure t
+;;   :init
+;; ;;(unbind-key "C-'" paredit-mode-map)
+;; ;;(unbind-key "C-," pareditorg-mode-map)
+;;   :config 
+;;   (add-hook 'eval-expression-minibuffer-setup-hook 'enable-paredit-mode)
+;;   (add-hook 'lisp-mode-hook             'enable-paredit-mode)
+;;   (add-hook 'slime-repl-mode-hook            'enable-paredit-mode)
+;;   (add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode)
+;;   (add-hook 'scheme-mode-hook           'enable-paredit-mode)
+;;   (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
+;;   (add-hook 'clojure-mode-hook 'enable-paredit-mode)
+;;   (add-hook 'clojurescript-mode-hook 'enable-paredit-mode)
+;;   (add-hook 'clojurec-mode-hook 'enable-paredit-mode)
+
+
+;;   (evil-define-key 'normal paredit-mode ")" 'paredit-forward-up)
+;;   (evil-define-key 'normal paredit-mode "(" 'paredit-backward-up)
+;;   (evil-define-key 'normal paredit-mode (kbd "C-0") 'paredit-backward-down)
+;;   (evil-define-key 'normal paredit-mode (kbd "C-9") 'paredit-forward-down)
+
+
+
+;;   )
+
+* scroll modeline 
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-08-23 Wed 15:42
+:ARCHIVE_FILE: ~/.emacs.d/init.org
+:ARCHIVE_OLPATH: deleted
+:ARCHIVE_CATEGORY: emacs-init
+:END:
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package mlscroll
+    :ensure t
+    :config
+    (setq mlscroll-shortfun-min-width 11) ;truncate which-func, for default mode-line-format's
+    (mlscroll-mode 1))
+#+END_SRC
+
+* set inital directroy to home
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-08-23 Wed 15:42
+:ARCHIVE_FILE: ~/.emacs.d/init.org
+:ARCHIVE_OLPATH: deleted
+:ARCHIVE_CATEGORY: emacs-init
+:END:
+#+BEGIN_SRC emacs-lisp :results output silent
+  ;;;(setq default-directory (getenv "HOME"))
+
+#+END_SRC
+
+* tex n friends
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-08-23 Wed 15:43
+:ARCHIVE_FILE: ~/.emacs.d/init.org
+:ARCHIVE_OLPATH: deleted
+:ARCHIVE_CATEGORY: emacs-init
+:END:
+#+BEGIN_SRC emacs-lisp :results output silent
+  ;;(use-package tex :ensure auctex :defer t  :config (require 'tex) )
+
+  ;;(add-hook 'LaTeX-mode-hook (lambda ()
+  ;;  (push 
+  ;;    '("Latexmk" "latexmk -pdf %s" TeX-run-TeX nil t
+  ;;      :help "Run Latexmk on file")
+  ;;    TeX-command-list)))
+
+#+END_SRC
+   
+* text-mode stuff
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-08-23 Wed 15:42
+:ARCHIVE_FILE: ~/.emacs.d/init.org
+:ARCHIVE_OLPATH: deleted
+:ARCHIVE_CATEGORY: emacs-init
+:END:
+#+BEGIN_SRC emacs-lisp :results output silent
+
+  ;; (add-hook 'text-mode-hook 'flyspell-mode)
+
+  ;;;	  (add-hook 'text-mode-hook #'abbrev-mode)
+
+
+
+
+					  ;    ;(add-hook 'text-mode-hook 'writeroom-mode)
+#+END_SRC
+   
+;;; (setq custom-file (make-temp-file "emacs-custom"))  
+
+* typescript
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-08-23 Wed 15:42
+:ARCHIVE_FILE: ~/.emacs.d/init.org
+:ARCHIVE_OLPATH: deleted
+:ARCHIVE_CATEGORY: emacs-init
+:END:
+#+BEGIN_SRC emacs-lisp :results output silent
+
+  (defun setup-tide-mode ()
+    (interactive)
+    (tide-setup)
+    (flycheck-mode +1)
+    (setq flycheck-check-syntax-automatically '(save mode-enabled))
+    (eldoc-mode +1)
+    (tide-hl-identifier-mode +1)
+    ;; company is an optional dependency. You have to
+    ;; install it separately via package-install
+    ;; `M-x package-install [ret] company`
+    (company-mode +1))
+
+  (use-package tide :ensure t :defer t :config
+    ;; aligns annotation to the right hand side
+    (setq company-tooltip-align-annotations t)
+
+    ;; formats the buffer before saving
+    (add-hook 'before-save-hook 'tide-format-before-save)
+  
+    (add-hook 'typescript-mode-hook #'setup-tide-mode)
+    )   
+
+#+END_SRC
+
+* vimmish fold
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-08-23 Wed 15:43
+:ARCHIVE_FILE: ~/.emacs.d/init.org
+:ARCHIVE_OLPATH: deleted
+:ARCHIVE_CATEGORY: emacs-init
+:END:
+#+BEGIN_SRC emacs-lisp :results output silent
+  ;; (use-package vimish-fold
+  ;;   :ensure t
+  ;;   :config
+  ;;   (progn
+  ;;     (evil-leader/set-key "ff" 'vimish-fold)
+  ;;     (evil-leader/set-key "fd" 'vimish-fold-delete)
+  ;;     ))
+#+END_SRC
+
+* yasnippet
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-08-23 Wed 15:43
+:ARCHIVE_FILE: ~/.emacs.d/init.org
+:ARCHIVE_OLPATH: deleted
+:ARCHIVE_CATEGORY: emacs-init
+:END:
+#+BEGIN_SRC emacs-lisp :results output silent
+  ;; (use-package yasnippet
+  ;;   :ensure t
+  ;;   :diminish ""
+  ;;   :config
+  ;;   (progn
+  ;;   (yas-global-mode 1)
+  ;;     (add-to-list 'yas-snippet-dirs (locate-user-emacs-file "snippets"))
+  ;;     ))
+
+  ;; (use-package common-lisp-snippets
+  ;;   :ensure t
+  ;;   :config (require 'common-lisp-snippets))
+#+END_SRC
+

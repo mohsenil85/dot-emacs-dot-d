@@ -1490,7 +1490,6 @@ toggle fullscreen
 					  ;(set-frame-font "Inconsolata-16")
 					  ;)
 #+END_SRC
-* deleted
 * interface
 ** removed keys 
 #+BEGIN_SRC emacs-lisp :results output silent
