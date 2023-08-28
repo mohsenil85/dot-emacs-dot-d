@@ -771,9 +771,9 @@
    ;; note that these folders below must start with /
    ;; the paths are relative to maildir root
    mu4e-refile-folder "/gmail/Archive"
-   mu4e-sent-folder   "/gmail/sent"
-   mu4e-drafts-folder "/gmail/drafts"
-   mu4e-trash-folder  "/gmail/trash"
+   mu4e-sent-folder   "/gmail/[Gmail]/Sent Mail"
+   mu4e-drafts-folder "/gmail/[Gmail]/Drafts"
+   mu4e-trash-folder  "/gmail/[Gmail]/Trash"
    )
 
   (setq   mu4e-maildir-shortcuts
@@ -1195,6 +1195,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 (global-set-key (kbd "C-c t")  '(lambda()(interactive)(term "zsh")))
 (global-set-key (kbd "C-c m")  'mu4e)
+(global-set-key (kbd "C-x m")  'mu4e-compose-new)
 (global-set-key (kbd "C-s") 'swiper)  ;;search in file;;swiper?
 (global-set-key (kbd "C-x ,") 'edit-init-org-file)
 (global-set-key (kbd "C-h C-/") 'which-key-show-major-mode)
