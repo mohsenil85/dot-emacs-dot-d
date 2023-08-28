@@ -747,6 +747,9 @@
 :commands jest-test-mode
 :hook (typescript-mode js-mode typescript-tsx-mode))
 
+;;taken from https://macowners.club/posts/email-emacs-mu4e-macos/#storing-trusted-root-certificates
+
+
 (use-package mu4e
   :straight nil
   :load-path "/opt/homebrew/share/emacs/site-lisp/mu/mu4e/"

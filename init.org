@@ -926,6 +926,8 @@ general lisp stuff
 * email
 : t
 #+BEGIN_SRC emacs-lisp :results output silent
+  ;;taken from https://macowners.club/posts/email-emacs-mu4e-macos/#storing-trusted-root-certificates
+
 
   (use-package mu4e
     :straight nil
