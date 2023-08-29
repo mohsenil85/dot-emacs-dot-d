@@ -207,16 +207,18 @@
   :diminish
   :ensure t
   :config
-  (setq evil-collection-want-unimpaired-p nil)
+  (setq
+  evil-collection-want-unimpaired-p nil
+   forge-add-default-bindings t)
   (evil-collection-init)
   )
 
 
 
-;; (use-package evil-visual-mark-mode
-;;   :ensure t
-;;   :config
-;;   (evil-visual-mark-mode 1))
+(use-package evil-visual-mark-mode
+  :ensure t
+  :config
+  (evil-visual-mark-mode 1))
 
 (use-package evil-org
   :ensure t
@@ -414,6 +416,13 @@
   (define-key transient-map (kbd "<escape>") 'transient-quit-one)
   (setq magit-save-repository-buffers 'dontask)
   )
+(use-package forge
+  :after magit
+  :config 
+	   (setq auth-sources '("~/.authinfo"))
+
+	   
+  )
 
 (use-package better-defaults :ensure t :defer t )
 (use-package bind-map :ensure t :defer t)
@@ -536,50 +545,54 @@
   :config (which-key-mode ) )
 
 ;; Enable vertico
-    (use-package vertico
-      :init
-      (vertico-mode)
+(use-package vertico
+  :init
+  (vertico-mode)
 
-      ;; Different scroll margin
-      ;; (setq vertico-scroll-margin 0)
+  ;; Different scroll margin
+  ;; (setq vertico-scroll-margin 0)
 
-      ;; Show more candidates
-;;      (setq vertico-count 20)
+  ;; Show more candidates
+  ;;      (setq vertico-count 20)
 
-      ;; Grow and shrink the Vertico minibuffer
- ;;     (setq vertico-resize t)
+  ;; Grow and shrink the Vertico minibuffer
+  ;;     (setq vertico-resize t)
 
-      ;; Optionally enable cycling for `vertico-next' and `vertico-previous'.
-      (setq vertico-cycle t)
-      )
+  ;; Optionally enable cycling for `vertico-next' and `vertico-previous'.
+  (setq vertico-cycle t)
+  )
 
-    ;; Persist history over Emacs restarts. Vertico sorts by history position.
-    (use-package savehist
-      :init
-      (savehist-mode))
+;; Persist history over Emacs restarts. Vertico sorts by history position.
+(use-package savehist
+  :init
+  (savehist-mode))
 
-    ;; Enable rich annotations using the Marginalia package
-  (use-package marginalia
-    ;; Bind `marginalia-cycle' locally in the minibuffer.  To make the binding
-    ;; available in the *Completions* buffer, add it to the
-    ;; `completion-list-mode-map'.
-    :bind (:map minibuffer-local-map
-           ("M-A" . marginalia-cycle))
+;; Enable rich annotations using the Marginalia package
+(use-package marginalia
+  ;; Bind `marginalia-cycle' locally in the minibuffer.  To make the binding
+  ;; available in the *Completions* buffer, add it to the
+  ;; `completion-list-mode-map'.
+  :bind (:map minibuffer-local-map
+              ("M-A" . marginalia-cycle))
 
-    ;; The :init section is always executed.
-    :init
+  ;; The :init section is always executed.
+  :init
 
-    ;; Marginalia must be activated in the :init section of use-package such that
-    ;; the mode gets enabled right away. Note that this forces loading the
-    ;; package.
-    (marginalia-mode))
+  ;; Marginalia must be activated in the :init section of use-package such that
+  ;; the mode gets enabled right away. Note that this forces loading the
+  ;; package.
+  (marginalia-mode))
 
 (use-package hotfuzz
   :init
   (setq completion-styles '(hotfuzz basic)
-        ;; completion-category-defaults nil
-        ;; completion-category-overrides '((file (styles partial-completion)))
-))
+	completion-ignore-case t
+read-buffer-completion-ignore-case t
+read-file-name-completion-ignore-case t
+
+	  ;; completion-category-defaults nil
+	  ;; completion-category-overrides '((file (styles partial-completion)))
+	))
 
 (defvar lispular-modes-list
   'emacs-lisp-mode-hook
@@ -754,6 +767,7 @@
   :straight nil
   :load-path "/opt/homebrew/share/emacs/site-lisp/mu/mu4e/"
   :config
+  (require 'mu4e-contrib)
   (setq
    message-send-mail-function 'sendmail-send-it
    message-sendmail-envelope-from 'header
@@ -790,16 +804,14 @@
 
   (require 'smtpmail)
 
-  ;; (add-to-list 'mu4e-bookmarks
-  ;;              (make-mu4e-bookmark
-  ;;    		:name "Inbox - Gmail"
-  ;;    		:query "maildir:/gmail/INBOX"
-  ;;    		:key ?g))
-  ;; (add-to-list 'mu4e-bookmarks
-  ;;              (make-mu4e-bookmark
-  ;;    		:name "Inbox - example"
-  ;;    		:query "maildir:/example/INBOX"
-  ;;    		:key ?e))
+               (mu4e-bookmark-define
+     		"maildir:/gmail/INBOX"
+     		"Inbox - Gmail"
+     		?g)
+               (mu4e-bookmark-define
+     		"maildir:/example/INBOX"
+     		"Inbox - example"
+     		?e)
   
   )
 
@@ -1267,7 +1279,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (use-package standard-themes :ensure t )
 
 (defun load-dark ()
-  (load-theme 'soft-charcoal t)
+  (load-theme 'humanoid-dark t)
   (setq dark-light-state :dark ))
 ;; (defun load-dark ()
 ;;   (load-theme 'humanoid-dark t)
