@@ -351,6 +351,11 @@
   :defer 1   
   :config   (setq leader "SPC"))
 
+(use-package git-link
+  :ensure t
+  :diminish
+)
+
 (use-package git-gutter
   :ensure t
   :diminish
@@ -913,7 +918,13 @@ read-file-name-completion-ignore-case t
     (winner-mode 1)
 
 ;;bigger font size for my poor old aching occulars
-     (add-to-list 'default-frame-alist '(font . "-*-Monaco-normal-normal-normal-*-16-*-*-*-m-0-iso10646-1"   ))
+(setq default-frame-alist  '(
+				      (font . "-*-Monaco-normal-normal-normal-*-16-*-*-*-m-0-iso10646-1"   )
+				      (height . 36)
+				      (width . 136)
+				      (top . 50)
+				      (left . 30)
+				      ))
 
 ;;(require 'cl)
 
