@@ -15,6 +15,10 @@
 (require 'use-package)
 (setq straight-use-package-by-default t)
 
+(use-package diminish :ensure t)
+(diminish 'subword-mode)
+(diminish 'visual-line-mode)
+
 (use-package no-littering :ensure t)
 
 (use-package bind-key
@@ -187,8 +191,6 @@
 (add-hook 'org-mode-hook
 	  (lambda ()
 	    (add-hook 'after-save-hook #'org-babel-tangle-config)))
-
-(use-package diminish :ensure t)
 
 (use-package evil
   :ensure t
@@ -918,6 +920,11 @@ read-file-name-completion-ignore-case t
 				      (top . 50)
 				      (left . 30)
 				      ))
+
+(use-package visual-line
+:straight nil
+:diminish visual-line-mode
+)
 
 ;;(require 'cl)
 

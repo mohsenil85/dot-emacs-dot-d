@@ -26,6 +26,14 @@
   (setq straight-use-package-by-default t)
 
 #+END_SRC
+** diminish
+#+BEGIN_SRC emacs-lisp :results output silent
+
+  (use-package diminish :ensure t)
+  (diminish 'subword-mode)
+  (diminish 'visual-line-mode)
+#+END_SRC
+
 ** no littering!
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package no-littering :ensure t)
@@ -214,12 +222,6 @@
   	    (add-hook 'after-save-hook #'org-babel-tangle-config)))
 
 #+END_SRC
-** diminish
-#+BEGIN_SRC emacs-lisp :results output silent
-
-  (use-package diminish :ensure t)
-#+END_SRC
-
 ** evil
 *** main evil
     
@@ -1119,6 +1121,14 @@ general lisp stuff
 
 #+RESULTS:
 
+** visual line mode
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package visual-line
+  :straight nil
+  :diminish visual-line-mode
+  )
+
+#+END_SRC
 * functionaria
 ** load-init file, plus other fun
   
