@@ -1111,7 +1111,7 @@ read-file-name-completion-ignore-case t
 	    (if this-win-2nd (other-window 1))))))
 
 (defun not-anymore ()
-  ""
+  "not any more"
   (interactive)
   (message "not anymore")
   )
@@ -1164,6 +1164,28 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   (interactive "")
   (shell-command (format  "webstorm --line %s --column %s %s" (line-number-at-pos) (current-column)  (buffer-file-name))))
 
+(defun get-buffers-matching-mode (mode)
+  "Returns a list of buffers where their major-mode is equal to MODE"
+  (let ((buffer-mode-matches '()))
+    (dolist (buf (buffer-list))
+      (with-current-buffer buf
+        (when (eq mode major-mode)
+          (push buf buffer-mode-matches))))
+    buffer-mode-matches))
+
+
+(defun multi-occur-in-this-mode ()
+  "Show all lines matching REGEXP in buffers with this major mode."
+  (interactive)
+  (multi-occur
+   (get-buffers-matching-mode major-mode)
+   (car (occur-read-primary-args))))
+
+(defun revert-this-buffer ()
+  (interactive)
+  (revert-buffer nil t t)
+  (message "reverted %s" (buffer-name)))
+
 (when (eq system-type 'darwin)
   (setq mac-command-modifier 'meta)
   (setq mac-option-modifier 'super)
@@ -1195,8 +1217,8 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   (global-set-key (kbd "C-x M-x") 'pbcut)
 
   ;;recomended by brew
-  ;; (let ((default-directory "/opt/homebrew/share/emacs/site-lisp/"))
-  ;;   (normal-top-level-add-subdirs-to-load-path))
+  (let ((default-directory "/opt/homebrew/share/emacs/site-lisp/"))
+    (normal-top-level-add-subdirs-to-load-path))
 
   (use-package exec-path-from-shell :ensure t 
     :config 
@@ -1215,22 +1237,25 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 					  ;(set-frame-font "Inconsolata-16")
 					  ;)
 
+(define-key evil-normal-state-map (kbd "M-y") nil)
 (define-key evil-normal-state-map (kbd "M-.") nil)
 (define-key evil-motion-state-map (kbd "C-y") nil)
 (define-key evil-motion-state-map (kbd "C-d") nil)
 
 ;;emacs style
 
-(global-set-key (kbd "C-c t")  '(lambda()(interactive)(term "zsh")))
 (global-set-key (kbd "C-c m")  'mu4e)
-(global-set-key (kbd "C-x m")  'mu4e-compose-new)
-(global-set-key (kbd "C-s") 'swiper)  ;;search in file;;swiper?
-(global-set-key (kbd "C-x ,") 'edit-init-org-file)
+(global-set-key (kbd "<f1>")  '(lambda()(interactive)(term "zsh")))
+(global-set-key (kbd "<f2>")  'rgrep)
+(global-set-key (kbd "<f6>")  'revert-this-buffer )
+(global-set-key (kbd "C-<f2>") 'multi-occur-in-this-mode)
 (global-set-key (kbd "C-h C-/") 'which-key-show-major-mode)
+;; (global-set-key (kbd "C-s") 'swiper)  ;;search in file;;swiper?
+(global-set-key (kbd "C-x ,") 'edit-init-org-file)
 (global-set-key (kbd "C-x <f2>") 'open-in-webstorm)
 (global-set-key (kbd "C-x <f5>") 'toggle-dark-light-state)
 (global-set-key (kbd "C-x C-,") 'load-init-file)
-(global-set-key (kbd "C-x C-a") 'mark-whole-buffer)
+;; (global-set-key (kbd "C-x C-a") 'mark-whole-buffer)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 (global-set-key (kbd "C-x C-c") 'halt)
 (global-set-key (kbd "C-x C-j") 'dired-jump)
@@ -1238,11 +1263,13 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (global-set-key (kbd "C-x C-r") 'recentf)
 (global-set-key (kbd "C-x M-t") 'vertical-horizontal-swizzle)
 (global-set-key (kbd "C-x g") 'magit-status)
+(global-set-key (kbd "C-x m")  'mu4e-compose-new)
 (global-set-key (kbd "M-/") 'hippie-expand)
 (global-set-key (kbd "M-0") 'delete-window-balance)
 (global-set-key (kbd "M-1") 'delete-other-windows)
 (global-set-key (kbd "M-2") 'split-window-below-focus)
 (global-set-key (kbd "M-3") 'split-window-right-focus)
+(global-set-key (kbd "M-o") 'other-window)
 (global-set-key (kbd "M-t") 'swap-buffers)
 ;;(global-set-key (kbd "M-x") 'counsel-M-x) ;;M-x
 
