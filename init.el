@@ -449,13 +449,6 @@
 (use-package persistent-scratch :ensure t
   :config (persistent-scratch-setup-default))
 
-(use-package powerline 
-    :ensure
-    :config (progn
-              (require 'powerline)
-              (powerline-center-evil-theme)
-))
-
 (use-package paren
 :ensure nil
 :init
@@ -1331,8 +1324,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 ;;   (setq dark-light-state :light ))
 
 (defun reset-themes()
-  (mapc #'disable-theme custom-enabled-themes)
-  (powerline-reset))
+  (mapc #'disable-theme custom-enabled-themes))
 
 (defun toggle-dark-light-state ()
   (interactive)
@@ -1342,7 +1334,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
     (load-dark)))
 
 (defun init-themes ()
-(reset-themes)
+  (reset-themes)
   (load-light))
 
 (init-themes)

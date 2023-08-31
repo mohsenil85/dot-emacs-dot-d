@@ -1141,3 +1141,20 @@ C-x n w to widen to a page (delineated by ^L chars)
   ;;   :config (require 'common-lisp-snippets))
 #+END_SRC
 
+
+* powerline                                                         :ARCHIVE:
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-08-31 Thu 12:45
+:ARCHIVE_FILE: ~/.emacs.d/init.org
+:ARCHIVE_OLPATH: packages
+:ARCHIVE_CATEGORY: init
+:END:
+#+BEGIN_SRC emacs-lisp :results output silent
+    (use-package powerline 
+      :ensure
+      :config (progn
+                (require 'powerline)
+                (powerline-center-evil-theme)
+  ))
+#+END_SRC
+   

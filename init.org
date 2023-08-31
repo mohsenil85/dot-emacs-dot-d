@@ -567,16 +567,6 @@ visit file with browser
     :config (persistent-scratch-setup-default))
 #+END_SRC
    
-** powerline
-#+BEGIN_SRC emacs-lisp :results output silent
-    (use-package powerline 
-      :ensure
-      :config (progn
-                (require 'powerline)
-                (powerline-center-evil-theme)
-  ))
-#+END_SRC
-   
 ** paren
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package paren
@@ -1672,8 +1662,7 @@ toggle fullscreen
   ;;   (setq dark-light-state :light ))
 
   (defun reset-themes()
-    (mapc #'disable-theme custom-enabled-themes)
-    (powerline-reset))
+    (mapc #'disable-theme custom-enabled-themes))
 
   (defun toggle-dark-light-state ()
     (interactive)
@@ -1683,7 +1672,7 @@ toggle fullscreen
       (load-dark)))
 
   (defun init-themes ()
-  (reset-themes)
+    (reset-themes)
     (load-light))
 
   (init-themes)
