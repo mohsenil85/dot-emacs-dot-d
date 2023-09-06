@@ -1158,3 +1158,18 @@ C-x n w to widen to a page (delineated by ^L chars)
   ))
 #+END_SRC
    
+
+* visual line mode
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-09-06 Wed 13:55
+:ARCHIVE_FILE: ~/.emacs.d/init.org
+:ARCHIVE_OLPATH: itself
+:ARCHIVE_CATEGORY: init
+:END:
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package visual-line
+  :straight nil
+  :diminish visual-line-mode
+  )
+
+#+END_SRC

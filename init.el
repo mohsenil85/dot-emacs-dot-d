@@ -199,8 +199,8 @@
   (setq evil-want-integration t)
   (setq evil-want-keybinding nil)
   :config
-  (evil-mode 1)
-  (evil-set-undo-system 'undo-redo)
+  ;(evil-mode 1)
+  ;(evil-set-undo-system 'undo-redo)
 
   )
 
@@ -212,7 +212,7 @@
   (setq
   evil-collection-want-unimpaired-p nil
    forge-add-default-bindings t)
-  (evil-collection-init)
+  ;(evil-collection-init)
   )
 
 
@@ -226,7 +226,7 @@
   :ensure t
   :after org
   :diminish
-  :hook (org-mode . (lambda () (evil-org-mode +1)))
+  ;;:hook (org-mode . (lambda () (evil-org-mode +1)))
   :config
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
@@ -921,11 +921,6 @@ read-file-name-completion-ignore-case t
 				      (left . 30)
 				      ))
 
-(use-package visual-line
-:straight nil
-:diminish visual-line-mode
-)
-
 ;;(require 'cl)
 
 (defun copy-filename-to-clip ()
@@ -1244,39 +1239,43 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 ;;emacs style
 
-(global-set-key (kbd "C-c m")  'mu4e)
-(global-set-key (kbd "<f1>")  '(lambda()(interactive)(term "zsh")))
-(global-set-key (kbd "<f2>")  'rgrep)
-(global-set-key (kbd "<f6>")  'revert-this-buffer )
-(global-set-key (kbd "C-<f2>") 'multi-occur-in-this-mode)
-(global-set-key (kbd "C-h C-/") 'which-key-show-major-mode)
-;; (global-set-key (kbd "C-s") 'swiper)  ;;search in file;;swiper?
-(global-set-key (kbd "C-x ,") 'edit-init-org-file)
-(global-set-key (kbd "C-x <f2>") 'open-in-webstorm)
-(global-set-key (kbd "C-x <f5>") 'toggle-dark-light-state)
-(global-set-key (kbd "C-x C-,") 'load-init-file)
-;; (global-set-key (kbd "C-x C-a") 'mark-whole-buffer)
-(global-set-key (kbd "C-x C-b") 'ibuffer)
-(global-set-key (kbd "C-x C-c") 'halt)
-(global-set-key (kbd "C-x C-j") 'dired-jump)
-(global-set-key (kbd "C-x C-k") 'kill-this-buffer)
-(global-set-key (kbd "C-x C-r") 'recentf)
-(global-set-key (kbd "C-x M-t") 'vertical-horizontal-swizzle)
-(global-set-key (kbd "C-x g") 'magit-status)
-(global-set-key (kbd "C-x m")  'mu4e-compose-new)
-(global-set-key (kbd "M-/") 'hippie-expand)
-(global-set-key (kbd "M-0") 'delete-window-balance)
-(global-set-key (kbd "M-1") 'delete-other-windows)
-(global-set-key (kbd "M-2") 'split-window-below-focus)
-(global-set-key (kbd "M-3") 'split-window-right-focus)
-(global-set-key (kbd "M-o") 'other-window)
-(global-set-key (kbd "M-t") 'swap-buffers)
-;;(global-set-key (kbd "M-x") 'counsel-M-x) ;;M-x
+  (global-set-key (kbd "C-c m")  'mu4e)
+  (global-set-key (kbd "<f1>")  '(lambda()(interactive)(term "zsh")))
+  (global-set-key (kbd "<f2>")  'rgrep)
+  (global-set-key (kbd "<f6>")  'revert-this-buffer )
+  (global-set-key (kbd "C-<f2>") 'multi-occur-in-this-mode)
+  (global-set-key (kbd "C-h C-/") 'which-key-show-major-mode)
+  ;; (global-set-key (kbd "C-s") 'swiper)  ;;search in file;;swiper?
+  (global-set-key (kbd "C-x ,") 'edit-init-org-file)
+  (global-set-key (kbd "C-x <f2>") 'open-in-webstorm)
+  (global-set-key (kbd "C-x <f5>") 'toggle-dark-light-state)
+  (global-set-key (kbd "C-x C-,") 'load-init-file)
+  ;; (global-set-key (kbd "C-x C-a") 'mark-whole-buffer)
+  (global-set-key (kbd "C-x C-b") 'ibuffer)
+  (global-set-key (kbd "C-x C-c") 'halt)
+  (global-set-key (kbd "C-x C-j") 'dired-jump)
+  (global-set-key (kbd "C-x C-k") 'kill-this-buffer)
+  (global-set-key (kbd "C-x C-r") 'recentf)
+  (global-set-key (kbd "C-x M-t") 'vertical-horizontal-swizzle)
+  (global-set-key (kbd "C-x g") 'magit-status)
+  (global-set-key (kbd "C-x m")  'mu4e-compose-new)
+  (global-set-key (kbd "M-/") 'hippie-expand)
+  (global-set-key (kbd "M-0") 'delete-window-balance)
+  ;; (global-set-key (kbd "M-1") 'delete-other-windows)
+  ;; (global-set-key (kbd "M-2") 'split-window-below-focus)
+  ;; (global-set-key (kbd "M-3") 'split-window-right-focus)
+  (global-set-key (kbd "M-o") 'other-window)
+  (global-set-key (kbd "C-c M-t") 'swap-buffers)
+  ;;(global-set-key (kbd "M-x") 'counsel-M-x) ;;M-x
+    (global-set-key (kbd "C-M-x") 'evil-mode)
+  (global-set-key (kbd "M-z") 'zap-up-to-char)
+    (global-set-key (kbd "C-z") 'undo)
 
-(define-key evil-normal-state-map (kbd "-") 'dired-jump)
 
-;; (define-key evil-normal-state-map (kbd "C-n") 'other-window)
-;; (define-key evil-normal-state-map (kbd "C-p") 'prev-window)
+;;  (define-key evil-normal-state-map (kbd "-") 'dired-jump)
+
+  ;; (define-key evil-normal-state-map (kbd "C-n") 'other-window)
+  ;; (define-key evil-normal-state-map (kbd "C-p") 'prev-window)
 
 (global-set-key (kbd "C-h h") 'not-anymore)
 (global-set-key (kbd "C-h C-a") 'not-anymore)
