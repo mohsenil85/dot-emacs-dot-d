@@ -78,37 +78,37 @@
     (setq org-use-tag-inheritance t)
 
 
-					;(setq org-hide-leading-stars t)
+  				      ;(setq org-hide-leading-stars t)
 
 
     (setq org-todo-keywords
-	  (quote ((sequence "TODO(t)" "NEXT(n)" "|"  "DONE(d!)")
-		  (sequence "WAITING(w@/!)" "|" "SOMEDAY(s)" "CANCELLED(c@/!)")
-		  )))
+  	(quote ((sequence "TODO(t)" "NEXT(n)" "|"  "DONE(d!)")
+  		(sequence "WAITING(w@/!)" "|" "SOMEDAY(s)" "CANCELLED(c@/!)")
+  		)))
 
     (setq org-capture-templates
-	  (quote (("t" "todo" entry (file "~/org/inbox.org" )
-		   "* TODO  %? :FLAGGED:\n%U\n%a\n" )
+  	(quote (("t" "todo" entry (file "~/org/inbox.org" )
+  		 "* TODO  %? :FLAGGED:\n%U\n%a\n" )
 
-		  ("f" "fiction" entry (file+headline "~/org/serial-structure.org" "ideas")
-		   "* %? :NOTE:\n%U\n%a\n" )
-		  ("n" "note" entry (file+headline "~/org/notes.org" "notes")
-		   "* %? :NOTE:\n%U\n%a\n" )
-		  ;; ("i" "idea" entry (file+headline "~/org/notes.org" "ideas")
-		  ;;  "* %?\n" )
-		  ;; ("n" "information" entry (file+headline "~/org/index.org" "information")
-		  ;;  "* %?\n" )
-		  ("s" "shopping" checkitem
-		   (file+headline "~/org/main.org" "shopping ")
-		   "- [ ] %?\n")
-		  ("r" "rss" entry
-		   (file+olp "~/Dropbox/elfeed.org" "feeds" "captures")
-		   "*** %^C\n")
-		  ("j" "journal" entry (file+datetree "~/org/notes.org")
-		   "* %?\n %U\n  %i\n  %a")
-		  ("w" "work" entry (file+datetree "~/org/work.org")
-		   "* %?\n %U\n  %i\n  %a")
-		  )))  
+  		("f" "fiction" entry (file+headline "~/org/serial-structure.org" "ideas")
+  		 "* %? :NOTE:\n%U\n%a\n" )
+  		("n" "note" entry (file+headline "~/org/notes.org" "notes")
+  		 "* %? :NOTE:\n%U\n%a\n" )
+  		;; ("i" "idea" entry (file+headline "~/org/notes.org" "ideas")
+  		;;  "* %?\n" )
+  		;; ("n" "information" entry (file+headline "~/org/index.org" "information")
+  		;;  "* %?\n" )
+  		("s" "shopping" checkitem
+  		 (file+headline "~/org/main.org" "shopping ")
+  		 "- [ ] %?\n")
+  		("r" "rss" entry
+  		 (file+olp "~/Dropbox/elfeed.org" "feeds" "captures")
+  		 "*** %^C\n")
+  		("j" "journal" entry (file+datetree "~/org/notes.org")
+  		 "* %?\n %U\n  %i\n  %a")
+  		("w" "work" entry (file+datetree "~/org/work.org")
+  		 "* %?\n %U\n  %i\n  %a")
+  		)))  
 
 
 
@@ -116,9 +116,9 @@
     ;; Targets include this file and any file contributing to the agenda - up to 9 levels deep
     ;;
 
-					;(defvar my-org-mobile-sync-timer nil)
+  				      ;(defvar my-org-mobile-sync-timer nil)
 
-					;(defvar my-org-mobile-sync-secs (* 60 20))
+  				      ;(defvar my-org-mobile-sync-secs (* 60 20))
 
     ;; (defun my-org-mobile-sync-pull-and-push ()
     ;;   (org-mobile-pull)
@@ -142,11 +142,11 @@
 
     )
   :bind (
-	 ("C-c l" . org-store-link)
-	 ("C-c a" . org-agenda)
-	 ("C-c b" . org-switchb)
-	 ("C-c c" . org-capture)
-	 ))
+       ("C-c l" . org-store-link)
+       ("C-c a" . org-agenda)
+       ("C-c b" . org-switchb)
+       ("C-c c" . org-capture)
+       ))
 
 ;; (with-eval-after-load "org-mode"
 ;;      (evil-org-mode 1)
@@ -184,13 +184,13 @@
 
 (defun org-babel-tangle-config ()
   (when (string-equal (buffer-file-name)
-		      (expand-file-name "~/.emacs.d/init.org"))
+  		    (expand-file-name "~/.emacs.d/init.org"))
     (let ((org-config-babel-evaluate nil))
       (org-babel-tangle))))
 
 (add-hook 'org-mode-hook
-	  (lambda ()
-	    (add-hook 'after-save-hook #'org-babel-tangle-config)))
+  	(lambda ()
+  	  (add-hook 'after-save-hook #'org-babel-tangle-config)))
 
 (use-package evil
   :ensure t
@@ -260,27 +260,27 @@
     )
 
   :bind (("C-c M-f" . copilot-complete)
-	 :map copilot-completion-map
-	 ("C-g" . 'copilot-clear-overlay)
-	 ("M-p" . 'copilot-previous-completion)
-	 ("M-n" . 'copilot-next-completion)
-	 ("<tab>" . 'copilot-accept-completion)
-	 ("M-f" . 'copilot-accept-completion-by-word)
-	 ("M-<return>" . 'copilot-accept-completion-by-line)))
+       :map copilot-completion-map
+       ("C-g" . 'copilot-clear-overlay)
+       ("M-p" . 'copilot-previous-completion)
+       ("M-n" . 'copilot-next-completion)
+       ("<tab>" . 'copilot-accept-completion)
+       ("M-f" . 'copilot-accept-completion-by-word)
+       ("M-<return>" . 'copilot-accept-completion-by-line)))
 
 (use-package dired
   :straight nil				;
   :bind (:map dired-mode-map 
-	      (("`" . dired-toggle-read-only)
-	       ("j" .  evil-next-line)
-	       ("k" . evil-previous-line)
-	       ( "-" .  dired-up-directory)
-	       ("~" . (lambda ()(interactive) (find-alternate-file "~/")))
-	       ("RET" . dired-find-file)
-	       ("C-<return>" . dired-find-file-other-window) 
-	       ("/" . evil-search-forward) 
-	       )
-	      )
+  	    (("`" . dired-toggle-read-only)
+  	     ("j" .  evil-next-line)
+  	     ("k" . evil-previous-line)
+  	     ( "-" .  dired-up-directory)
+  	     ("~" . (lambda ()(interactive) (find-alternate-file "~/")))
+  	     ("RET" . dired-find-file)
+  	     ("C-<return>" . dired-find-file-other-window) 
+  	     ("/" . evil-search-forward) 
+  	     )
+  	    )
 
   :init
   (add-to-list 'evil-emacs-state-modes 'dired-mode)
@@ -331,8 +331,8 @@
   :command ("proselint" source-inplace)
   :error-patterns
   ((warning line-start (file-name) ":" line ":" column ": "
-	      (id (one-or-more (not (any " "))))
-	      (message) line-end))
+	    (id (one-or-more (not (any " "))))
+	    (message) line-end))
   :modes (text-mode prose-mode markdown-mode gfm-mode))
 
 (add-to-list 'flycheck-checkers 'proselint)
@@ -393,16 +393,16 @@
   :config 
   (progn
     (eval-after-load 'image+
-	`(when (require 'hydra nil t)
-	   (defhydra imagex-sticky-binding (global-map "C-x C-l")
-	     "Manipulating Image"
-	     ("+" imagex-sticky-zoom-in "zoom in")
-	     ("-" imagex-sticky-zoom-out "zoom out")
-	     ("M" imagex-sticky-maximize "maximize")
-	     ("O" imagex-sticky-restore-original "restore original")
-	     ("S" imagex-sticky-save-image "save file")
-	     ("r" imagex-sticky-rotate-right "rotate right")
-	     ("l" imagex-sticky-rotate-left "rotate left"))))
+      `(when (require 'hydra nil t)
+	 (defhydra imagex-sticky-binding (global-map "C-x C-l")
+	   "Manipulating Image"
+	   ("+" imagex-sticky-zoom-in "zoom in")
+	   ("-" imagex-sticky-zoom-out "zoom out")
+	   ("M" imagex-sticky-maximize "maximize")
+	   ("O" imagex-sticky-restore-original "restore original")
+	   ("S" imagex-sticky-save-image "save file")
+	   ("r" imagex-sticky-rotate-right "rotate right")
+	   ("l" imagex-sticky-rotate-left "rotate left"))))
     )
   )
 
@@ -426,9 +426,9 @@
 (use-package forge
   :after magit
   :config 
-	   (setq auth-sources '("~/.authinfo"))
+  	 (setq auth-sources '("~/.authinfo"))
 
-	   
+
   )
 
 (use-package better-defaults :ensure t :defer t )
@@ -476,10 +476,10 @@
 (use-package sentence-navigation
   :ensure t
   :bind (:map evil-motion-state-map 
-		((")" . sentence-nav-evil-forward)
-		 ("(" . sentence-nav-evil-backward)
-		 ("g(" . sentence-nav-evil-backward-end)
-		 ("g)" . sentence-nav-evil-forward-end)))
+	      ((")" . sentence-nav-evil-forward)
+	       ("(" . sentence-nav-evil-backward)
+	       ("g(" . sentence-nav-evil-backward-end)
+	       ("g)" . sentence-nav-evil-forward-end)))
   :config
   (progn
     (define-key evil-outer-text-objects-map "s" 'sentence-nav-evil-a-sentence)
@@ -569,13 +569,13 @@
 (use-package hotfuzz
   :init
   (setq completion-styles '(hotfuzz basic)
-  	completion-ignore-case t
-	read-buffer-completion-ignore-case t
-	read-file-name-completion-ignore-case t
+      completion-ignore-case t
+      read-buffer-completion-ignore-case t
+      read-file-name-completion-ignore-case t
 
-  	completion-category-defaults nil
-  	completion-category-overrides '((file (styles partial-completion)))
-  	))
+      completion-category-defaults nil
+      completion-category-overrides '((file (styles partial-completion)))
+      ))
 ;; (use-package orderless
 ;;   :ensure t
 ;;   :config
@@ -601,15 +601,24 @@
         ("C-p" . corfu-previous)))
 
 ;; Part of corfu
+(use-package corfu-popupinfo
+  :after corfu
+  :straight nil
+  :hook (corfu-mode . corfu-popupinfo-mode)
+  :custom
+  (corfu-popupinfo-delay '(0.25 . 0.1))
+  (corfu-popupinfo-hide nil)
+  :config
+  (corfu-popupinfo-mode))
 
 (defvar lispular-modes-list
   'emacs-lisp-mode-hook
   'lisp-mode-hook)
 
 (add-hook 'lisp-mode-hook
-	    (lambda ()
-	      (set (make-local-variable 'lisp-indent-function)
-		   'common-lisp-indent-function)))
+	  (lambda ()
+	    (set (make-local-variable 'lisp-indent-function)
+		 'common-lisp-indent-function)))
 
 
 ;; (use-package smartparens
@@ -742,7 +751,7 @@
 (use-package clojure-mode :ensure t :defer t)
 (use-package cider :ensure t :defer t
   )
-					  ;  (use-package inf-clojure :ensure t)
+					;  (use-package inf-clojure :ensure t)
 (add-hook 'clojure-mode-hook #'eldoc-mode)
 
 (add-to-list 'auto-mode-alist '("\\.boot\\'" . clojure-mode))
@@ -753,7 +762,7 @@
     (add-hook 'python-mode-hook 'jedi:setup)
     (setq jedi:complete-on-dot t)))
 (use-package ob-ipython :ensure t :defer t)
-					  ;(use-package ein :ensure)
+					;(use-package ein :ensure)
 
 (use-package tide
  :ensure t
@@ -822,22 +831,22 @@
    "maildir:/gmail/Inbox"
    "Inbox"
    ?i)
-  
-  
-  (setq   mu4e-maildir-shortcuts
-  	  '(
-	  ("/gmail/Banking" . ?b)
-	    ("/gmail/Bills" . ?B)
-	    ("/gmail/Reading" . ?r)
-	    ("/gmail/Lists/OpenBSD" . ?p)
-	    ("/gmail/Lists/Org" . ?O)
-	    ("/gmail/Lists/Sbcl" . ?s)
-	    ("/gmail/Lists/Emacs" . ?e)
-	    ("/gmail/Shopping/Amazon" . ?A)
-	    ("/gmail/House Hunt" . ?h)
-	    ("/gmail/Shipping" . ?S)
 
-	    )))
+
+  (setq   mu4e-maildir-shortcuts
+       '(
+       ("/gmail/Banking" . ?b)
+   	 ("/gmail/Bills" . ?B)
+   	 ("/gmail/Reading" . ?r)
+   	 ("/gmail/Lists/OpenBSD" . ?p)
+   	 ("/gmail/Lists/Org" . ?O)
+   	 ("/gmail/Lists/Sbcl" . ?s)
+   	 ("/gmail/Lists/Emacs" . ?e)
+   	 ("/gmail/Shopping/Amazon" . ?A)
+   	 ("/gmail/House Hunt" . ?h)
+   	 ("/gmail/Shipping" . ?S)
+
+   	 )))
 
 (use-package emacs
   :init
@@ -925,22 +934,6 @@
    version-control t 		; use version control
    visible-bell t
    )
-  (setq enable-recursive-minibuffers t)                ; Use the minibuffer whilst in the minibuffer
-  (setq completion-cycle-threshold 1)                  ; TAB cycles candidates
-  (setq completions-detailed t)                        ; Show annotations
-  (setq tab-always-indent 'complete)                   ; When I hit TAB, try to complete, otherwise, indent
-  (setq completion-styles '(basic initials substring)) ; Different styles to match input to candidates
-
-  (setq completion-auto-help 'always)                  ; Open completion always; `lazy' another option
-  (setq completions-max-height 20)                     ; This is arbitrary
-  (setq completions-detailed t)
-  (setq completions-format 'one-column)
-  (setq completions-group t)
-  (setq completion-auto-select 'second-tab)            ; Much more eager
-					;(setq completion-auto-select t)                     ; See `C-h v completion-auto-select' for more possible values
-
-  (keymap-set minibuffer-mode-map "TAB" 'minibuffer-complete) ; TAB acts more like how it does in the shell
-
 
   )
 
@@ -955,14 +948,7 @@
 (setq uniquify-buffer-name-style 'forward)
 (winner-mode 1)
 
-;;bigger font size for my poor old aching occulars
-(setq default-frame-alist  '(
-				      (font . "-*-Monaco-normal-normal-normal-*-16-*-*-*-m-0-iso10646-1"   )
-				      (height . 36)
-				      (width . 136)
-				      (top . 50)
-				      (left . 30)
-				      ))
+
 
 ;;(require 'cl)
 
@@ -970,12 +956,12 @@
   "Put the current file name on the clipboard"
   (interactive)
   (let ((filename (if (equal major-mode 'dired-mode)
-		      default-directory
-		    (buffer-file-name))))
+  		    default-directory
+  		  (buffer-file-name))))
     (when filename
       (with-temp-buffer
-	(insert filename)
-	(clipboard-kill-region (point-min) (point-max)))
+      (insert filename)
+      (clipboard-kill-region (point-min) (point-max)))
       (message filename))))
 
 (defun load-init-file ()
@@ -985,8 +971,8 @@
 
 (defun foobl (ak)
   (let ((foo 'bar)
-	(zip 'ping)
-	))
+      (zip 'ping)
+      ))
   (print foo))
 
 (defun edit-init-org-file ()
@@ -1001,7 +987,7 @@
 (defun add-hook-to-modes (modes hook)
   (dolist (mode modes)
     (add-hook (intern (concat (symbol-name mode) "-mode-hook"))
-	      hook)))
+  	    hook)))
 
 (defun halt ()
   (interactive)
@@ -1010,14 +996,14 @@
 
 (defun my-whitespace-mode-hook ()
   (setq whitespace-action '(auto-cleanup)
-	whitespace-style  '(face tabs trailing lines-tail empty)
-	;; use fill-column value instead
-	whitespace-line-column nil)
+      whitespace-style  '(face tabs trailing lines-tail empty)
+      ;; use fill-column value instead
+      whitespace-line-column nil)
   (whitespace-mode))
 
 (defun my-makefile-mode-hook ()
   (setq indent-tabs-mode t
-	tab-width 4))
+      tab-width 4))
 
 (defun make-region-read-only (start end)
   (interactive "*r")
@@ -1033,9 +1019,9 @@
   "Put the buffer from the selected window in next window, and vice versa"
   (interactive)
   (let* ((this (selected-window))
-	   (other (next-window))
-	   (this-buffer (window-buffer this))
-	   (other-buffer (window-buffer other)))
+	 (other (next-window))
+	 (this-buffer (window-buffer this))
+	 (other-buffer (window-buffer other)))
     (set-window-buffer other this-buffer)
     (set-window-buffer this other-buffer)
     )
@@ -1061,14 +1047,14 @@
 (defun marker-is-point-p (marker)
   "test if marker is current point"
   (and (eq (marker-buffer marker) (current-buffer))
-	 (= (marker-position marker) (point))))
+       (= (marker-position marker) (point))))
 
 (defun push-mark-maybe () 
   "push mark onto `global-mark-ring' if mark head or tail is not current location"
   (if (not global-mark-ring) (error "global-mark-ring empty")
     (unless (or (marker-is-point-p (car global-mark-ring))
-		  (marker-is-point-p (car (reverse global-mark-ring))))
-	(push-mark))))
+		(marker-is-point-p (car (reverse global-mark-ring))))
+      (push-mark))))
 
 
 (defun backward-global-mark () 
@@ -1126,27 +1112,27 @@
 (defun vertical-horizontal-swizzle ()
   (interactive)
   (if (= (count-windows) 2)
-	(let* ((this-win-buffer (window-buffer))
-	       (next-win-buffer (window-buffer (next-window)))
-	       (this-win-edges (window-edges (selected-window)))
-	       (next-win-edges (window-edges (next-window)))
-	       (this-win-2nd (not (and (<= (car this-win-edges)
-					   (car next-win-edges))
-				       (<= (cadr this-win-edges)
-					   (cadr next-win-edges)))))
-	       (splitter
-		(if (= (car this-win-edges)
-		       (car (window-edges (next-window))))
-		    'split-window-horizontally
-		  'split-window-vertically)))
-	  (delete-other-windows)
-	  (let ((first-win (selected-window)))
-	    (funcall splitter)
-	    (if this-win-2nd (other-window 1))
-	    (set-window-buffer (selected-window) this-win-buffer)
-	    (set-window-buffer (next-window) next-win-buffer)
-	    (select-window first-win)
-	    (if this-win-2nd (other-window 1))))))
+      (let* ((this-win-buffer (window-buffer))
+  	     (next-win-buffer (window-buffer (next-window)))
+  	     (this-win-edges (window-edges (selected-window)))
+  	     (next-win-edges (window-edges (next-window)))
+  	     (this-win-2nd (not (and (<= (car this-win-edges)
+  					 (car next-win-edges))
+  				     (<= (cadr this-win-edges)
+  					 (cadr next-win-edges)))))
+  	     (splitter
+  	      (if (= (car this-win-edges)
+  		     (car (window-edges (next-window))))
+  		  'split-window-horizontally
+  		'split-window-vertically)))
+  	(delete-other-windows)
+  	(let ((first-win (selected-window)))
+  	  (funcall splitter)
+  	  (if this-win-2nd (other-window 1))
+  	  (set-window-buffer (selected-window) this-win-buffer)
+  	  (set-window-buffer (next-window) next-win-buffer)
+  	  (select-window first-win)
+  	  (if this-win-2nd (other-window 1))))))
 
 (defun not-anymore ()
   "not any more"
@@ -1165,9 +1151,9 @@
   (abbrev-mode 1)
   (word-wrap-mode 1)
   (setq buffer-face-mode-face
-	  '(:family "Times New Roman"
-		    :height 180
-		    :width semi-condensed))
+	'(:family "Times New Roman"
+		  :height 180
+		  :width semi-condensed))
   (buffer-face-mode)
   )
 
@@ -1186,7 +1172,7 @@
 then it takes a second \\[keyboard-quit] to abort the minibuffer."
   (interactive)
   (if (and delete-selection-mode transient-mark-mode mark-active)
-	(setq deactivate-mark  t)
+      (setq deactivate-mark  t)
     (when (get-buffer "*Completions*") (delete-windows-on "*Completions*"))
     (abort-recursive-edit)))
 (define-key evil-normal-state-map [escape] 'keyboard-quit)
@@ -1271,9 +1257,9 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   (global-set-key (kbd "M-X") 'evil-delete-char)
 
   )
-					  ;  (when (string= (system-name) "zig") 
-					  ;(set-frame-font "Inconsolata-16")
-					  ;)
+  					;  (when (string= (system-name) "zig") 
+  					;(set-frame-font "Inconsolata-16")
+  					;)
 
 (define-key evil-normal-state-map (kbd "M-y") nil)
 (define-key evil-normal-state-map (kbd "M-.") nil)
