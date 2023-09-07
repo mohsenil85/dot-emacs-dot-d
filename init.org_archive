@@ -1173,3 +1173,30 @@ C-x n w to widen to a page (delineated by ^L chars)
   )
 
 #+END_SRC
+
+* COMMENT projectile
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-09-06 Wed 20:21
+:ARCHIVE_FILE: ~/.emacs.d/init.org
+:ARCHIVE_OLPATH: packages
+:ARCHIVE_CATEGORY: init
+:END:
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package projectile
+    :ensure t
+    :diminish
+    :config
+      (projectile-global-mode)
+      (setq projectile-completion-system 'default)
+      (setq projectile-create-missing-test-files t)
+      (setq projectile-switch-project-action 'projectile-dired)
+      (setq projectile-sort-order 'recentf)
+      (setq projectile-mode-line '(:eval (format " [%s]" (projectile-project-name))))
+  
+    ;; (use-package counsel-projectile
+    ;;   :ensure t
+    ;;   :config
+    ;;   (add-hook 'after-init-hook 'counsel-projectile-mode))
+    )
+#+END_SRC
+   

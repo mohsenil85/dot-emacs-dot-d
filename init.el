@@ -458,23 +458,6 @@
 :config
 (show-paren-mode +1))
 
-(use-package projectile
-  :ensure t
-  :diminish
-  :config
-    (projectile-global-mode)
-    (setq projectile-completion-system 'default)
-    (setq projectile-create-missing-test-files t)
-    (setq projectile-switch-project-action 'projectile-dired)
-    (setq projectile-sort-order 'recentf)
-    (setq projectile-mode-line '(:eval (format " [%s]" (projectile-project-name))))
-
-  ;; (use-package counsel-projectile
-  ;;   :ensure t
-  ;;   :config
-  ;;   (add-hook 'after-init-hook 'counsel-projectile-mode))
-  )
-
 (use-package savehist
   :config
   (setq savehist-file "~/.emacs.d/var/savehist")
@@ -596,6 +579,24 @@ read-file-name-completion-ignore-case t
 
 (use-package expand-region
   :bind ("C-=" . er/expand-region))
+
+(use-package avy
+  :ensure t
+  :demand t
+  :bind (("C-c n"   . avy-goto-char-timer)))
+
+;; Popup completion-at-point
+(use-package corfu
+  :ensure t
+  :init
+  (global-corfu-mode)
+  :bind
+  (:map corfu-map
+        ("SPC" . corfu-insert-separator)
+        ("C-n" . corfu-next)
+        ("C-p" . corfu-previous)))
+
+;; Part of corfu
 
 (defvar lispular-modes-list
   'emacs-lisp-mode-hook
@@ -860,77 +861,96 @@ read-file-name-completion-ignore-case t
 
   ;; Enable recursive minibuffers
 
-    (blink-cursor-mode -1)
-    (defalias 'yes-or-no-p 'y-or-n-p)
-    (delete-selection-mode 1)
-    (electric-pair-mode 1)
-    (global-display-line-numbers-mode 1)
-    (global-visual-line-mode t)
-    (menu-bar-mode 0)
-    (prefer-coding-system 'utf-8)
-    (recentf-mode 1)
-    (scroll-bar-mode 0)
-    (server-start)
-    (set-keyboard-coding-system 'utf-8)
-    (set-selection-coding-system 'utf-8)
-    (set-terminal-coding-system 'utf-8-unix)
-    (tool-bar-mode 0)
-    (tooltip-mode -1)
+  (blink-cursor-mode -1)
+  (defalias 'yes-or-no-p 'y-or-n-p)
+  (delete-selection-mode 1)
+  (electric-pair-mode 1)
+  (global-display-line-numbers-mode 1)
+  (global-visual-line-mode t)
+  (menu-bar-mode 0)
+  (prefer-coding-system 'utf-8)
+  (recentf-mode 1)
+  (scroll-bar-mode 0)
+  (server-start)
+  (set-keyboard-coding-system 'utf-8)
+  (set-selection-coding-system 'utf-8)
+  (set-terminal-coding-system 'utf-8-unix)
+  (tool-bar-mode 0)
+  (tooltip-mode -1)
+  (context-menu-mode)
 
-    (setq
-     auto-save-file-name-transforms `((".*" ,temporary-file-directory t))
-     auto-save-visited-interval 1
-     auto-save-visited-mode 1
-     backup-directory-alist `((".*" . ,temporary-file-directory))
-     confirm-kill-processes nil
-     confirm-nonexistent-file-or-buffer nil
-     default-fill-column 80		; toggle wrapping text at the 80th character
-     delete-old-versions t 		; delete excess backup versions silently
-     enable-recursive-minibuffers t
-     explicit-shell-file-name "/bin/zsh"
-     explicit-zsh-args '("--login" "--interactive")
-     history-length 250 
-     indicate-empty-lines t
-     inhibit-startup-echo-area-message "loganmohseni"
-     inhibit-startup-message t
-     inhibit-startup-screen t
-     initial-scratch-message ";         :D"
-     kill-ring-max 5000                     ;truncate kill ring after 5000 entries
-     load-prefer-newer t
-     locale-coding-system 'utf-8
-     mark-ring-max 5000 
-     recentf-max-saved-items 5000  
-     ring-bell-function 'ignore 	; silent bell when you make a mistake
-     sentence-end-double-space t	; 
-     shell-file-name "/bin/zsh"
-     show-paren-delay 0
-     show-paren-style 'parenthesis
-     show-paren-when-point-inside-paren t
-     split-width-threshold 160
-     switch-to-buffer-preserve-window-point t
-     tab-always-indent 'complete 
-     tooltip-use-echo-area t
-     use-dialog-box nil
-     user-full-name "Logan Mohseni"
-     user-mail-address "mohsenil85@gmail.com"
-     vc-follow-symlinks t 				       ; don't ask for confirmation when opening symlinked file
-     vc-make-backup-files t 		; make backups file even when in version controlled dir
-     version-control t 		; use version control
-     visible-bell t
-     )
+  (setq
+   sentence-end-double-space nil
+   display-time-default-load-average nil
+   auto-save-file-name-transforms `((".*" ,temporary-file-directory t))
+   auto-save-visited-interval 1
+   auto-save-visited-mode 1
+   backup-directory-alist `((".*" . ,temporary-file-directory))
+   confirm-kill-processes nil
+   confirm-nonexistent-file-or-buffer nil
+   default-fill-column 80		; toggle wrapping text at the 80th character
+   delete-old-versions t 		; delete excess backup versions silently
+   enable-recursive-minibuffers t
+   explicit-shell-file-name "/bin/zsh"
+   explicit-zsh-args '("--login" "--interactive")
+   history-length 250 
+   indicate-empty-lines t
+   inhibit-startup-echo-area-message "loganmohseni"
+   inhibit-startup-message t
+   inhibit-startup-screen t
+   initial-scratch-message ";         :D"
+   kill-ring-max 5000                     ;truncate kill ring after 5000 entries
+   load-prefer-newer t
+   locale-coding-system 'utf-8
+   mark-ring-max 5000 
+   recentf-max-saved-items 5000  
+   ring-bell-function 'ignore 	; silent bell when you make a mistake
+   sentence-end-double-space t	; 
+   shell-file-name "/bin/zsh"
+   show-paren-delay 0
+   show-paren-style 'parenthesis
+   show-paren-when-point-inside-paren t
+   split-width-threshold 160
+   switch-to-buffer-preserve-window-point t
+   tab-always-indent 'complete 
+   tooltip-use-echo-area t
+   use-dialog-box nil
+   user-full-name "Logan Mohseni"
+   user-mail-address "mohsenil85@gmail.com"
+   vc-follow-symlinks t 				       ; don't ask for confirmation when opening symlinked file
+   vc-make-backup-files t 		; make backups file even when in version controlled dir
+   version-control t 		; use version control
+   visible-bell t
+   )
+  (setq enable-recursive-minibuffers t)                ; Use the minibuffer whilst in the minibuffer
+  (setq completion-cycle-threshold 1)                  ; TAB cycles candidates
+  (setq completions-detailed t)                        ; Show annotations
+  (setq tab-always-indent 'complete)                   ; When I hit TAB, try to complete, otherwise, indent
+  (setq completion-styles '(basic initials substring)) ; Different styles to match input to candidates
 
-)
+  (setq completion-auto-help 'always)                  ; Open completion always; `lazy' another option
+  (setq completions-max-height 20)                     ; This is arbitrary
+  (setq completions-detailed t)
+  (setq completions-format 'one-column)
+  (setq completions-group t)
+  (setq completion-auto-select 'second-tab)            ; Much more eager
+					;(setq completion-auto-select t)                     ; See `C-h v completion-auto-select' for more possible values
 
-  
+  (keymap-set minibuffer-mode-map "TAB" 'minibuffer-complete) ; TAB acts more like how it does in the shell
 
 
-  (defun zsh-shell-mode-setup ()
-    (setq-local comint-process-echoes t))
-  (add-hook 'shell-mode-hook #'zsh-shell-mode-setup)
+  )
 
-    (require 'uniquify)
-    (setq uniquify-buffer-name-style 'forward)
-    (winner-mode 1)
+
+
+
+(defun zsh-shell-mode-setup ()
+  (setq-local comint-process-echoes t))
+(add-hook 'shell-mode-hook #'zsh-shell-mode-setup)
+
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'forward)
+(winner-mode 1)
 
 ;;bigger font size for my poor old aching occulars
 (setq default-frame-alist  '(
