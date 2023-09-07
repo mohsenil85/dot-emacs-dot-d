@@ -594,6 +594,9 @@ read-file-name-completion-ignore-case t
 	  ;; completion-category-overrides '((file (styles partial-completion)))
 	))
 
+(use-package expand-region
+  :bind ("C-=" . er/expand-region))
+
 (defvar lispular-modes-list
   'emacs-lisp-mode-hook
   'lisp-mode-hook)
@@ -795,25 +798,42 @@ read-file-name-completion-ignore-case t
    mu4e-trash-folder  "/gmail/[Gmail]/Trash"
    )
 
-  (setq   mu4e-maildir-shortcuts
-  	  '(("/gmail/INBOX" . ?i)
-       	    ("/gmail/[Gmail]/Sent Mail" . ?I)
-       	    ("/example/INBOX" . ?e)
-       	    ("/example/Sent" . ?E))
-          )
 
   (require 'smtpmail)
 
-               (mu4e-bookmark-define
-     		"maildir:/gmail/INBOX"
-     		"Inbox - Gmail"
-     		?g)
-               (mu4e-bookmark-define
-     		"maildir:/example/INBOX"
-     		"Inbox - example"
-     		?e)
+  (mu4e-bookmark-define
+   "maildir:/gmail/Archive"
+   "Archive"
+   ?x)
+  (mu4e-bookmark-define
+   "maildir:/gmail/[Gmail]/Drafts"
+   "Drafts"
+   ?d)
+  (mu4e-bookmark-define
+   "maildir:/gmail/\\[Gmail\\]/Sent Mail"
+   "Sent Mail"
+   ?s)
+  (mu4e-bookmark-define
+   "maildir:/gmail/Inbox"
+   "Inbox - Gmail"
+   ?g)
   
-  )
+  
+  (setq   mu4e-maildir-shortcuts
+  	  '(
+	    ("/gmail/Inbox" . ?i)
+       	    ("/gmail/Banking" . ?b)
+	    ("/gmail/Bills" . ?B)
+	    ("/gmail/Lists/Reading" . ?r)
+	    ("/gmail/Lists/OpenBSD" . ?p)
+	    ("/gmail/Lists/Org" . ?O)
+	    ("/gmail/Lists/Sbcl" . ?s)
+	    ("/gmail/Lists/Emacs" . ?e)
+	    ("/gmail/Shopping/Amazon" . ?A)
+	    ("/gmail/House Hunt" . ?h)
+	    ("/gmail/Shipping" . ?S)
+
+	    )))
 
 (use-package emacs
   :init
