@@ -3,7 +3,6 @@
 #+EMAIL: mohsenil85@gmail.com 
 #+PROPERTY: header-args :tangle init.el
 
-/
 
 * frontmatter
 ** straight
@@ -1087,7 +1086,8 @@ general lisp stuff
     (tool-bar-mode 0)
     (tooltip-mode -1)
     (context-menu-mode)
-
+    (pixel-scroll-precision-mode)
+    
     (setq
      sentence-end-double-space nil
      display-time-default-load-average nil
@@ -1131,6 +1131,10 @@ general lisp stuff
      version-control t 		; use version control
      visible-bell t
      )
+    (setq-default indicate-buffer-boundaries 'left)
+  (setq display-time-format "%l:%M %a%e %b") 
+  (setq display-time-interval 1)
+  (display-time-mode)
     
     )
 
@@ -1691,14 +1695,14 @@ toggle fullscreen
   (use-package standard-themes :ensure t )
 
   (defun load-dark ()
-    (load-theme 'humanoid-dark t)
+    (load-theme 'modus-vivendi t)
     (setq dark-light-state :dark ))
   ;; (defun load-dark ()
   ;;   (load-theme 'humanoid-dark t)
   ;;   (setq dark-light-state :dark ))
 
   (defun load-light ()
-    (load-theme 'humanoid-light t)
+    (load-theme 'modus-operandi t)
     (setq dark-light-state :light ))
   ;; (defun load-light ()
   ;;   (load-theme 'hydandata-light t)
