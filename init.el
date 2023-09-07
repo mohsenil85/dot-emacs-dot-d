@@ -546,7 +546,7 @@
   )
 
 ;; Persist history over Emacs restarts. Vertico sorts by history position.
-(use-package savehist
+(use-package savehist			;
   :init
   (savehist-mode))
 
@@ -569,13 +569,17 @@
 (use-package hotfuzz
   :init
   (setq completion-styles '(hotfuzz basic)
-	completion-ignore-case t
-read-buffer-completion-ignore-case t
-read-file-name-completion-ignore-case t
+  	completion-ignore-case t
+	read-buffer-completion-ignore-case t
+	read-file-name-completion-ignore-case t
 
-	  ;; completion-category-defaults nil
-	  ;; completion-category-overrides '((file (styles partial-completion)))
-	))
+  	completion-category-defaults nil
+  	completion-category-overrides '((file (styles partial-completion)))
+  	))
+;; (use-package orderless
+;;   :ensure t
+;;   :config
+;;   (setq completion-styles '(orderless)))
 
 (use-package expand-region
   :bind ("C-=" . er/expand-region))
@@ -794,9 +798,9 @@ read-file-name-completion-ignore-case t
 
    mu4e-maildir       "~/Maildir/gmail"   ;; top-level Maildir
    mu4e-refile-folder "/gmail/Archive"
-   mu4e-sent-folder   "/gmail/[Gmail]/Sent Mail"
-   mu4e-drafts-folder "/gmail/[Gmail]/Drafts"
-   mu4e-trash-folder  "/gmail/[Gmail]/Trash"
+   mu4e-sent-folder   "/gmail/Sent"
+   mu4e-drafts-folder "/gmail/Drafts"
+   mu4e-trash-folder  "/gmail/Trash"
    )
 
 
@@ -807,25 +811,24 @@ read-file-name-completion-ignore-case t
    "Archive"
    ?x)
   (mu4e-bookmark-define
-   "maildir:/gmail/[Gmail]/Drafts"
+   "maildir:/gmail/Drafts"
    "Drafts"
    ?d)
   (mu4e-bookmark-define
-   "maildir:/gmail/\\[Gmail\\]/Sent Mail"
+   "maildir:/gmail/Sent"
    "Sent Mail"
    ?s)
   (mu4e-bookmark-define
    "maildir:/gmail/Inbox"
-   "Inbox - Gmail"
-   ?g)
+   "Inbox"
+   ?i)
   
   
   (setq   mu4e-maildir-shortcuts
   	  '(
-	    ("/gmail/Inbox" . ?i)
-       	    ("/gmail/Banking" . ?b)
+	  ("/gmail/Banking" . ?b)
 	    ("/gmail/Bills" . ?B)
-	    ("/gmail/Lists/Reading" . ?r)
+	    ("/gmail/Reading" . ?r)
 	    ("/gmail/Lists/OpenBSD" . ?p)
 	    ("/gmail/Lists/Org" . ?O)
 	    ("/gmail/Lists/Sbcl" . ?s)

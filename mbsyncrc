@@ -25,25 +25,23 @@ SubFolders Verbatim
 Channel gmail-inbox
 Far :gmail-remote:
 Near :gmail-local:
-#Patterns "INBOX"
-Patterns *
-#Patterns *  !"[Gmail]/Sent Mail" !"[Gmail]/Drafts" !"[Gmail]/Trash"   
-#Patterns * 
+Patterns *  !"[Gmail]/Sent Mail" !"[Gmail]/Drafts" !"[Gmail]/Trash"   
+# Patterns * 
 
-#Channel gmail-sent
-#Far :gmail-remote:"[Gmail]/Sent Mail"
-#Near :gmail-local:sent2
-#
-#Channel gmail-trash
-#Far :gmail-remote:"[Gmail]/Trash"
-#Near :gmail-local:trash
-#
-#Channel gmail-drafts
-#Far :gmail-remote:"[Gmail]/Drafts"
-#Near :gmail-local:drafts
+Channel gmail-sent
+Far :gmail-remote:"[Gmail]/Sent Mail"
+Near :gmail-local:Sent
 
-#Group gmail
-#Channel gmail-inbox
-#Channel gmail-sent
-#Channel gmail-trash
-#Channel gmail-drafts
+Channel gmail-trash
+Far :gmail-remote:"[Gmail]/Trash"
+Near :gmail-local:Trash
+
+Channel gmail-drafts
+Far :gmail-remote:"[Gmail]/Drafts"
+Near :gmail-local:Drafts
+
+Group gmail
+Channel gmail-inbox
+Channel gmail-sent
+Channel gmail-trash
+Channel gmail-drafts
