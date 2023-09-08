@@ -566,20 +566,20 @@
   ;; package.
   (marginalia-mode))
 
-(use-package hotfuzz
-  :init
-  (setq completion-styles '(hotfuzz basic)
-  	completion-ignore-case t
-	read-buffer-completion-ignore-case t
-	read-file-name-completion-ignore-case t
+;; (use-package hotfuzz
+;;   :init
+;;   (setq completion-styles '(hotfuzz basic)
+;;   	completion-ignore-case t
+;; 	read-buffer-completion-ignore-case t
+;; 	read-file-name-completion-ignore-case t
 
-  	completion-category-defaults nil
-  	completion-category-overrides '((file (styles partial-completion)))
-  	))
-;; (use-package orderless
-;;   :ensure t
-;;   :config
-;;   (setq completion-styles '(orderless)))
+;;   	completion-category-defaults nil
+;;   	completion-category-overrides '((file (styles partial-completion)))
+;;   	))
+(use-package orderless
+  :ensure t
+  :config
+  (setq completion-styles '(orderless)))
 
 (use-package expand-region
   :bind ("C-=" . er/expand-region))
@@ -1324,38 +1324,14 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (set-register ?p (cons 'file "~/Projects/"))
 (set-register ?e (cons 'file "~/Dropbox/elfeed.org"))
 (set-register ?s (cons 'file "~/org/stories/ideas.org"))
-(set-register ?k (cons 'file "~/builds/qmk_firmware/keyboards/ergodox_ez/keymaps/mohsenil85/keymap.c"))
-
-;; (use-package gandalf-theme :ensure t)
-;; (use-package mbo70s-theme :ensure t)
-;; (use-package warm-night-theme  :ensure t )
-;; (use-package twilight-bright-theme :ensure t )
-;; (use-package standard-themes :ensure t )
-;; (use-package alect-themes :ensure t)
-;; (use-package yoshi-theme :ensure t)
-;; (use-package slime-theme :ensure t)
-;; (use-package basic-theme :ensure t)
-;; (use-package minimal-theme :ensure t)
-;; (use-package white-theme :ensure t)
-;; (use-package paper-theme :ensure t )
-;; (use-package django-theme :ensure t )
-;; (use-package solarized-theme :ensure t)
-;; (use-package minimal-theme :ensure t)
-
-
-(use-package humanoid-themes :ensure t)
-(use-package soft-morning-theme :ensure t )
-(use-package soft-charcoal-theme :ensure t )
-(use-package hydandata-light-theme :ensure t)
-
-(use-package standard-themes :ensure t )
+(set-register ?k (cons 'file "~/qmk_firmware/keyboards/ergodox_ez/keymaps/mohsenil85/keymap.c"))
 
 (defun load-dark ()
-  (load-theme 'humanoid-dark t)
+  (load-theme 'modus-vivendi t)
   (setq dark-light-state :dark ))
 
 (defun load-light ()
-  (load-theme 'humanoid-light t)
+  (load-theme 'modus-operandi t)
   (setq dark-light-state :light ))
 
 ;; (defun load-light ()

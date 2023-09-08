@@ -1200,3 +1200,66 @@ C-x n w to widen to a page (delineated by ^L chars)
     )
 #+END_SRC
    
+
+* modus theme* old color theme
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-09-08 Fri 12:35
+:ARCHIVE_FILE: ~/.emacs.d/init.org
+:ARCHIVE_CATEGORY: init
+:END:
+#+BEGIN_SRC emacs-lisp :results output silent
+  ;; (use-package gandalf-theme :ensure t)
+  ;; (use-package mbo70s-theme :ensure t)
+  ;; (use-package warm-night-theme  :ensure t )
+  ;; (use-package twilight-bright-theme :ensure t )
+  ;; (use-package standard-themes :ensure t )
+  ;; (use-package alect-themes :ensure t)
+  ;; (use-package yoshi-theme :ensure t)
+  ;; (use-package slime-theme :ensure t)
+  ;; (use-package basic-theme :ensure t)
+  ;; (use-package minimal-theme :ensure t)
+  ;; (use-package white-theme :ensure t)
+  ;; (use-package paper-theme :ensure t )
+  ;; (use-package django-theme :ensure t )
+  ;; (use-package solarized-theme :ensure t)
+  ;; (use-package minimal-theme :ensure t)
+
+
+  (use-package humanoid-themes :ensure t)
+  (use-package soft-morning-theme :ensure t )
+  (use-package soft-charcoal-theme :ensure t )
+  (use-package hydandata-light-theme :ensure t)
+
+  (use-package standard-themes :ensure t )
+
+  (defun load-dark ()
+    (load-theme 'humanoid-dark t)
+    (setq dark-light-state :dark ))
+
+  (defun load-light ()
+    (load-theme 'humanoid-light t)
+    (setq dark-light-state :light ))
+
+  ;; (defun load-light ()
+  ;;   (load-theme 'hydandata-light t)
+  ;;   (setq dark-light-state :light ))
+
+  (defun reset-themes()
+    (mapc #'disable-theme custom-enabled-themes))
+
+  (defun toggle-dark-light-state ()
+    (interactive)
+    (reset-themes)
+    (if (eq dark-light-state :dark)
+        (load-light)
+      (load-dark)))
+
+  (defun init-themes ()
+    (reset-themes)
+    (load-light))
+
+  (init-themes)
+
+
+#+END_SRC
+
