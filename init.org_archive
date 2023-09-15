@@ -1,5 +1,5 @@
 #    -*- mode: org -*-
-x
+
 
 Archived entries from file /Users/logan.k.mohseni/.emacs.d/init.org
 
@@ -1142,7 +1142,7 @@ C-x n w to widen to a page (delineated by ^L chars)
 #+END_SRC
 
 
-* powerline                                                         :ARCHIVE:
+* powerline                                                 :ARCHIVE:ARCHIVE:
 :PROPERTIES:
 :ARCHIVE_TIME: 2023-08-31 Thu 12:45
 :ARCHIVE_FILE: ~/.emacs.d/init.org
@@ -1174,7 +1174,7 @@ C-x n w to widen to a page (delineated by ^L chars)
 
 #+END_SRC
 
-* COMMENT projectile
+* projectile
 :PROPERTIES:
 :ARCHIVE_TIME: 2023-09-06 Wed 20:21
 :ARCHIVE_FILE: ~/.emacs.d/init.org

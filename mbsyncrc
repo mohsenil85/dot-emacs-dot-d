@@ -1,47 +1,81 @@
-Create Both
-Expunge Both
-SyncState *
-CopyArrivalDate yes
+# Create Both
+# Expunge Both
+# SyncState *
+# CopyArrivalDate yes
 
 
-IMAPAccount gmail
-# Address to connect to
-Host imap.gmail.com
-User mohsenil85@gmail.com
-PassCmd "cat ~/.gmail.pass"
+# IMAPAccount gmail
+# # Address to connect to
+# Host imap.gmail.com
+# User mohsenil85@gmail.com
+# PassCmd "cat ~/.gmail.pass"
+# AuthMechs LOGIN
+# SSLType IMAPS
+# SSLVersions TLSv1.2
+
+# IMAPstore gmail-remote
+# Account gmail
+
+# MaildirStore gmail-local
+# # The trailing "/" is important
+# Path ~/Maildir/gmail/
+# Inbox ~/Maildir/gmail/Inbox
+# SubFolders Verbatim 
+
+# Channel gmail-inbox
+# Far :gmail-remote:
+# Near :gmail-local:
+# Patterns *  !"[Gmail]/Sent Mail" !"[Gmail]/Drafts" !"[Gmail]/Trash"   
+# # Patterns * 
+
+# Channel gmail-sent
+# Far :gmail-remote:"[Gmail]/Sent Mail"
+# Near :gmail-local:Sent
+
+# Channel gmail-trash
+# Far :gmail-remote:"[Gmail]/Trash"
+# Near :gmail-local:Trash
+
+# Channel gmail-drafts
+# Far :gmail-remote:"[Gmail]/Drafts"
+# Near :gmail-local:Drafts
+
+# Group gmail
+# Channel gmail-inbox
+# Channel gmail-sent
+# Channel gmail-trash
+# Channel gmail-drafts
+
+# First section: remote IMAP account
+IMAPAccount fastmail
+Host imap.fastmail.com
+Port 993
+User logan@mohseni.io
+# For simplicity, this is how to read the password from another file.
+# For better security you should use GPG https://gnupg.org/
+PassCmd "cat ~/.fastmail.pass"
 AuthMechs LOGIN
 SSLType IMAPS
 SSLVersions TLSv1.2
 
-IMAPstore gmail-remote
-Account gmail
+IMAPStore fastmail-remote
+Account fastmail
 
-MaildirStore gmail-local
-# The trailing "/" is important
-Path ~/Maildir/gmail/
-Inbox ~/Maildir/gmail/Inbox
-SubFolders Verbatim 
+# This section describes the local storage
+MaildirStore fastmail-local
+Path ~/Maildir/fastmail/
+Inbox ~/Maildir/fastmail/INBOX
+# The SubFolders option allows to represent all
+# IMAP subfolders as local subfolders
+SubFolders Verbatim
 
-Channel gmail-inbox
-Far :gmail-remote:
-Near :gmail-local:
-Patterns *  !"[Gmail]/Sent Mail" !"[Gmail]/Drafts" !"[Gmail]/Trash"   
-# Patterns * 
-
-Channel gmail-sent
-Far :gmail-remote:"[Gmail]/Sent Mail"
-Near :gmail-local:Sent
-
-Channel gmail-trash
-Far :gmail-remote:"[Gmail]/Trash"
-Near :gmail-local:Trash
-
-Channel gmail-drafts
-Far :gmail-remote:"[Gmail]/Drafts"
-Near :gmail-local:Drafts
-
-Group gmail
-Channel gmail-inbox
-Channel gmail-sent
-Channel gmail-trash
-Channel gmail-drafts
+# This section a "channel", a connection between remote and local
+Channel fastmail
+Far :fastmail-remote:
+Near :fastmail-local:
+Patterns *
+Expunge None
+CopyArrivalDate yes
+Sync All
+Create Near
+SyncState *
