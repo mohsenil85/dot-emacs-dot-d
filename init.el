@@ -778,131 +778,131 @@
 :hook (typescript-mode js-mode typescript-tsx-mode))
 
 ;;taken from https://macowners.club/posts/email-emacs-mu4e-macos/#storing-trusted-root-certificates
-            ;;and https://rakhim.org/fastmail-setup-with-emacs-mu4e-and-mbsync-on-macos/
+;;and https://rakhim.org/fastmail-setup-with-emacs-mu4e-and-mbsync-on-macos/
 
 
-            (use-package mu4e
-              :straight nil
-              :load-path "/opt/homebrew/share/emacs/site-lisp/mu/mu4e/"
-              :config
-              (require 'mu4e-contrib)
-              (require 'smtpmail)
-              (setq
-               message-send-mail-function 'sendmail-send-it
-               message-sendmail-envelope-from 'header
-               send-mail-function 'sendmail-send-it
-               sendmail-program (executable-find "msmtp")
+(use-package mu4e
+  :straight nil
+  :load-path "/opt/homebrew/share/emacs/site-lisp/mu/mu4e/"
+  :config
+  (require 'mu4e-contrib)
+  (require 'smtpmail)
+  (setq
+   message-send-mail-function 'sendmail-send-it
+   message-sendmail-envelope-from 'header
+   send-mail-function 'sendmail-send-it
+   sendmail-program (executable-find "msmtp")
 
-               mu4e-attachments-dir "~/Downloads"
-               mu4e-change-filenames-when-moving t
-               mu4e-completing-read-function 'completing-read
-               mu4e-compose-format-flowed nil
-               mu4e-date-format "%y/%m/%d"
-               mu4e-get-mail-command  "mbsync -a"
-               mu4e-headers-date-format "%Y/%m/%d"
-               mu4e-mu-binary "/opt/homebrew/bin/mu"
-               mu4e-read-option-use-builtin nil
-               mu4e-view-show-addresses t
-               mu4e-view-show-images t
-               mu4e-headers-skip-duplicates t)
+   mu4e-attachments-dir "~/Downloads"
+   mu4e-change-filenames-when-moving t
+   mu4e-completing-read-function 'completing-read
+   mu4e-compose-format-flowed nil
+   mu4e-date-format "%y/%m/%d"
+   mu4e-get-mail-command  "mbsync -a"
+   mu4e-headers-date-format "%Y/%m/%d"
+   mu4e-mu-binary "/opt/homebrew/bin/mu"
+   mu4e-read-option-use-builtin nil
+   mu4e-view-show-addresses t
+   mu4e-view-show-images t
+   mu4e-headers-skip-duplicates t)
 
-              (setq mu4e-contexts
-            	    `(
-		      ,(make-mu4e-context
-                         :name "Gmail"
-                         :enter-func (lambda () (mu4e-message "Entering Private context"))
-                         :leave-func (lambda () (mu4e-message "Leaving Private context"))
-                         ;; we match based on the contact-fields of the message
-                         :match-func (lambda (msg)
-                                       (when msg
-                                         (mu4e-message-contact-field-matches msg :to "mohsenil85@gmail.com")))
-                         :vars '( (user-mail-address      . "mohsenil85@gmail.com"  )
-                                  (user-full-name         . "Logan Mohseni" )
-                                  (mu4e-compose-signature . (concat "\n\n--Logan Mohseni\n"))
-            		      (mu4e-maildir           . "~/Maildir/gmail" )
-            		      (mu4e-refile-folder     . "/gmail/Archive")
-            		      (mu4e-sent-folder       . "/gmail/Sent")
-            		      (mu4e-drafts-folder     . "/gmail/Drafts")
+  (setq mu4e-contexts
+        `(
+	  
 
-            		      (mu4e-trash-folder      . "/gmail/Trash")
-            		      (mu4e-maildir-shortcuts  . (
-            						   ("/gmail/Banking" . ?b)
-            						   ("/gmail/Bills" . ?B)
-            						   ("/gmail/Reading" . ?r)
-            						   ("/gmail/Lists/OpenBSD" . ?p)
-            						   ("/gmail/Lists/Org" . ?O)
-            						   ("/gmail/Lists/Sbcl" . ?s)
-            						   ("/gmail/Lists/Emacs" . ?e)
-            						   ("/gmail/Shopping/Amazon" . ?A)
-            						   ("/gmail/House Hunt" . ?h)
-            						   ("/gmail/Shipping" . ?S)))
+          ,(make-mu4e-context
+            :name "Fastmail"
+            :enter-func (lambda () (mu4e-message "Switch to the Fastmail context"))
+            :match-func (lambda (msg)
+                          (when msg
+                            (mu4e-message-contact-field-matches msg :to "logan@mohseni.io")))
+            :vars '(
+		    (user-full-name         . "Logan Mohseni" )
+                    (mu4e-compose-signature  . (concat "\n\n--Logan Mohseni\n"))
+            	    (mu4e-maildir            . "~/Maildir/fastmail" )
+            	    (mu4e-refile-folder      . "/fastmail/Archive")
+            	    (mu4e-sent-folder        . "/fastmail/Sent")
+            	    (mu4e-drafts-folder      . "/fastmail/Drafts")
+            	    (mu4e-trash-folder       . "/fastmail/Trash")
+            	    (mu4e-maildir-shortcuts  . (
+            					("/fastmail/Banking" . ?b)
+            					("/fastmail/Bills" . ?B)
+            					("/fastmail/Reading" . ?r)
+            					("/fastmail/Lists/OpenBSD" . ?p)
+            					("/fastmail/Lists/Org" . ?O)
+            					("/fastmail/Lists/Sbcl" . ?s)
+            					("/fastmail/Lists/Emacs" . ?e)
+            					("/fastmail/Shopping/Amazon" . ?A)
+            					("/fastmail/House Hunt" . ?h)
+            					("/fastmail/Shipping" . ?R)))
 
-            		      (mu4e-bookmarks          . (
-            						   (:name "Unread messages" :query "flag:unread AND NOT flag:trashed AND to:mohsenil85@gmail.com" :key ?u)
-            						   (:name "Today's messages" :query "date:today..now" :key ?g)
-            						   (:name "Last 7 days" :query "date:7d..now" :hide-unread t :key ?w)
-            						   (:name "Messages with images" :query "mime:image/*" :key ?p)
-            						   (:query "maildir:/gmail/Inbox" :name   "Inbox" :key   ?i)
-            						   (:query "maildir:/gmail/Sent" :name "Sent Mail" :key   ?s)
-            						   (:query "maildir:/gmail/Drafts" :name  "Drafts" :key ?d)
-            						   (:query "maildir:/gmail/Archive" :name    "Archive" :key    ?x)))
-))
+            	    (mu4e-bookmarks          . (
+            					(:name "Unread messages" :query "flag:unread AND NOT flag:trashed" :key ?u)
+            					(:name "Today's messages" :query "date:today..now" :key ?g)
+            					(:name "Last 7 days" :query "date:7d..now" :hide-unread t :key ?w)
+            					(:name "Messages with images" :query "mime:image/*" :key ?p)
+            					(:query "maildir:/fastmail/Inbox" :name   "Inbox" :key   ?i)
+            					(:query "maildir:/fastmail/Sent" :name "Sent Mail" :key   ?s)
+            					(:query "maildir:/fastmail/Drafts" :name  "Drafts" :key ?d)
+            					(:query "maildir:/fastmail/Archive" :name    "Archive" :key    ?x)))
+		    ))
 
-            	   ,(make-mu4e-context
-                         :name "Fastmail"
-                         :enter-func (lambda () (mu4e-message "Switch to the Fastmail context"))
-                         :match-func (lambda (msg)
-                                       (when msg
-                                         (mu4e-message-contact-field-matches msg :to "logan@mohseni.io")))
-                         :vars '(
-				 (user-full-name         . "Logan Mohseni" )
-                                  (mu4e-compose-signature  . (concat "\n\n--Logan Mohseni\n"))
-            		      (mu4e-maildir            . "~/Maildir/fastmail" )
-            		      (mu4e-refile-folder      . "/fastmail/Archive")
-            		      (mu4e-sent-folder        . "/fastmail/Sent")
-            		      (mu4e-drafts-folder      . "/fastmail/Drafts")
-            		      (mu4e-trash-folder       . "/fastmail/Trash")
-            		      (mu4e-maildir-shortcuts  . (
-            						   ("/fastmail/Banking" . ?b)
-            						   ("/fastmail/Bills" . ?B)
-            						   ("/fastmail/Reading" . ?r)
-            						   ("/fastmail/Lists/OpenBSD" . ?p)
-            						   ("/fastmail/Lists/Org" . ?O)
-            						   ("/fastmail/Lists/Sbcl" . ?s)
-            						   ("/fastmail/Lists/Emacs" . ?e)
-            						   ("/fastmail/Shopping/Amazon" . ?A)
-            						   ("/fastmail/House Hunt" . ?h)
-            						   ("/fastmail/Shipping" . ?R)))
+	  ,(make-mu4e-context
+            :name "Gmail"
+            :enter-func (lambda () (mu4e-message "Entering Private context"))
+            :leave-func (lambda () (mu4e-message "Leaving Private context"))
+            ;; we match based on the contact-fields of the message
+            :match-func (lambda (msg)
+                          (when msg
+                            (mu4e-message-contact-field-matches msg :to "mohsenil85@gmail.com")))
+            :vars '( (user-mail-address      . "mohsenil85@gmail.com"  )
+                     (user-full-name         . "Logan Mohseni" )
+                     (mu4e-compose-signature . (concat "\n\n--Logan Mohseni\n"))
+            	     (mu4e-maildir           . "~/Maildir/gmail" )
+            	     (mu4e-refile-folder     . "/gmail/Archive")
+            	     (mu4e-sent-folder       . "/gmail/Sent")
+            	     (mu4e-drafts-folder     . "/gmail/Drafts")
 
-            		      (mu4e-bookmarks          . (
-            						   (:name "Unread messages" :query "flag:unread AND NOT flag:trashed" :key ?u)
-            						   (:name "Today's messages" :query "date:today..now" :key ?g)
-            						   (:name "Last 7 days" :query "date:7d..now" :hide-unread t :key ?w)
-            						   (:name "Messages with images" :query "mime:image/*" :key ?p)
-            						   (:query "maildir:/fastmail/Inbox" :name   "Inbox" :key   ?i)
-            						   (:query "maildir:/fastmail/Sent" :name "Sent Mail" :key   ?s)
-            						   (:query "maildir:/fastmail/Drafts" :name  "Drafts" :key ?d)
-            						   (:query "maildir:/fastmail/Archive" :name    "Archive" :key    ?x)
-          						   )
-        					       )
-      		      )
-    		     )
-  		   );;list
-            	);;contexts
+            	     (mu4e-trash-folder      . "/gmail/Trash")
+            	     (mu4e-maildir-shortcuts  . (
+            					 ("/gmail/Banking" . ?b)
+            					 ("/gmail/Bills" . ?B)
+            					 ("/gmail/Reading" . ?r)
+            					 ("/gmail/Lists/OpenBSD" . ?p)
+            					 ("/gmail/Lists/Org" . ?O)
+            					 ("/gmail/Lists/Sbcl" . ?s)
+            					 ("/gmail/Lists/Emacs" . ?e)
+            					 ("/gmail/Shopping/Amazon" . ?A)
+            					 ("/gmail/House Hunt" . ?h)
+            					 ("/gmail/Shipping" . ?S)))
 
-              
-              ;; set `mu4e-context-policy` and `mu4e-compose-policy` to tweak when mu4e should
-              ;; guess or ask the correct context, e.g.
+            	     (mu4e-bookmarks          . (
+            					 (:name "Unread messages" :query "flag:unread AND NOT flag:trashed AND to:mohsenil85@gmail.com" :key ?u)
+            					 (:name "Today's messages" :query "date:today..now" :key ?g)
+            					 (:name "Last 7 days" :query "date:7d..now" :hide-unread t :key ?w)
+            					 (:name "Messages with images" :query "mime:image/*" :key ?p)
+            					 (:query "maildir:/gmail/Inbox" :name   "Inbox" :key   ?i)
+            					 (:query "maildir:/gmail/Sent" :name "Sent Mail" :key   ?s)
+            					 (:query "maildir:/gmail/Drafts" :name  "Drafts" :key ?d)
+            					 (:query "maildir:/gmail/Archive" :name    "Archive" :key    ?x)))
+		     ))
+	  
+  	  );;list
+        );;contexts
 
-              ;; start with the first (default) context;
-              ;; default is to ask-if-none (ask when there's no context yet, and none match)
-              (setq mu4e-context-policy 'pick-first)
+  
+  ;; set `mu4e-context-policy` and `mu4e-compose-policy` to tweak when mu4e should
+  ;; guess or ask the correct context, e.g.
 
-              ;; compose with the current context is no context matches;
-              ;; default is to ask
-              ;; (setq mu4e-compose-context-policy nil)
+  ;; start with the first (default) context;
+  ;; default is to ask-if-none (ask when there's no context yet, and none match)
+  (setq mu4e-context-policy 'pick-first)
 
-              )
+  ;; compose with the current context is no context matches;
+  ;; default is to ask
+  ;; (setq mu4e-compose-context-policy nil)
+
+  )
 
 (use-package emacs
   :init
@@ -985,7 +985,7 @@
    tooltip-use-echo-area t
    use-dialog-box nil
    user-full-name "Logan Mohseni"
-   user-mail-address "mohsenil85@gmail.com"
+   user-mail-address "logan@mohseni.io"
    vc-follow-symlinks t 				       ; don't ask for confirmation when opening symlinked file
    vc-make-backup-files t 		; make backups file even when in version controlled dir
    version-control t 		; use version control
