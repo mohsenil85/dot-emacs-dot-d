@@ -67,3 +67,4 @@ url*
 /tree-sitter/
 *.elc
 /#emacs-init.org#
+/eln-cache/

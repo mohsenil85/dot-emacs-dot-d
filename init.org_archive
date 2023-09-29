@@ -1263,3 +1263,80 @@ C-x n w to widen to a page (delineated by ^L chars)
 
 #+END_SRC
 
+
+* dired
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-09-28 Thu 09:57
+:ARCHIVE_FILE: ~/.emacs.d/init.org
+:ARCHIVE_OLPATH: packages
+:ARCHIVE_CATEGORY: init
+:END:
+vinagresque
+#+BEGIN_SRC emacs-lisp :results output silent
+
+  (use-package dired
+    :straight nil				;
+    :bind (:map dired-mode-map 
+  	      (("`" . dired-toggle-read-only)
+  	       ("j" .  evil-next-line)
+  	       ("k" . evil-previous-line)
+  	       ( "-" .  dired-up-directory)
+  	       ("~" . (lambda ()(interactive) (find-alternate-file "~/")))
+  	       ("RET" . dired-find-file)
+  	       ("C-<return>" . dired-find-file-other-window) 
+  	       ("/" . evil-search-forward) 
+  	       )
+  	      )
+
+    :init
+    (add-to-list 'evil-emacs-state-modes 'dired-mode)
+    :config
+    (use-package dired+
+      :straight (dired+ :fetcher url :url "https://www.emacswiki.org/emacs/download/dired+.el")
+      :defer 1
+      :init
+      (setq diredp-hide-details-initially-flag t)
+      (setq diredp-hide-details-propagate-flag t)
+      :config
+      (diredp-toggle-find-file-reuse-dir 1))
+
+    )
+
+
+  (eval-after-load "evil-mode"
+    '(progn
+       (add-to-list 'evil-emacs-state-modes 'dired-mode)
+       ))
+
+  (use-package dired-git-info
+    :ensure t
+    :bind (:map dired-mode-map
+                (")" . dired-git-info-mode)))
+
+
+
+
+#+END_SRC
+
+* sentence navigation
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-09-28 Thu 09:58
+:ARCHIVE_FILE: ~/.emacs.d/init.org
+:ARCHIVE_OLPATH: packages
+:ARCHIVE_CATEGORY: init
+:END:
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package sentence-navigation
+    :ensure t
+    :bind (:map evil-motion-state-map 
+		((")" . sentence-nav-evil-forward)
+		 ("(" . sentence-nav-evil-backward)
+		 ("g(" . sentence-nav-evil-backward-end)
+		 ("g)" . sentence-nav-evil-forward-end)))
+    :config
+    (progn
+      (define-key evil-outer-text-objects-map "s" 'sentence-nav-evil-a-sentence)
+      (define-key evil-inner-text-objects-map "s" 'sentence-nav-evil-inner-sentence))
+    )
+#+END_SRC
+   

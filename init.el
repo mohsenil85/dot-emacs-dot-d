@@ -268,40 +268,6 @@
 	 ("M-f" . 'copilot-accept-completion-by-word)
 	 ("M-<return>" . 'copilot-accept-completion-by-line)))
 
-(use-package dired
-  :straight nil				;
-  :bind (:map dired-mode-map 
-	      (("`" . dired-toggle-read-only)
-	       ("j" .  evil-next-line)
-	       ("k" . evil-previous-line)
-	       ( "-" .  dired-up-directory)
-	       ("~" . (lambda ()(interactive) (find-alternate-file "~/")))
-	       ("RET" . dired-find-file)
-	       ("C-<return>" . dired-find-file-other-window) 
-	       ("/" . evil-search-forward) 
-	       )
-	      )
-
-  :init
-  (add-to-list 'evil-emacs-state-modes 'dired-mode)
-  :config
-  (use-package dired+
-    :straight (dired+ :fetcher url :url "https://www.emacswiki.org/emacs/download/dired+.el")
-    :defer 1
-    :init
-    (setq diredp-hide-details-initially-flag t)
-    (setq diredp-hide-details-propagate-flag t)
-    :config
-    (diredp-toggle-find-file-reuse-dir 1))
-
-  )
-
-
-(eval-after-load "evil-mode"
-  '(progn
-     (add-to-list 'evil-emacs-state-modes 'dired-mode)
-     ))
-
 (use-package dired-git-info
   :ensure t
   :bind (:map dired-mode-map
@@ -473,19 +439,6 @@
 
 (use-package saveplace :config (setq-default save-place t))
 
-(use-package sentence-navigation
-  :ensure t
-  :bind (:map evil-motion-state-map 
-		((")" . sentence-nav-evil-forward)
-		 ("(" . sentence-nav-evil-backward)
-		 ("g(" . sentence-nav-evil-backward-end)
-		 ("g)" . sentence-nav-evil-forward-end)))
-  :config
-  (progn
-    (define-key evil-outer-text-objects-map "s" 'sentence-nav-evil-a-sentence)
-    (define-key evil-inner-text-objects-map "s" 'sentence-nav-evil-inner-sentence))
-  )
-
 (use-package term )
 
 (use-package writeroom-mode
@@ -610,6 +563,10 @@
   (corfu-popupinfo-hide nil)
   :config
   (corfu-popupinfo-mode))
+
+(use-package speed-type :ensure t
+  :custom
+  (speed-type-default-lang 'English))
 
 (defvar lispular-modes-list
   'emacs-lisp-mode-hook
@@ -905,109 +862,109 @@
   )
 
 (use-package emacs
-  :init
-  ;; Add prompt indicator to `completing-read-multiple'.
-  ;; We display [CRM<separator>], e.g., [CRM,] if the separator is a comma.
-  (defun crm-indicator (args)
-    (cons (format "[CRM%s] %s"
-                  (replace-regexp-in-string
-                   "\\`\\[.*?]\\*\\|\\[.*?]\\*\\'" ""
-                   crm-separator)
-                  (car args))
-          (cdr args)))
-  (advice-add #'completing-read-multiple :filter-args #'crm-indicator)
+    :init
+    ;; Add prompt indicator to `completing-read-multiple'.
+    ;; We display [CRM<separator>], e.g., [CRM,] if the separator is a comma.
+    (defun crm-indicator (args)
+      (cons (format "[CRM%s] %s"
+                    (replace-regexp-in-string
+                     "\\`\\[.*?]\\*\\|\\[.*?]\\*\\'" ""
+                     crm-separator)
+                    (car args))
+            (cdr args)))
+    (advice-add #'completing-read-multiple :filter-args #'crm-indicator)
 
-  ;; Do not allow the cursor in the minibuffer prompt
-  (setq minibuffer-prompt-properties
-        '(read-only t cursor-intangible t face minibuffer-prompt))
-  (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
+    ;; Do not allow the cursor in the minibuffer prompt
+    (setq minibuffer-prompt-properties
+          '(read-only t cursor-intangible t face minibuffer-prompt))
+    (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
 
-  ;; Emacs 28: Hide commands in M-x which do not work in the current mode.
-  ;; Vertico commands are hidden in normal buffers.
-  ;; (setq read-extended-command-predicate
-  ;;       #'command-completion-default-include-p)
+    ;; Emacs 28: Hide commands in M-x which do not work in the current mode.
+    ;; Vertico commands are hidden in normal buffers.
+    ;; (setq read-extended-command-predicate
+    ;;       #'command-completion-default-include-p)
 
-  ;; Enable recursive minibuffers
+    ;; Enable recursive minibuffers
 
-  (blink-cursor-mode -1)
-  (defalias 'yes-or-no-p 'y-or-n-p)
-  (delete-selection-mode 1)
-  (electric-pair-mode 1)
-  (global-display-line-numbers-mode 1)
-  (global-visual-line-mode t)
-  (menu-bar-mode 0)
-  (prefer-coding-system 'utf-8)
-  (recentf-mode 1)
-  (scroll-bar-mode 0)
-  (server-start)
-  (set-keyboard-coding-system 'utf-8)
-  (set-selection-coding-system 'utf-8)
-  (set-terminal-coding-system 'utf-8-unix)
-  (tool-bar-mode 0)
-  (tooltip-mode -1)
-  (context-menu-mode)
-  (pixel-scroll-precision-mode)
-  
-  (setq
-   sentence-end-double-space nil
-   display-time-default-load-average nil
-   auto-save-file-name-transforms `((".*" ,temporary-file-directory t))
-   auto-save-visited-interval 1
-   auto-save-visited-mode 1
-   backup-directory-alist `((".*" . ,temporary-file-directory))
-   confirm-kill-processes nil
-   confirm-nonexistent-file-or-buffer nil
-   default-fill-column 80		; toggle wrapping text at the 80th character
-   delete-old-versions t 		; delete excess backup versions silently
-   ;; enable-recursive-minibuffers t
-   explicit-shell-file-name "/bin/zsh"
-   explicit-zsh-args '("--login" "--interactive")
-   history-length 250 
-   indicate-empty-lines t
-   inhibit-startup-echo-area-message "loganmohseni"
-   inhibit-startup-message t
-   inhibit-startup-screen t
-   initial-scratch-message ";         :D"
-   kill-ring-max 5000                     ;truncate kill ring after 5000 entries
-   load-prefer-newer t
-   locale-coding-system 'utf-8
-   mark-ring-max 5000 
-   recentf-max-saved-items 5000  
-   ring-bell-function 'ignore 	; silent bell when you make a mistake
-   sentence-end-double-space t	; 
-   shell-file-name "/bin/zsh"
-   show-paren-delay 0
-   show-paren-style 'parenthesis
-   show-paren-when-point-inside-paren t
-   split-width-threshold 60
-   switch-to-buffer-preserve-window-point t
-   tab-always-indent 'complete 
-   tooltip-use-echo-area t
-   use-dialog-box nil
-   user-full-name "Logan Mohseni"
-   user-mail-address "logan@mohseni.io"
-   vc-follow-symlinks t 				       ; don't ask for confirmation when opening symlinked file
-   vc-make-backup-files t 		; make backups file even when in version controlled dir
-   version-control t 		; use version control
-   visible-bell t
-   )
-  (setq-default indicate-buffer-boundaries 'left)
-(setq display-time-format "%l:%M %a %e %b") 
-(setq display-time-interval 1)
-(display-time-mode)
-  
-  )
-
-
+    (blink-cursor-mode -1)
+    (defalias 'yes-or-no-p 'y-or-n-p)
+    (delete-selection-mode 1)
+    (electric-pair-mode 1)
+    (global-display-line-numbers-mode 1)
+    (global-visual-line-mode t)
+    (menu-bar-mode 0)
+    (prefer-coding-system 'utf-8)
+    (recentf-mode 1)
+    (scroll-bar-mode 0)
+    (server-start)
+    (set-keyboard-coding-system 'utf-8)
+    (set-selection-coding-system 'utf-8)
+    (set-terminal-coding-system 'utf-8-unix)
+    (tool-bar-mode 0)
+    (tooltip-mode -1)
+    (context-menu-mode)
+    (pixel-scroll-precision-mode)
+    
+    (setq
+     sentence-end-double-space nil
+     display-time-default-load-average nil
+     auto-save-file-name-transforms `((".*" ,temporary-file-directory t))
+     auto-save-visited-interval 1
+     auto-save-visited-mode 1
+     backup-directory-alist `((".*" . ,temporary-file-directory))
+     confirm-kill-processes nil
+     confirm-nonexistent-file-or-buffer nil
+     default-fill-column 80		; toggle wrapping text at the 80th character
+     delete-old-versions t 		; delete excess backup versions silently
+     ;; enable-recursive-minibuffers t
+     explicit-shell-file-name "/bin/zsh"
+     explicit-zsh-args '("--login" "--interactive")
+     history-length 250 
+     indicate-empty-lines t
+     inhibit-startup-echo-area-message "loganmohseni"
+     inhibit-startup-message t
+     inhibit-startup-screen t
+     initial-scratch-message ";         :D"
+     kill-ring-max 5000                     ;truncate kill ring after 5000 entries
+     load-prefer-newer t
+     locale-coding-system 'utf-8
+     mark-ring-max 5000 
+     recentf-max-saved-items 5000  
+     ring-bell-function 'ignore 	; silent bell when you make a mistake
+     sentence-end-double-space t	; 
+     shell-file-name "/bin/zsh"
+     show-paren-delay 0
+     show-paren-style 'parenthesis
+     show-paren-when-point-inside-paren t
+;;     split-width-threshold 80
+     switch-to-buffer-preserve-window-point t
+     tab-always-indent 'complete 
+     tooltip-use-echo-area t
+     use-dialog-box nil
+     user-full-name "Logan Mohseni"
+     user-mail-address "logan@mohseni.io"
+     vc-follow-symlinks t 				       ; don't ask for confirmation when opening symlinked file
+     vc-make-backup-files t 		; make backups file even when in version controlled dir
+     version-control t 		; use version control
+     visible-bell t
+     )
+    (setq-default indicate-buffer-boundaries 'left)
+  (setq display-time-format "%l:%M %a %e %b") 
+  (setq display-time-interval 1)
+  (display-time-mode)
+    
+    )
 
 
-(defun zsh-shell-mode-setup ()
-  (setq-local comint-process-echoes t))
-(add-hook 'shell-mode-hook #'zsh-shell-mode-setup)
 
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'forward)
-(winner-mode 1)
+
+  (defun zsh-shell-mode-setup ()
+    (setq-local comint-process-echoes t))
+  (add-hook 'shell-mode-hook #'zsh-shell-mode-setup)
+
+  (require 'uniquify)
+  (setq uniquify-buffer-name-style 'forward)
+  (winner-mode 1)
 
 
 
@@ -1271,6 +1228,48 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   (revert-buffer nil t t)
   (message "reverted %s" (buffer-name)))
 
+(defun smart-open-line ()
+  "Insert an empty line after the current line.
+Position the cursor at its beginning, according to the current mode."
+  (interactive)
+  (move-end-of-line nil)
+  (newline-and-indent))
+
+
+;; taken from https://emacsredux.com/blog/2013/06/15/open-line-above/
+(defun smart-open-line-above ()
+  "Insert an empty line above the current line.
+Position the cursor at it's beginning, according to the current mode."
+  (interactive)
+  (move-beginning-of-line nil)
+  (newline-and-indent)
+  (forward-line -1)
+  (indent-according-to-mode))
+
+;;taken from https://www.masteringemacs.org/article/fixing-mark-commands-transient-mark-mode
+
+
+(defun push-mark-no-activate ()
+  "Pushes `point' to `mark-ring' and does not activate the region
+   Equivalent to \\[set-mark-command] when \\[transient-mark-mode] is disabled"
+  (interactive)
+  (push-mark (point) t nil)
+  (message "Pushed mark to ring"))
+
+(defun jump-to-mark ()
+  "Jumps to the local mark, respecting the `mark-ring' order.
+  This is the same as using \\[set-mark-command] with the prefix argument."
+  (interactive)
+  (set-mark-command 1))
+
+(defun exchange-point-and-mark-no-activate (arg)
+  "Identical to \\[exchange-point-and-mark] but will not activate the region."
+  (interactive "P")
+  (exchange-point-and-mark)
+
+  (unless arg (deactivate-mark nil))
+  )
+
 (when (eq system-type 'darwin)
   (setq mac-command-modifier 'meta)
   (setq mac-option-modifier 'super)
@@ -1329,43 +1328,41 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 ;;emacs style
 
-  (global-set-key (kbd "C-c m")  'mu4e)
-  (global-set-key (kbd "<f1>")  '(lambda()(interactive)(term "zsh")))
-  (global-set-key (kbd "<f2>")  'rgrep)
-  (global-set-key (kbd "<f6>")  'revert-this-buffer )
-  (global-set-key (kbd "C-<f2>") 'multi-occur-in-this-mode)
-  (global-set-key (kbd "C-h C-/") 'which-key-show-major-mode)
-  ;; (global-set-key (kbd "C-s") 'swiper)  ;;search in file;;swiper?
-  (global-set-key (kbd "C-x ,") 'edit-init-org-file)
-  (global-set-key (kbd "C-x <f2>") 'open-in-webstorm)
-  (global-set-key (kbd "C-x <f5>") 'toggle-dark-light-state)
-  (global-set-key (kbd "C-x C-,") 'load-init-file)
-  ;; (global-set-key (kbd "C-x C-a") 'mark-whole-buffer)
-  (global-set-key (kbd "C-x C-b") 'ibuffer)
-  (global-set-key (kbd "C-x C-c") 'halt)
-  (global-set-key (kbd "C-x C-j") 'dired-jump)
-  (global-set-key (kbd "C-x C-k") 'kill-this-buffer)
-  (global-set-key (kbd "C-x C-r") 'recentf)
-  (global-set-key (kbd "C-x M-t") 'vertical-horizontal-swizzle)
-  (global-set-key (kbd "C-x g") 'magit-status)
-  (global-set-key (kbd "C-x m")  'mu4e-compose-new)
-  (global-set-key (kbd "M-/") 'hippie-expand)
-  (global-set-key (kbd "M-0") 'delete-window-balance)
-  ;; (global-set-key (kbd "M-1") 'delete-other-windows)
-  ;; (global-set-key (kbd "M-2") 'split-window-below-focus)
-  ;; (global-set-key (kbd "M-3") 'split-window-right-focus)
-  (global-set-key (kbd "M-o") 'other-window)
-  (global-set-key (kbd "C-c M-t") 'swap-buffers)
-  ;;(global-set-key (kbd "M-x") 'counsel-M-x) ;;M-x
-    (global-set-key (kbd "C-M-x") 'evil-mode)
-  (global-set-key (kbd "M-z") 'zap-up-to-char)
-    (global-set-key (kbd "C-z") 'undo)
+(global-set-key (kbd "C-c m")  'mu4e)
+(global-set-key (kbd "<f1>")  '(lambda()(interactive)(term "zsh")))
+(global-set-key (kbd "<f2>")  'rgrep)
+(global-set-key (kbd "<f6>")  'revert-this-buffer )
+(global-set-key (kbd "C-<f2>") 'multi-occur-in-this-mode)
+(global-set-key (kbd "C-h C-/") 'which-key-show-major-mode)
+(global-set-key (kbd "C-x ,") 'edit-init-org-file)
+(global-set-key (kbd "C-x <f2>") 'open-in-webstorm)
+(global-set-key (kbd "C-x <f5>") 'toggle-dark-light-state)
+(global-set-key (kbd "C-x C-,") 'load-init-file)
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+(global-set-key (kbd "C-x C-c") 'halt)
+(global-set-key (kbd "C-x C-j") 'dired-jump)
+(global-set-key (kbd "C-x C-k") 'kill-this-buffer)
+(global-set-key (kbd "C-x C-r") 'recentf)
+(global-set-key (kbd "C-x g") 'magit-status)
+(global-set-key (kbd "C-x m")  'mu4e-compose-new)
+(global-set-key (kbd "M-/") 'hippie-expand)
+
+(global-set-key (kbd "M-o") 'smart-open-line)
+(global-set-key (kbd "M-O") 'smart-open-line-above)
+
+(global-set-key (kbd "C-c M-t") 'swap-buffers)
+(global-set-key (kbd "C-x M-t") 'vertical-horizontal-swizzle)
 
 
-;;  (define-key evil-normal-state-map (kbd "-") 'dired-jump)
+(global-set-key (kbd "C-z") 'evil-mode)
+(define-key evil-normal-state-map (kbd "C-z") 'evil-mode)
+(global-set-key (kbd "M-z") 'zap-up-to-char)
 
-  ;; (define-key evil-normal-state-map (kbd "C-n") 'other-window)
-  ;; (define-key evil-normal-state-map (kbd "C-p") 'prev-window)
+
+(global-set-key (kbd "M-`") 'jump-to-mark)
+(global-set-key (kbd "C-`") 'push-mark-no-activate)
+
+(define-key global-map [remap exchange-point-and-mark] 'exchange-point-and-mark-no-activate)
 
 (global-set-key (kbd "C-h h") 'not-anymore)
 (global-set-key (kbd "C-h C-a") 'not-anymore)
