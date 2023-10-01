@@ -568,125 +568,7 @@
   :custom
   (speed-type-default-lang 'English))
 
-(defvar lispular-modes-list
-  'emacs-lisp-mode-hook
-  'lisp-mode-hook)
-
-(add-hook 'lisp-mode-hook
-	    (lambda ()
-	      (set (make-local-variable 'lisp-indent-function)
-		   'common-lisp-indent-function)))
-
-
-;; (use-package smartparens
-;;   :ensure t
-;;   ;;:diminish ""
-
-;;   :init 
-;;   (require 'smartparens-config)
-
-;;   (unbind-key  "C-M-f" smartparens-strict-mode-map)
-;;   (unbind-key  "C-M-b" smartparens-strict-mode-map)
-;;   (unbind-key  "C-M-u" smartparens-strict-mode-map)
-;;   (unbind-key  "C-M-d" smartparens-strict-mode-map)
-;;   (unbind-key  "C-M-p" smartparens-strict-mode-map)
-;;   (unbind-key  "C-M-n" smartparens-strict-mode-map)
-;;   (unbind-key  "M-s"   smartparens-strict-mode-map)
-;;   (unbind-key  "M-<up>" smartparens-strict-mode-map)
-;;   (unbind-key  "M-<down>"  smartparens-strict-mode-map)
-;;   (unbind-key  "M-r" smartparens-strict-mode-map)
-;;   (unbind-key  "M-(" smartparens-strict-mode-map)
-;;   (unbind-key  "C-)"  smartparens-strict-mode-map)
-;;   (unbind-key  "C-<right>" smartparens-strict-mode-map)
-;;   (unbind-key  "C-}" smartparens-strict-mode-map)
-;;   (unbind-key  "C-<left>" smartparens-strict-mode-map)
-;;   (unbind-key  "C-(" smartparens-strict-mode-map)
-;;   (unbind-key  "C-M-<left>" smartparens-strict-mode-map)
-;;   (unbind-key  "C-{" smartparens-strict-mode-map)
-;;   (unbind-key  "C-M-<right>" smartparens-strict-mode-map)
-;;   (unbind-key  "M-S" smartparens-strict-mode-map)
-;;   (unbind-key  "M-j" smartparens-strict-mode-map)
-;;   (unbind-key  "M-?" smartparens-strict-mode-map)
-
-;;   (add-hook 'emacs-lisp-mode-hook #'evil-smartparens-mode)
-
-
-;;   :config
-;;   (general-define-key
-;;    :keymaps 'smartparens-mode-map
-;;    :prefix ","
-;;    "s" 'sp-splice-sexp
-;;    "w" 'sp-wrap-round
-;;    "(" 'sp-wrap-round
-;;    "[" 'sp-wrap-curly
-;;    "{" 'sp-wrap-square
-;;    "o" 'sp-split-sexp
-;;    "j" 'sp-join-sexp
-;;    "r" 'sp-raise-sexp
-;;    )
-;;   (general-define-key
-;;    :keymaps 'smartparens-mode-map
-;;    :states '(normal visual motion)
-;;    ")" 'sp-forward-sexp
-;;    "(" 'sp-backward-sexp
-;;    "C-(" 'sp-up-sexp
-;;    "C-)" 'sp-down-sexp
-;;    ">" 'sp-forward-slurp-sexp
-;;    "<" 'sp-backward-slurp-sexp
-;;    "C->" 'sp-forward-barf-sexp
-;;    "C-<" 'sp-backward-barf-sexp
-;;    )
-
-;;   (use-package evil-smartparens
-;;     :ensure t
-;;     :init 
-;;     (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode))
-;;   )
-
-;; (use-package rainbow-delimiters
-;;   :ensure t
-;;   :diminish ""
-;;   :config
-;;   (progn
-;;     (add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode)
-;;     (add-hook 'lisp-mode-hook #'rainbow-delimiters-mode)
-;;     (add-hook 'slime-repl-mode-hook #'rainbow-delimiters-mode)
-;;     (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)))
-
-;; 			   ;;;     (eval-after-load "slime"
-;; 			   ;;;       '(progn
-;; 			   ;;;          (define-key evil-normal-state-map (kbd "M-.") 'slime-edit-definition)
-;; 			   ;;;          (define-key evil-normal-state-map (kbd "M-,") 'slime-pop-find-definition-stack)))
-;; 			   ;;;
-;;      (use-package slime
-;;        ;;:defer 1
-;;        ;;:load-path  "~/.emacs.d/vendor/slime"
-;;        :config (progn
-
-;; 		 (load (expand-file-name "~/quicklisp/slime-helper.el"))
-;; 		 (setq inferior-lisp-program 
-;; 		       "/usr/local/bin/sbcl --noinform --no-linedit")
-;; 		 (require 'slime-autoloads)
-;; 		 (add-to-list 'load-path "~/.emacs.d/vendor/slime/contrib")
-;; 		 (setq slime-contribs 
-;; 		       '(slime-fancy 
-;; 			 slime-asdf 
-;; 					     ;slime-banner
-;; 			 slime-indentation
-;; 			 slime-quicklisp 
-;; 			 slime-xref-browser
-;; ))
-;; 		 (setq slime-complete-symbol-function 'slime-fuzzy-complete-symbol)
-;; 		 (slime-setup))
-
-;;        :bind (
-;; 	      ;; ("C-c s" . slime-selector)
-;; 	      ;; ("M-." . slime-edit-definition)
-;; 	      ;; ("M-," . slime-pop-definition-stack)
-;; 	      )
-;;        )
-
-;;      (require 'info-look)
+(use-package visible-mark :ensure t :config (global-visible-mark-mode 1)))
 
 (use-package eldoc
   :diminish
@@ -721,18 +603,24 @@
 (use-package ob-ipython :ensure t :defer t)
 					  ;(use-package ein :ensure)
 
-(use-package tide
- :ensure t
- :after (company flycheck)
- :hook ((typescript-ts-mode . tide-setup)
-        (tsx-ts-mode . tide-setup)
-        (typescript-ts-mode . tide-hl-identifier-mode)
-        (before-save . tide-format-before-save))) 
-
 (use-package jest-test-mode 
-:ensure t 
-:commands jest-test-mode
-:hook (typescript-mode js-mode typescript-tsx-mode))
+  :ensure t 
+  :commands jest-test-mode
+  :hook (typescript-mode js-mode typescript-tsx-mode))
+
+(use-package indium
+  :ensure t
+  :hook ((js-mode . indium-interaction-mode)
+         (js2-mode . indium-interaction-mode)
+         (typescript-mode . indium-interaction-mode))
+  :config
+  ;; If you have any custom configuration, place it here.
+  )
+
+(use-package smartscan
+  :ensure t
+  :config
+  (smartscan-mode 1))
 
 ;;taken from https://macowners.club/posts/email-emacs-mu4e-macos/#storing-trusted-root-certificates
 ;;and https://rakhim.org/fastmail-setup-with-emacs-mu4e-and-mbsync-on-macos/
@@ -863,6 +751,7 @@
 
 (use-package emacs
     :init
+    (require 'misc)
     ;; Add prompt indicator to `completing-read-multiple'.
     ;; We display [CRM<separator>], e.g., [CRM,] if the separator is a comma.
     (defun crm-indicator (args)
@@ -1321,11 +1210,6 @@ Position the cursor at it's beginning, according to the current mode."
 					  ;(set-frame-font "Inconsolata-16")
 					  ;)
 
-(define-key evil-normal-state-map (kbd "M-y") nil)
-(define-key evil-normal-state-map (kbd "M-.") nil)
-(define-key evil-motion-state-map (kbd "C-y") nil)
-(define-key evil-motion-state-map (kbd "C-d") nil)
-
 ;;emacs style
 
 (global-set-key (kbd "C-c m")  'mu4e)
@@ -1344,11 +1228,16 @@ Position the cursor at it's beginning, according to the current mode."
 (global-set-key (kbd "C-x C-k") 'kill-this-buffer)
 (global-set-key (kbd "C-x C-r") 'recentf)
 (global-set-key (kbd "C-x g") 'magit-status)
+(global-set-key (kbd "<f5>") 'magit-status)
 (global-set-key (kbd "C-x m")  'mu4e-compose-new)
 (global-set-key (kbd "M-/") 'hippie-expand)
 
-(global-set-key (kbd "M-o") 'smart-open-line)
-(global-set-key (kbd "M-O") 'smart-open-line-above)
+(global-set-key (kbd "M-f") 'forward-to-word)
+  (global-set-key (kbd "M-F") 'forward-word)
+
+(global-set-key (kbd "M-o") 'other-window)
+(global-set-key (kbd "C-o") 'smart-open-line)
+(global-set-key (kbd "C-O") 'smart-open-line-above)
 
 (global-set-key (kbd "C-c M-t") 'swap-buffers)
 (global-set-key (kbd "C-x M-t") 'vertical-horizontal-swizzle)
@@ -1363,6 +1252,11 @@ Position the cursor at it's beginning, according to the current mode."
 (global-set-key (kbd "C-`") 'push-mark-no-activate)
 
 (define-key global-map [remap exchange-point-and-mark] 'exchange-point-and-mark-no-activate)
+
+(define-key evil-normal-state-map (kbd "M-y") nil)
+(define-key evil-normal-state-map (kbd "M-.") nil)
+(define-key evil-motion-state-map (kbd "C-y") nil)
+(define-key evil-motion-state-map (kbd "C-d") nil)
 
 (global-set-key (kbd "C-h h") 'not-anymore)
 (global-set-key (kbd "C-h C-a") 'not-anymore)
