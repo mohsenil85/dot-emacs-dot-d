@@ -814,10 +814,10 @@ visit file with browser
 #+end_src
 *** smartscan
 #+BEGIN_SRC emacs-lisp :results output silent
-  (use-package smartscan
-    :ensure t
-    :config
-    (global-smartscan-mode 1))
+    (use-package smartscan
+      :ensure t
+      :hook
+      ((prog-mode-hook . smartscan-mode )))
 
 #+end_src
 
