@@ -629,8 +629,8 @@
 
 (use-package smartscan
   :ensure t
-  :config
-  (global-smartscan-mode 1))
+  :hook
+  ((prog-mode-hook . smartscan-mode )))
 
 ;;taken from https://macowners.club/posts/email-emacs-mu4e-macos/#storing-trusted-root-certificates
 ;;and https://rakhim.org/fastmail-setup-with-emacs-mu4e-and-mbsync-on-macos/
@@ -1222,47 +1222,47 @@ Position the cursor at it's beginning, according to the current mode."
 
 ;;emacs style
 
- (global-set-key (kbd "C-c m")  'mu4e)
- (global-set-key (kbd "<f1>")  '(lambda()(interactive)(term "zsh")))
- (global-set-key (kbd "<f2>")  'rgrep)
- (global-set-key (kbd "<f6>")  'revert-this-buffer )
- (global-set-key (kbd "C-<f2>") 'multi-occur-in-this-mode)
- (global-set-key (kbd "C-h C-/") 'which-key-show-major-mode)
- (global-set-key (kbd "C-x ,") 'edit-init-org-file)
- (global-set-key (kbd "C-x <f2>") 'open-in-webstorm)
- (global-set-key (kbd "C-x <f5>") 'toggle-dark-light-state)
- (global-set-key (kbd "C-x C-,") 'load-init-file)
- (global-set-key (kbd "C-x C-b") 'ibuffer)
- (global-set-key (kbd "C-x C-c") 'halt)
+(global-set-key (kbd "C-c m")  'mu4e)
+(global-set-key (kbd "<f1>")  '(lambda()(interactive)(term "zsh")))
+(global-set-key (kbd "<f2>")  'rgrep)
+(global-set-key (kbd "<f6>")  'revert-this-buffer )
+(global-set-key (kbd "C-<f2>") 'multi-occur-in-this-mode)
+(global-set-key (kbd "C-h C-/") 'which-key-show-major-mode)
+(global-set-key (kbd "C-x ,") 'edit-init-org-file)
+(global-set-key (kbd "C-x <f2>") 'open-in-webstorm)
+(global-set-key (kbd "C-x <f5>") 'toggle-dark-light-state)
+(global-set-key (kbd "C-x C-,") 'load-init-file)
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+(global-set-key (kbd "C-x C-c") 'halt)
 (global-set-key (kbd "C-x M-j") 'dired-jump)
- (global-set-key (kbd "C-x M-k") 'kill-this-buffer)
- (global-set-key (kbd "C-x M-r") 'recentf)
- (global-set-key (kbd "C-x g") 'magit-status)
- (global-set-key (kbd "<f5>") 'magit-status)
- (global-set-key (kbd "C-x m")  'mu4e-compose-new)
- (global-set-key (kbd "M-/") 'hippie-expand)
+(global-set-key (kbd "C-x M-k") 'kill-this-buffer)
+(global-set-key (kbd "C-x C-r") 'recentf)
+(global-set-key (kbd "C-x g") 'magit-status)
+(global-set-key (kbd "<f5>") 'magit-status)
+(global-set-key (kbd "C-x m")  'mu4e-compose-new)
+(global-set-key (kbd "M-/") 'hippie-expand)
 
- (global-set-key (kbd "M-f") 'forward-to-word)
- (global-set-key (kbd "M-F") 'forward-word)
+(global-set-key (kbd "M-f") 'forward-to-word)
+(global-set-key (kbd "M-F") 'forward-word)
 
- (global-set-key (kbd "M-o") 'other-window)
- (global-set-key (kbd "C-o") 'smart-open-line)
- (global-set-key (kbd "C-O") 'smart-open-line-above)
+(global-set-key (kbd "M-o") 'other-window)
+(global-set-key (kbd "C-o") 'smart-open-line)
+(global-set-key (kbd "C-O") 'smart-open-line-above)
 
- (global-set-key (kbd "C-c M-t") 'swap-buffers)
- (global-set-key (kbd "C-x M-t") 'vertical-horizontal-swizzle)
-
-
- (global-set-key (kbd "C-z") 'evil-mode)
- (define-key evil-normal-state-map (kbd "C-z") 'evil-mode)
- (global-set-key (kbd "M-z") 'zap-up-to-char)
+(global-set-key (kbd "C-c M-t") 'swap-buffers)
+(global-set-key (kbd "C-x M-t") 'vertical-horizontal-swizzle)
 
 
- (global-set-key (kbd "M-`") 'jump-to-mark)
- (global-set-key (kbd "C-SPC") 'push-mark-no-activate)
- (global-set-key (kbd "C-S-SPC") 'set-mark-command)
+(global-set-key (kbd "C-z") 'evil-mode)
+(define-key evil-normal-state-map (kbd "C-z") 'evil-mode)
+(global-set-key (kbd "M-z") 'zap-up-to-char)
 
- (define-key global-map [remap exchange-point-and-mark] 'exchange-point-and-mark-no-activate)
+
+(global-set-key (kbd "M-`") 'jump-to-mark)
+(global-set-key (kbd "C-SPC") 'push-mark-no-activate)
+(global-set-key (kbd "C-S-SPC") 'set-mark-command)
+
+(define-key global-map [remap exchange-point-and-mark] 'exchange-point-and-mark-no-activate)
 
 (define-key evil-normal-state-map (kbd "M-y") nil)
 (define-key evil-normal-state-map (kbd "M-.") nil)
