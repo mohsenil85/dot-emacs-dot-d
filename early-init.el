@@ -18,9 +18,9 @@
   ;;bigger font size for my poor old aching occulars
   (setq default-frame-alist  '(
   				      (font . "-*-Monaco-normal-normal-normal-*-16-*-*-*-m-0-iso10646-1"   )
-  				      (height . 36)
-  				      (width . 136)
-  				      (top . 50)
-  				      (left . 30)
+  				      (height . 42)
+  				      (width . 144)
+  				      (top . 0)
+  				      (left . 0)
   				      )) 
 

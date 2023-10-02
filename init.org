@@ -734,17 +734,11 @@ visit file with browser
 #+BEGIN_SRC emacs-lisp :results output silent
 
   (use-package golden-ratio
-    :ensure t  ; This will make sure the package is installed if it's not already
+    :ensure t
+    :diminish ""
     :config
-    ;; Enable golden-ratio mode
     (golden-ratio-mode 1)
-    
-    ;; Optional configurations:
-    ;; Adjust the width you prefer for the main window
-    ;; (setq golden-ratio-adjust-factor .8
-    ;;       golden-ratio-wide-adjust-factor .8)
 
-    ;; Exclude some modes or buffers from being resized  ;;
    (setq golden-ratio-exclude-modes '(ediff-mode))
     ;; (setq golden-ratio-exclude-buffer-names '("..."))
     )
@@ -823,7 +817,7 @@ visit file with browser
   (use-package smartscan
     :ensure t
     :config
-    (smartscan-mode 1))
+    (global-smartscan-mode 1))
 
 #+end_src
 
@@ -1557,7 +1551,7 @@ toggle fullscreen
 #+END_SRC
 * interface
 ** personal keybindings
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   ;;emacs style
 
   (global-set-key (kbd "C-c m")  'mu4e)
@@ -1572,16 +1566,16 @@ toggle fullscreen
   (global-set-key (kbd "C-x C-,") 'load-init-file)
   (global-set-key (kbd "C-x C-b") 'ibuffer)
   (global-set-key (kbd "C-x C-c") 'halt)
-  (global-set-key (kbd "C-x C-j") 'dired-jump)
-  (global-set-key (kbd "C-x C-k") 'kill-this-buffer)
-  (global-set-key (kbd "C-x C-r") 'recentf)
+ (global-set-key (kbd "C-x M-j") 'dired-jump)
+  (global-set-key (kbd "C-x M-k") 'kill-this-buffer)
+  (global-set-key (kbd "C-x M-r") 'recentf)
   (global-set-key (kbd "C-x g") 'magit-status)
   (global-set-key (kbd "<f5>") 'magit-status)
   (global-set-key (kbd "C-x m")  'mu4e-compose-new)
   (global-set-key (kbd "M-/") 'hippie-expand)
 
   (global-set-key (kbd "M-f") 'forward-to-word)
-    (global-set-key (kbd "M-F") 'forward-word)
+  (global-set-key (kbd "M-F") 'forward-word)
 
   (global-set-key (kbd "M-o") 'other-window)
   (global-set-key (kbd "C-o") 'smart-open-line)
@@ -1605,7 +1599,7 @@ toggle fullscreen
 #+END_SRC
 
 #+RESULTS:
-: exchange-point-and-mark-no-activate
+| lambda | nil | (interactive) | (scroll-other-window-down 1) |
 ** removed keys 
 #+BEGIN_SRC emacs-lisp :results output silent
 
@@ -1653,10 +1647,6 @@ toggle fullscreen
   (defun load-light ()
     (load-theme 'humanoid-light t)
     (setq dark-light-state :light ))
-
-  ;; (defun load-light ()
-  ;;   (load-theme 'hydandata-light t)
-  ;;   (setq dark-light-state :light ))
 
   (defun reset-themes()
     (mapc #'disable-theme custom-enabled-themes))
