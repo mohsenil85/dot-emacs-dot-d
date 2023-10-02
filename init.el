@@ -568,7 +568,23 @@
   :custom
   (speed-type-default-lang 'English))
 
-(use-package visible-mark :ensure t :config (global-visible-mark-mode 1)))
+(use-package visible-mark :ensure t :config (global-visible-mark-mode 1))
+
+(use-package golden-ratio
+  :ensure t  ; This will make sure the package is installed if it's not already
+  :config
+  ;; Enable golden-ratio mode
+  (golden-ratio-mode 1)
+  
+  ;; Optional configurations:
+  ;; Adjust the width you prefer for the main window
+  ;; (setq golden-ratio-adjust-factor .8
+  ;;       golden-ratio-wide-adjust-factor .8)
+
+  ;; Exclude some modes or buffers from being resized  ;;
+ (setq golden-ratio-exclude-modes '(ediff-mode))
+  ;; (setq golden-ratio-exclude-buffer-names '("..."))
+  )
 
 (use-package eldoc
   :diminish
@@ -1249,7 +1265,8 @@ Position the cursor at it's beginning, according to the current mode."
 
 
 (global-set-key (kbd "M-`") 'jump-to-mark)
-(global-set-key (kbd "C-`") 'push-mark-no-activate)
+(global-set-key (kbd "C-SPC") 'push-mark-no-activate)
+(global-set-key (kbd "C-S-SPC") 'set-mark-command)
 
 (define-key global-map [remap exchange-point-and-mark] 'exchange-point-and-mark-no-activate)
 
@@ -1271,7 +1288,7 @@ Position the cursor at it's beginning, according to the current mode."
 (set-register ?p (cons 'file "~/Projects/"))
 (set-register ?e (cons 'file "~/Dropbox/elfeed.org"))
 (set-register ?s (cons 'file "~/org/stories/ideas.org"))
-(set-register ?k (cons 'file "~/qmk_firmware/keyboards/ergodox_ez/keymaps/mohsenil85/keymap.c"))
+(set-register ?k (cons 'file "~/Projects/Builds/qmk_firmware/keyboards/ergodox_ez/keymaps/mohsenil85/keymap.c"))
 
 (use-package humanoid-themes :ensure t)
     (use-package ef-themes :ensure t)
