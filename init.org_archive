@@ -1437,3 +1437,32 @@ general lisp stuff
    
 
 
+
+* default frame
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-10-03 Tue 13:04
+:ARCHIVE_FILE: ~/.emacs.d/init.org
+:ARCHIVE_OLPATH: itself
+:ARCHIVE_CATEGORY: init
+:END:
+#+BEGIN_SRC emacs-lisp :results output silent
+
+#+END_SRC
+   
+
+
+#+RESULTS:
+
+* dired
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-10-03 Tue 13:08
+:ARCHIVE_FILE: ~/.emacs.d/init.org
+:ARCHIVE_OLPATH: packages
+:ARCHIVE_CATEGORY: init
+:END:
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package dired-git-info
+    :ensure t
+    :bind (:map dired-mode-map
+                (")" . dired-git-info-mode)))
+#+END_SRC
