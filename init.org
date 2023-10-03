@@ -820,6 +820,49 @@ visit file with browser
       ((prog-mode-hook . smartscan-mode )))
 
 #+end_src
+*** combobulate
+#+BEGIN_SRC emacs-lisp :results output silent
+   (use-package combobulate
+     :preface
+        (setq combobulate-key-prefix "C-c o")
+
+      :hook ((python-ts-mode . combobulate-mode)
+            (js-ts-mode . combobulate-mode)
+            (css-ts-mode . combobulate-mode)
+            (yaml-ts-mode . combobulate-mode)
+            (typescript-ts-mode . combobulate-mode)
+            (tsx-ts-mode . combobulate-mode))
+    )
+
+#+end_src
+*** paredit
+#+BEGIN_SRC emacs-lisp :results output silent
+  ;; Ensure use-package is installed and configured if not done already
+  (unless (package-installed-p 'use-package)
+    (package-refresh-contents)
+    (package-install 'use-package))
+
+  (eval-when-compile
+    (require 'use-package))
+
+  ;; Optionally, also enable diminishing and ensure for automatic installation of dependencies
+  (use-package diminish :ensure t)
+  (use-package bind-key :ensure t)
+
+  ;; Use-package for paredit
+  (use-package paredit
+    :ensure t  ;; Ensure the package is installed on startup if not installed already
+    :diminish paredit-mode  ;; Optionally: do not show paredit in the mode line
+    :hook ((emacs-lisp-mode . enable-paredit-mode)  ;; Enable paredit for emacs-lisp-mode
+           (eval-expression-minibuffer-setup . enable-paredit-mode)  ;; ... and in minibuffer
+           (ielm-mode . enable-paredit-mode)  ;; ... and for ielm
+           (lisp-mode . enable-paredit-mode)  ;; ... and for lisp
+           (lisp-interaction-mode . enable-paredit-mode)
+           (scheme-mode . enable-paredit-mode))  ;; ... and for scheme
+    :bind (:map paredit-mode-map
+                ("C-j" . paredit-newline))  ;; Example custom keybinding
+  )
+#+end_src
 
 * email
 : t
