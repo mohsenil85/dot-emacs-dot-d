@@ -18,6 +18,7 @@
 (use-package diminish :ensure t)
 (diminish 'subword-mode)
 (diminish 'visual-line-mode)
+(diminish 'auto-revert-mode)
 
 (use-package no-littering :ensure t)
 
@@ -34,7 +35,6 @@
 (use-package org 
   :ensure t
   :demand
-  :diminish 
   :config
   (progn
     (add-to-list 'org-modules 'org-habit)
@@ -534,8 +534,7 @@
   :config
   (setq completion-styles '(orderless)))
 
-(use-package expand-region
-  :bind ("C-=" . er/expand-region))
+(use-package expand-region :ensure t)
 
 (use-package avy
   :ensure t
@@ -904,6 +903,40 @@
   (winner-mode 1)
 
 
+
+(use-package dired
+  :straight nil				;
+  :bind (:map dired-mode-map 
+	      (("`" . dired-toggle-read-only)
+	       ( "-" .  dired-up-directory)
+	       ("~" . (lambda ()(interactive) (find-alternate-file "~/")))
+	       ("RET" . dired-find-file)
+	       ("C-<return>" . dired-find-file-other-window) 
+ 	       )
+	      )
+
+   :config
+  (use-package dired+
+    :straight (dired+ :fetcher url :url "https://www.emacswiki.org/emacs/download/dired+.el")
+    :defer 1
+    :init
+    (setq diredp-hide-details-initially-flag t)
+    (setq diredp-hide-details-propagate-flag t)
+    :config
+    (diredp-toggle-find-file-reuse-dir 1))
+
+  )
+
+
+(eval-after-load "evil-mode"
+  '(progn
+     (add-to-list 'evil-emacs-state-modes 'dired-mode)
+     ))
+
+(use-package dired-git-info
+  :ensure t
+  :bind (:map dired-mode-map
+              (")" . dired-git-info-mode)))
 
 ;;(require 'cl)
 
@@ -1275,8 +1308,9 @@ Position the cursor at it's beginning, according to the current mode."
 (global-set-key (kbd "C-x M-j") 'dired-jump)
 (global-set-key (kbd "C-x M-k") 'kill-this-buffer)
 (global-set-key (kbd "C-x C-r") 'recentf)
+(global-set-key (kbd "C-x C-d") 'dired-jump)
 (global-set-key (kbd "C-x g") 'magit-status)
-(global-set-key (kbd "<f5>") 'magit-status)
+(global-set-key (kbd "C-x k") 'kill-this-buffer)
 (global-set-key (kbd "C-x m")  'mu4e-compose-new)
 (global-set-key (kbd "M-/") 'hippie-expand)
 
@@ -1285,10 +1319,12 @@ Position the cursor at it's beginning, according to the current mode."
 
 (global-set-key (kbd "M-o") 'other-window)
 (global-set-key (kbd "C-o") 'smart-open-line)
-(global-set-key (kbd "C-O") 'smart-open-line-above)
+(global-set-key (kbd "C-S-o") 'smart-open-line-above)
+
 
 (global-set-key (kbd "C-c M-t") 'swap-buffers)
 (global-set-key (kbd "C-x M-t") 'vertical-horizontal-swizzle)
+(global-set-key (kbd "M-h") 'er/expand-region)
 
 
 (global-set-key (kbd "C-z") 'evil-mode)
@@ -1326,11 +1362,11 @@ Position the cursor at it's beginning, according to the current mode."
     (use-package ef-themes :ensure t)
 
 (defun load-dark ()
-  (load-theme 'humanoid-dark t)
+  (load-theme 'modus-vivendi t)
   (setq dark-light-state :dark ))
 
 (defun load-light ()
-  (load-theme 'humanoid-light t)
+  (load-theme 'modus-operandi t)
   (setq dark-light-state :light ))
 
 (defun reset-themes()
