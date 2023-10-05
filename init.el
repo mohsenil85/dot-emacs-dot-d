@@ -32,7 +32,7 @@
   (require 'bind-key)
 )
 
-(use-package org 
+(use-package org
   :ensure t
   :demand
   :config
@@ -48,7 +48,7 @@
     (setq org-agenda-skip-deadline-if-done t)
     (setq org-agenda-skip-scheduled-if-done t)
     (setq org-agenda-start-on-weekday nil)
-    (setq org-agenda-todo-ignore-with-date t) ;hide shed. and deadlined from global todo 
+    (setq org-agenda-todo-ignore-with-date t) ;hide shed. and deadlined from global todo
     (setq org-agenda-start-with-follow-mode nil)
     (setq org-agenda-text-search-extra-files '(agenda-archives))
     (setq org-catch-invisible-edits t)
@@ -108,7 +108,7 @@
 		   "* %?\n %U\n  %i\n  %a")
 		  ("w" "work" entry (file+datetree "~/org/work.org")
 		   "* %?\n %U\n  %i\n  %a")
-		  )))  
+		  )))
 
 
 
@@ -153,10 +153,10 @@
 ;;      )
 
 
-;; (with-eval-after-load "org-agenda" 
-;;   (define-key org-agenda-mode-map (kbd "J") 'org-agenda-goto-date) 
-;;   (define-key org-agenda-mode-map (kbd "j") 'evil-next-line) 
-;;   (define-key org-agenda-mode-map (kbd "k") 'evil-previous-line) 
+;; (with-eval-after-load "org-agenda"
+;;   (define-key org-agenda-mode-map (kbd "J") 'org-agenda-goto-date)
+;;   (define-key org-agenda-mode-map (kbd "j") 'evil-next-line)
+;;   (define-key org-agenda-mode-map (kbd "k") 'evil-previous-line)
 
 ;;   )
 
@@ -233,12 +233,12 @@
 
 (use-package dired
   :straight nil				;
-  :bind (:map dired-mode-map 
+  :bind (:map dired-mode-map
 	      (("`" . dired-toggle-read-only)
 	       ( "-" .  dired-up-directory)
 	       ("~" . (lambda ()(interactive) (find-alternate-file "~/")))
 	       ("RET" . dired-find-file)
-	       ("C-<return>" . dired-find-file-other-window) 
+	       ("C-<return>" . dired-find-file-other-window)
  	       )
 	      )
 
@@ -344,8 +344,8 @@
   (global-prettier-mode))
 
 (use-package general
-  :ensure t   
-  :defer 1   
+  :ensure t
+  :defer 1
   :config   (setq leader "SPC"))
 
 (use-package git-link
@@ -358,7 +358,7 @@
   :diminish
   :config
   (global-git-gutter-mode t)
-
+  
   ;; If you would like to use git-gutter.el and linum-mode
  ;; (git-gutter:linum-setup)
 
@@ -385,7 +385,7 @@
 (use-package image+
   :ensure hydra
   :defer t
-  :config 
+  :config
   (progn
     (eval-after-load 'image+
 	`(when (require 'hydra nil t)
@@ -402,28 +402,32 @@
   )
 
 (use-package keyfreq
+    :ensure t
+    :defer t
+    :init
+    (require 'keyfreq)
+    (keyfreq-mode 1)
+    (keyfreq-autosave-mode 1)
+(setq keyfreq-excluded-commands
+      '(pixel-scroll-precision
+	mwheel-scroll
+	self-insert-command
+	))
+    )
+
+(use-package magit
   :ensure t
   :defer t
-  :init
-  (require 'keyfreq)
-  (keyfreq-mode 1)
-  (keyfreq-autosave-mode 1)
-
-  )
-
-(use-package magit 
-  :ensure t
-  :defer t
-  :config       
+  :config
   (define-key transient-map (kbd "<escape>") 'transient-quit-one)
   (setq magit-save-repository-buffers 'dontask)
   )
 (use-package forge
   :after magit
-  :config 
+  :config
 	   (setq auth-sources '("~/.authinfo"))
 
-	   
+
   )
 
 (use-package better-defaults :ensure t :defer t )
@@ -439,8 +443,8 @@
 
 (use-package page-break-lines
   :diminish ""
-  :ensure t 
-  :defer t 
+  :ensure t
+  :defer t
   :config (global-page-break-lines-mode))
 
 (use-package persistent-scratch :ensure t
@@ -504,7 +508,7 @@
    (css-mode . css-ts-mode)
    (python-mode . python-ts-mode)))
 
-(use-package which-key 
+(use-package which-key
   :ensure t
   :diminish ""
   :config (which-key-mode ) )
@@ -641,8 +645,8 @@
 (use-package ob-ipython :ensure t :defer t)
 					  ;(use-package ein :ensure)
 
-(use-package jest-test-mode 
-  :ensure t 
+(use-package jest-test-mode
+  :ensure t
   :commands jest-test-mode
   :hook (typescript-mode js-mode typescript-tsx-mode))
 
@@ -730,7 +734,7 @@
 
   (setq mu4e-contexts
         `(
-	  
+
 
           ,(make-mu4e-context
             :name "Fastmail"
@@ -808,11 +812,11 @@
             					 (:query "maildir:/gmail/Drafts" :name  "Drafts" :key ?d)
             					 (:query "maildir:/gmail/Archive" :name    "Archive" :key    ?x)))
 		     ))
-	  
+
   	  );;list
         );;contexts
 
-  
+
   ;; set `mu4e-context-policy` and `mu4e-compose-policy` to tweak when mu4e should
   ;; guess or ask the correct context, e.g.
 
@@ -850,7 +854,6 @@
       ;; (setq read-extended-command-predicate
       ;;       #'command-completion-default-include-p)
 
-      ;; Enable recursive minibuffers
 
       (blink-cursor-mode -1)
       (defalias 'yes-or-no-p 'y-or-n-p)
@@ -870,8 +873,10 @@
       (tooltip-mode 1)
       (context-menu-mode)
       (pixel-scroll-precision-mode)
-      
+      (column-number-mode 1)
+
       (setq
+       view-read-only t
        xref-search-program 'ripgrep
        sentence-end-double-space nil
        display-time-default-load-average nil
@@ -886,7 +891,7 @@
        ;; enable-recursive-minibuffers t
        explicit-shell-file-name "/bin/zsh"
        explicit-zsh-args '("--login" "--interactive")
-       history-length 250 
+       history-length 250
        indicate-empty-lines t
        inhibit-startup-echo-area-message "loganmohseni"
        inhibit-startup-message t
@@ -895,17 +900,17 @@
        kill-ring-max 5000                     ;truncate kill ring after 5000 entries
        load-prefer-newer t
        locale-coding-system 'utf-8
-       mark-ring-max 5000 
-       recentf-max-saved-items 5000  
+       mark-ring-max 5000
+       recentf-max-saved-items 5000
        ring-bell-function 'ignore 	; silent bell when you make a mistake
-       sentence-end-double-space t	; 
+       sentence-end-double-space t	;
        shell-file-name "/bin/zsh"
        show-paren-delay 0
        show-paren-style 'parenthesis
        show-paren-when-point-inside-paren t
   ;;     split-width-threshold 80
        switch-to-buffer-preserve-window-point t
-       tab-always-indent 'complete 
+       tab-always-indent 'complete
        tooltip-use-echo-area t
        use-dialog-box nil
        user-full-name "Logan Mohseni"
@@ -916,10 +921,10 @@
        visible-bell t
        )
       (setq-default indicate-buffer-boundaries 'left)
-    (setq display-time-format "%l:%M %a %e %b") 
+    (setq display-time-format "%l:%M")
     (setq display-time-interval 1)
     (display-time-mode)
-      
+
       )
 
 
@@ -960,7 +965,7 @@
 
 (defun edit-init-org-file ()
   (interactive)
-  (if (string= buffer-file-name  (expand-file-name ".emacs.d/init.org" "~") ) ;; weirdness around the actual buffer file name of 
+  (if (string= buffer-file-name  (expand-file-name ".emacs.d/init.org" "~") ) ;; weirdness around the actual buffer file name of
       (find-file (concat "~/.emacs.d/init.el"))
     (find-file (concat "~/.emacs.d/init.org"))))
 
@@ -1032,7 +1037,7 @@
   (and (eq (marker-buffer marker) (current-buffer))
 	 (= (marker-position marker) (point))))
 
-(defun push-mark-maybe () 
+(defun push-mark-maybe ()
   "push mark onto `global-mark-ring' if mark head or tail is not current location"
   (if (not global-mark-ring) (error "global-mark-ring empty")
     (unless (or (marker-is-point-p (car global-mark-ring))
@@ -1040,7 +1045,7 @@
 	(push-mark))))
 
 
-(defun backward-global-mark () 
+(defun backward-global-mark ()
   "use `pop-global-mark', pushing current point if not on ring."
   (interactive)
   (push-mark-maybe)
@@ -1235,12 +1240,24 @@ Position the cursor at it's beginning, according to the current mode."
   (unless arg (deactivate-mark nil))
   )
 
+(defun full-frame-irregardless ()
+  (interactive)
+  (set-frame-parameter nil 'fullscreen 'fullboth))
+
+(defun pulse-line (&rest _)
+      "Pulse the current line."
+      (pulse-momentary-highlight-one-line (point)))
+
+(dolist (command '(scroll-up-command scroll-down-command
+                   recenter-top-bottom other-window))
+  (advice-add command :after #'pulse-line))
+
 (when (eq system-type 'darwin)
   (setq mac-command-modifier 'meta)
   (setq mac-option-modifier 'super)
   (setq mac-control-modifier 'control)
   (setq mac-function-modifier 'hyper)
-  (setq mac-pass-command-to-system nil) 
+  (setq mac-pass-command-to-system nil)
   (defun toggle-fullscreen ()
     "Toggle full screen"
     (interactive)
@@ -1269,8 +1286,8 @@ Position the cursor at it's beginning, according to the current mode."
   (let ((default-directory "/opt/homebrew/share/emacs/site-lisp/"))
     (normal-top-level-add-subdirs-to-load-path))
 
-  (use-package exec-path-from-shell :ensure t 
-    :config 
+  (use-package exec-path-from-shell :ensure t
+    :config
     (exec-path-from-shell-initialize))
 
   )
@@ -1282,16 +1299,21 @@ Position the cursor at it's beginning, according to the current mode."
   (global-set-key (kbd "M-X") 'evil-delete-char)
 
   )
-					  ;  (when (string= (system-name) "zig") 
+					  ;  (when (string= (system-name) "zig")
 					  ;(set-frame-font "Inconsolata-16")
 					  ;)
 
 ;;emacs style
 
-(global-set-key (kbd "C-c m")  'mu4e)
-(global-set-key (kbd "<f1>")  '(lambda()(interactive)(term "zsh")))
-(global-set-key (kbd "<f2>")  'rg)
-(global-set-key (kbd "<f6>")  'revert-this-buffer )
+
+(global-set-key (kbd "<f1>")  'eat)
+(global-set-key (kbd "<f2>")  'magit-status)
+(global-set-key (kbd "<f5>")  'mu4e)
+(global-set-key (kbd "<f6>")  'org-agenda)
+(global-set-key (kbd "<f7>")  'rg)
+(global-set-key (kbd "<f8>")  'compile)
+(global-set-key (kbd "<f9>")  'speed-type-top-1000)
+(global-set-key (kbd "C-x M-r")  'revert-this-buffer )
 (global-set-key (kbd "C-<f2>") 'multi-occur-in-this-mode)
 (global-set-key (kbd "C-h C-/") 'which-key-show-major-mode)
 (global-set-key (kbd "C-x ,") 'edit-init-org-file)
@@ -1301,7 +1323,6 @@ Position the cursor at it's beginning, according to the current mode."
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 (global-set-key (kbd "C-x C-c") 'halt)
 (global-set-key (kbd "C-x d") 'dired-jump)
-(global-set-key (kbd "C-x M-k") 'kill-this-buffer)
 (global-set-key (kbd "C-x C-r") 'recentf)
 (global-set-key (kbd "C-x C-d") 'dired-jump)
 (global-set-key (kbd "C-x g") 'magit-status)
@@ -1316,10 +1337,17 @@ Position the cursor at it's beginning, according to the current mode."
 (global-set-key (kbd "C-o") 'smart-open-line)
 (global-set-key (kbd "C-S-o") 'smart-open-line-above)
 
+(global-set-key (kbd "s-SPC") 'cycle-spacing)
+
+
+
+(global-set-key (kbd "M-u") 'upcase-dwim)
+(global-set-key (kbd "M-l") 'downcase-dwim)
+(global-set-key (kbd "M-c") 'capitalize-dwim)
 
 (global-set-key (kbd "C-c M-t") 'swap-buffers)
 (global-set-key (kbd "C-x M-t") 'vertical-horizontal-swizzle)
-(global-set-key (kbd "M-h") 'er/expand-region)
+(global-set-key (kbd "C-=") 'er/expand-region)
 
 
 (global-set-key (kbd "C-z") 'evil-mode)
@@ -1327,7 +1355,8 @@ Position the cursor at it's beginning, according to the current mode."
 (global-set-key (kbd "M-z") 'zap-up-to-char)
 
 
-(global-set-key (kbd "M-`") 'jump-to-mark)
+(global-set-key (kbd "C-`") 'jump-to-mark)
+(global-set-key (kbd "M-`") 'pop-global-mark)
 (global-set-key (kbd "C-SPC") 'push-mark-no-activate)
 (global-set-key (kbd "C-S-SPC") 'set-mark-command)
 
@@ -1355,13 +1384,14 @@ Position the cursor at it's beginning, according to the current mode."
 
 (use-package humanoid-themes :ensure t)
     (use-package ef-themes :ensure t)
+    (use-package standard-themes :ensure t)
 
 (defun load-dark ()
-  (load-theme 'modus-vivendi t)
+  (load-theme 'standard-dark t)
   (setq dark-light-state :dark ))
 
 (defun load-light ()
-  (load-theme 'modus-operandi t)
+  (load-theme 'standard-light t)
   (setq dark-light-state :light ))
 
 (defun reset-themes()
@@ -1379,7 +1409,3 @@ Position the cursor at it's beginning, according to the current mode."
   (load-light))
 
 (init-themes)
-
-;; (load-file "~/.emacs.d/secrets.el.gpg")
-
-(use-package minions :ensure t :bind ("<S-down-mouse-3>" . #'minions-minor-modes-menu))

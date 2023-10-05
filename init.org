@@ -1,6 +1,6 @@
 #+TITLE: My Special Emacs Configuration
 #+AUTHOR: logan mohseni
-#+EMAIL: mohsenil85@gmail.com 
+#+EMAIL: mohsenil85@gmail.com
 #+PROPERTY: header-args :tangle init.el
 
 * frontmatter
@@ -57,10 +57,10 @@
 : t
 
 ** org-mode
-   
+
 #+BEGIN_SRC emacs-lisp :results output silent
 
-  (use-package org 
+  (use-package org
     :ensure t
     :demand
     :config
@@ -76,7 +76,7 @@
       (setq org-agenda-skip-deadline-if-done t)
       (setq org-agenda-skip-scheduled-if-done t)
       (setq org-agenda-start-on-weekday nil)
-      (setq org-agenda-todo-ignore-with-date t) ;hide shed. and deadlined from global todo 
+      (setq org-agenda-todo-ignore-with-date t) ;hide shed. and deadlined from global todo
       (setq org-agenda-start-with-follow-mode nil)
       (setq org-agenda-text-search-extra-files '(agenda-archives))
       (setq org-catch-invisible-edits t)
@@ -136,7 +136,7 @@
   		   "* %?\n %U\n  %i\n  %a")
   		  ("w" "work" entry (file+datetree "~/org/work.org")
   		   "* %?\n %U\n  %i\n  %a")
-  		  )))  
+  		  )))
 
 
 
@@ -181,10 +181,10 @@
   ;;      )
 
 
-  ;; (with-eval-after-load "org-agenda" 
-  ;;   (define-key org-agenda-mode-map (kbd "J") 'org-agenda-goto-date) 
-  ;;   (define-key org-agenda-mode-map (kbd "j") 'evil-next-line) 
-  ;;   (define-key org-agenda-mode-map (kbd "k") 'evil-previous-line) 
+  ;; (with-eval-after-load "org-agenda"
+  ;;   (define-key org-agenda-mode-map (kbd "J") 'org-agenda-goto-date)
+  ;;   (define-key org-agenda-mode-map (kbd "j") 'evil-next-line)
+  ;;   (define-key org-agenda-mode-map (kbd "k") 'evil-previous-line)
 
   ;;   )
 
@@ -223,7 +223,7 @@
 #+END_SRC
 ** evil
 *** main evil
-    
+
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package evil
     :ensure t
@@ -268,11 +268,15 @@
     (require 'evil-org-agenda)
     (evil-org-agenda-set-keys))
 #+END_SRC
-    
+
 * todo
 ** emacs colemak thing
 *** https://github.com/jyp/boon
 ** increment at point
+** automark
+** karthink emacs battery include
+** restclient 
+** yasnippet
 * packages
 ** dired
 vinagresque
@@ -280,12 +284,12 @@ vinagresque
 
   (use-package dired
     :straight nil				;
-    :bind (:map dired-mode-map 
+    :bind (:map dired-mode-map
   	      (("`" . dired-toggle-read-only)
   	       ( "-" .  dired-up-directory)
   	       ("~" . (lambda ()(interactive) (find-alternate-file "~/")))
   	       ("RET" . dired-find-file)
-  	       ("C-<return>" . dired-find-file-other-window) 
+  	       ("C-<return>" . dired-find-file-other-window)
    	       )
   	      )
 
@@ -336,12 +340,12 @@ vinagresque
 
 #+END_SRC
 ** company
-#+BEGIN_SRC emacs-lisp :results output silent 
+#+BEGIN_SRC emacs-lisp :results output silent
   (use-package company
     :ensure t
     :diminish )
 
-      
+
       #+END_SRC
 
 ***
@@ -407,7 +411,7 @@ vinagresque
   (add-to-list 'flycheck-checkers 'proselint)
 
 #+end_src
-   
+
 ** formatter
 #+BEGIN_SRC emacs-lisp
   ;; (use-package apheleia
@@ -428,8 +432,8 @@ vinagresque
 ** general
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package general
-    :ensure t   
-    :defer 1   
+    :ensure t
+    :defer 1
     :config   (setq leader "SPC"))
 #+END_SRC
 
@@ -448,7 +452,7 @@ visit file with browser
     :diminish
     :config
     (global-git-gutter-mode t)
-
+    
     ;; If you would like to use git-gutter.el and linum-mode
    ;; (git-gutter:linum-setup)
 
@@ -474,13 +478,13 @@ visit file with browser
 
 
 #+END_SRC
-   
+
 ** image+
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package image+
     :ensure hydra
     :defer t
-    :config 
+    :config
     (progn
       (eval-after-load 'image+
 	`(when (require 'hydra nil t)
@@ -498,36 +502,40 @@ visit file with browser
 #+END_SRC
 ** keyfreq
 #+BEGIN_SRC emacs-lisp :results output silent
-  (use-package keyfreq
-    :ensure t
-    :defer t
-    :init
-    (require 'keyfreq)
-    (keyfreq-mode 1)
-    (keyfreq-autosave-mode 1)
-
-    )
+    (use-package keyfreq
+      :ensure t
+      :defer t
+      :init
+      (require 'keyfreq)
+      (keyfreq-mode 1)
+      (keyfreq-autosave-mode 1)
+  (setq keyfreq-excluded-commands
+        '(pixel-scroll-precision
+  	mwheel-scroll
+  	self-insert-command
+  	))
+      )
 #+END_SRC
-   
+
 ** magit
 #+BEGIN_SRC emacs-lisp :results output silent
-  (use-package magit 
+  (use-package magit
     :ensure t
     :defer t
-    :config       
+    :config
     (define-key transient-map (kbd "<escape>") 'transient-quit-one)
     (setq magit-save-repository-buffers 'dontask)
     )
   (use-package forge
     :after magit
-    :config 
+    :config
   	   (setq auth-sources '("~/.authinfo"))
-  
-  	   
+
+
     )
 
 #+END_SRC
-   
+
 ** one liners
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package better-defaults :ensure t :defer t )
@@ -545,22 +553,22 @@ visit file with browser
 #+begin_src emacs-lisp
   (use-package page-break-lines
     :diminish ""
-    :ensure t 
-    :defer t 
+    :ensure t
+    :defer t
     :config (global-page-break-lines-mode))
 
 #+end_src
 
 #+RESULTS:
 : t
-   
+
 ** pass?
 ** persistent scratch
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package persistent-scratch :ensure t
     :config (persistent-scratch-setup-default))
 #+END_SRC
-   
+
 ** paren
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package paren
@@ -591,7 +599,7 @@ visit file with browser
 #+RESULTS:
 : t
 ** saveplace
-#+BEGIN_SRC emacs-lisp 
+#+BEGIN_SRC emacs-lisp
   (use-package saveplace :config (setq-default save-place t))
 
 
@@ -610,7 +618,7 @@ visit file with browser
 
 
 #+END_SRC
-** tree-sitter 
+** tree-sitter
 #+BEGIN_SRC emacs-lisp :results output silent
     (setq treesit-language-source-alist
      '((bash "https://github.com/tree-sitter/tree-sitter-bash")
@@ -649,7 +657,7 @@ visit file with browser
 
 ** which key
 #+BEGIN_SRC emacs-lisp :results output silent
-  (use-package which-key 
+  (use-package which-key
     :ensure t
     :diminish ""
     :config (which-key-mode ) )
@@ -721,7 +729,7 @@ visit file with browser
 #+END_SRC
 ** avy
 #+BEGIN_SRC emacs-lisp :results output silent
-  
+
 
 (use-package avy
   :ensure t
@@ -781,7 +789,7 @@ visit file with browser
 
 * languages
 ** elisp
-#+BEGIN_SRC emacs-lisp 
+#+BEGIN_SRC emacs-lisp
   (use-package eldoc
     :diminish
     :init
@@ -804,7 +812,7 @@ visit file with browser
 #+END_SRC
 
 ** clojure
-   
+
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package clojure-mode :ensure t :defer t)
   (use-package cider :ensure t :defer t
@@ -827,10 +835,10 @@ visit file with browser
 					  ;(use-package ein :ensure)
 #+END_SRC
 ** js/ts
-*** jest 
+*** jest
 #+BEGIN_SRC emacs-lisp :results output silent
-(use-package jest-test-mode 
-  :ensure t 
+(use-package jest-test-mode
+  :ensure t
   :commands jest-test-mode
   :hook (typescript-mode js-mode typescript-tsx-mode))
 #+end_src
@@ -933,7 +941,7 @@ visit file with browser
 
     (setq mu4e-contexts
           `(
-  	  
+
 
             ,(make-mu4e-context
               :name "Fastmail"
@@ -1011,11 +1019,11 @@ visit file with browser
               					 (:query "maildir:/gmail/Drafts" :name  "Drafts" :key ?d)
               					 (:query "maildir:/gmail/Archive" :name    "Archive" :key    ?x)))
   		     ))
-  	  
+
     	  );;list
           );;contexts
 
-    
+
     ;; set `mu4e-context-policy` and `mu4e-compose-policy` to tweak when mu4e should
     ;; guess or ask the correct context, e.g.
 
@@ -1057,7 +1065,6 @@ visit file with browser
         ;; (setq read-extended-command-predicate
         ;;       #'command-completion-default-include-p)
 
-        ;; Enable recursive minibuffers
 
         (blink-cursor-mode -1)
         (defalias 'yes-or-no-p 'y-or-n-p)
@@ -1077,8 +1084,10 @@ visit file with browser
         (tooltip-mode 1)
         (context-menu-mode)
         (pixel-scroll-precision-mode)
-        
+        (column-number-mode 1)
+
         (setq
+         view-read-only t
          xref-search-program 'ripgrep
          sentence-end-double-space nil
          display-time-default-load-average nil
@@ -1093,7 +1102,7 @@ visit file with browser
          ;; enable-recursive-minibuffers t
          explicit-shell-file-name "/bin/zsh"
          explicit-zsh-args '("--login" "--interactive")
-         history-length 250 
+         history-length 250
          indicate-empty-lines t
          inhibit-startup-echo-area-message "loganmohseni"
          inhibit-startup-message t
@@ -1102,17 +1111,17 @@ visit file with browser
          kill-ring-max 5000                     ;truncate kill ring after 5000 entries
          load-prefer-newer t
          locale-coding-system 'utf-8
-         mark-ring-max 5000 
-         recentf-max-saved-items 5000  
+         mark-ring-max 5000
+         recentf-max-saved-items 5000
          ring-bell-function 'ignore 	; silent bell when you make a mistake
-         sentence-end-double-space t	; 
+         sentence-end-double-space t	;
          shell-file-name "/bin/zsh"
          show-paren-delay 0
          show-paren-style 'parenthesis
          show-paren-when-point-inside-paren t
     ;;     split-width-threshold 80
          switch-to-buffer-preserve-window-point t
-         tab-always-indent 'complete 
+         tab-always-indent 'complete
          tooltip-use-echo-area t
          use-dialog-box nil
          user-full-name "Logan Mohseni"
@@ -1123,10 +1132,10 @@ visit file with browser
          visible-bell t
          )
         (setq-default indicate-buffer-boundaries 'left)
-      (setq display-time-format "%l:%M %a %e %b") 
+      (setq display-time-format "%l:%M")
       (setq display-time-interval 1)
       (display-time-mode)
-        
+
         )
 
 
@@ -1146,7 +1155,7 @@ visit file with browser
 
 * functionaria
 ** load-init file, plus other fun
-  
+
 #+BEGIN_SRC emacs-lisp :results output silent
 
 
@@ -1177,7 +1186,7 @@ visit file with browser
 
   (defun edit-init-org-file ()
     (interactive)
-    (if (string= buffer-file-name  (expand-file-name ".emacs.d/init.org" "~") ) ;; weirdness around the actual buffer file name of 
+    (if (string= buffer-file-name  (expand-file-name ".emacs.d/init.org" "~") ) ;; weirdness around the actual buffer file name of
         (find-file (concat "~/.emacs.d/init.el"))
       (find-file (concat "~/.emacs.d/init.org"))))
 
@@ -1217,7 +1226,7 @@ visit file with browser
 
 
 #+END_SRC
-  
+
 ** swap buffers
 taken from:  https://stackoverflow.com/questions/1774832/how-to-swap-the-buffers-in-2-windows-emacs
 #+BEGIN_SRC emacs-lisp
@@ -1273,7 +1282,7 @@ taken from:  https://stackoverflow.com/questions/1774832/how-to-swap-the-buffers
     (let ((link (pbpaste)))
       (elfeed-add-feed link)))
 #+END_SRC
-   
+
 
 ** backward and foward global mark jump
 #+BEGIN_SRC emacs-lisp
@@ -1283,7 +1292,7 @@ taken from:  https://stackoverflow.com/questions/1774832/how-to-swap-the-buffers
     (and (eq (marker-buffer marker) (current-buffer))
 	 (= (marker-position marker) (point))))
 
-  (defun push-mark-maybe () 
+  (defun push-mark-maybe ()
     "push mark onto `global-mark-ring' if mark head or tail is not current location"
     (if (not global-mark-ring) (error "global-mark-ring empty")
       (unless (or (marker-is-point-p (car global-mark-ring))
@@ -1291,7 +1300,7 @@ taken from:  https://stackoverflow.com/questions/1774832/how-to-swap-the-buffers
 	(push-mark))))
 
 
-  (defun backward-global-mark () 
+  (defun backward-global-mark ()
     "use `pop-global-mark', pushing current point if not on ring."
     (interactive)
     (push-mark-maybe)
@@ -1315,7 +1324,7 @@ taken from:  https://stackoverflow.com/questions/1774832/how-to-swap-the-buffers
   ;; (defun which-key-this-buffer ()
   ;; (interactive)
   ;; (which-key-show-keymap   major-mode))
-  ;; 
+  ;;
 
 #+END_SRC
 
@@ -1364,7 +1373,7 @@ taken from: https://www.bytedude.com/useful-emacs-shortcuts/
 #+RESULTS:
 : split-window-right-focus
 ** vertical and horizontal layout
-taken from:  
+taken from:
 https://stackoverflow.com/questions/14881020/emacs-shortcut-to-switch-from-a-horizontal-split-to-a-vertical-split-in-one-move#14881250
 #+BEGIN_SRC emacs-lisp
   (defun vertical-horizontal-swizzle ()
@@ -1405,7 +1414,7 @@ https://stackoverflow.com/questions/14881020/emacs-shortcut-to-switch-from-a-hor
 #+END_SRC
 ** "prose" mode
 #+BEGIN_SRC emacs-lisp
-  
+
   (defun prose-mode ()
     (interactive)
 
@@ -1459,7 +1468,7 @@ https://stackoverflow.com/questions/14881020/emacs-shortcut-to-switch-from-a-hor
   (define-key minibuffer-local-completion-map [escape] 'minibuffer-keyboard-quit)
   (define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
   (define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
-  (global-set-key [escape] 'evil-exit-emacs-state) 
+  (global-set-key [escape] 'evil-exit-emacs-state)
 #+END_SRC
 
 #+RESULTS:
@@ -1470,7 +1479,7 @@ https://stackoverflow.com/questions/14881020/emacs-shortcut-to-switch-from-a-hor
     (interactive "")
     (shell-command (format  "webstorm --line %s --column %s %s" (line-number-at-pos) (current-column)  (buffer-file-name))))
 
-    
+
 #+END_SRC
 
 #+RESULTS:
@@ -1494,7 +1503,7 @@ https://stackoverflow.com/questions/14881020/emacs-shortcut-to-switch-from-a-hor
   (multi-occur
    (get-buffers-matching-mode major-mode)
    (car (occur-read-primary-args))))
-  
+
 
 #+END_SRC
 ** revert this buffer
@@ -1503,7 +1512,7 @@ https://stackoverflow.com/questions/14881020/emacs-shortcut-to-switch-from-a-hor
       (interactive)
       (revert-buffer nil t t)
       (message "reverted %s" (buffer-name)))
-    
+
 #+END_SRC
 
 #+RESULTS:
@@ -1532,10 +1541,10 @@ https://stackoverflow.com/questions/14881020/emacs-shortcut-to-switch-from-a-hor
 #+RESULTS:
 : smart-open-line-above
 ** mark without activating region
-#+BEGIN_SRC emacs-lisp results :silent
+#+BEGIN_SRC emacs-lisp :results silent
   ;;taken from https://www.masteringemacs.org/article/fixing-mark-commands-transient-mark-mode
 
-  
+
   (defun push-mark-no-activate ()
     "Pushes `point' to `mark-ring' and does not activate the region
      Equivalent to \\[set-mark-command] when \\[transient-mark-mode] is disabled"
@@ -1558,7 +1567,26 @@ https://stackoverflow.com/questions/14881020/emacs-shortcut-to-switch-from-a-hor
     )
 #+END_SRC
 
-* osx specific 
+
+** full frame non toggle
+#+BEGIN_SRC emacs-lisp :results silent
+  (defun full-frame-irregardless ()
+    (interactive)
+    (set-frame-parameter nil 'fullscreen 'fullboth))
+#+END_SRC
+** full frame non toggle
+#+BEGIN_SRC emacs-lisp :results silent
+   (defun pulse-line (&rest _)
+        "Pulse the current line."
+        (pulse-momentary-highlight-one-line (point)))
+
+  (dolist (command '(scroll-up-command scroll-down-command
+                     recenter-top-bottom other-window))
+    (advice-add command :after #'pulse-line))
+#+END_SRC
+
+
+* osx specific
 handle meta as command
 toggle fullscreen
 #+BEGIN_SRC emacs-lisp :results output silent
@@ -1567,7 +1595,7 @@ toggle fullscreen
     (setq mac-option-modifier 'super)
     (setq mac-control-modifier 'control)
     (setq mac-function-modifier 'hyper)
-    (setq mac-pass-command-to-system nil) 
+    (setq mac-pass-command-to-system nil)
     (defun toggle-fullscreen ()
       "Toggle full screen"
       (interactive)
@@ -1596,15 +1624,15 @@ toggle fullscreen
     (let ((default-directory "/opt/homebrew/share/emacs/site-lisp/"))
       (normal-top-level-add-subdirs-to-load-path))
 
-    (use-package exec-path-from-shell :ensure t 
-      :config 
+    (use-package exec-path-from-shell :ensure t
+      :config
       (exec-path-from-shell-initialize))
 
     )
 
 
 #+END_SRC
-  
+
 * zig specific
 
 #+BEGIN_SRC emacs-lisp :results output silent
@@ -1615,7 +1643,7 @@ toggle fullscreen
     (global-set-key (kbd "M-X") 'evil-delete-char)
 
     )
-  					  ;  (when (string= (system-name) "zig") 
+  					  ;  (when (string= (system-name) "zig")
   					  ;(set-frame-font "Inconsolata-16")
   					  ;)
 #+END_SRC
@@ -1624,10 +1652,15 @@ toggle fullscreen
 #+BEGIN_SRC emacs-lisp :results output silent
   ;;emacs style
 
-  (global-set-key (kbd "C-c m")  'mu4e)
-  (global-set-key (kbd "<f1>")  '(lambda()(interactive)(term "zsh")))
-  (global-set-key (kbd "<f2>")  'rg)
-  (global-set-key (kbd "<f6>")  'revert-this-buffer )
+  
+  (global-set-key (kbd "<f1>")  'eat)
+  (global-set-key (kbd "<f2>")  'magit-status)
+  (global-set-key (kbd "<f5>")  'mu4e)
+  (global-set-key (kbd "<f6>")  'org-agenda)
+  (global-set-key (kbd "<f7>")  'rg)
+  (global-set-key (kbd "<f8>")  'compile)
+  (global-set-key (kbd "<f9>")  'speed-type-top-1000)
+  (global-set-key (kbd "C-x M-r")  'revert-this-buffer )
   (global-set-key (kbd "C-<f2>") 'multi-occur-in-this-mode)
   (global-set-key (kbd "C-h C-/") 'which-key-show-major-mode)
   (global-set-key (kbd "C-x ,") 'edit-init-org-file)
@@ -1637,7 +1670,6 @@ toggle fullscreen
   (global-set-key (kbd "C-x C-b") 'ibuffer)
   (global-set-key (kbd "C-x C-c") 'halt)
   (global-set-key (kbd "C-x d") 'dired-jump)
-  (global-set-key (kbd "C-x M-k") 'kill-this-buffer)
   (global-set-key (kbd "C-x C-r") 'recentf)
   (global-set-key (kbd "C-x C-d") 'dired-jump)
   (global-set-key (kbd "C-x g") 'magit-status)
@@ -1652,10 +1684,17 @@ toggle fullscreen
   (global-set-key (kbd "C-o") 'smart-open-line)
   (global-set-key (kbd "C-S-o") 'smart-open-line-above)
 
+  (global-set-key (kbd "s-SPC") 'cycle-spacing)
+
+
+
+  (global-set-key (kbd "M-u") 'upcase-dwim)
+  (global-set-key (kbd "M-l") 'downcase-dwim)
+  (global-set-key (kbd "M-c") 'capitalize-dwim)
 
   (global-set-key (kbd "C-c M-t") 'swap-buffers)
   (global-set-key (kbd "C-x M-t") 'vertical-horizontal-swizzle)
-  (global-set-key (kbd "M-h") 'er/expand-region)
+  (global-set-key (kbd "C-=") 'er/expand-region)
 
 
   (global-set-key (kbd "C-z") 'evil-mode)
@@ -1663,7 +1702,8 @@ toggle fullscreen
   (global-set-key (kbd "M-z") 'zap-up-to-char)
 
 
-  (global-set-key (kbd "M-`") 'jump-to-mark)
+  (global-set-key (kbd "C-`") 'jump-to-mark)
+  (global-set-key (kbd "M-`") 'pop-global-mark)
   (global-set-key (kbd "C-SPC") 'push-mark-no-activate)
   (global-set-key (kbd "C-S-SPC") 'set-mark-command)
 
@@ -1673,7 +1713,7 @@ toggle fullscreen
 
 #+RESULTS:
 | lambda | nil | (interactive) | (scroll-other-window-down 1) |
-** removed keys 
+** removed keys
 #+BEGIN_SRC emacs-lisp :results output silent
 
 
@@ -1686,7 +1726,7 @@ toggle fullscreen
 #+END_SRC
 ** disabled functions
 #+BEGIN_SRC emacs-lisp :results output silent
-  
+
 
   (global-set-key (kbd "C-h h") 'not-anymore)
   (global-set-key (kbd "C-h C-a") 'not-anymore)
@@ -1705,20 +1745,21 @@ toggle fullscreen
   (set-register ?s (cons 'file "~/org/stories/ideas.org"))
   (set-register ?k (cons 'file "~/Projects/Builds/qmk_firmware/keyboards/ergodox_ez/keymaps/mohsenil85/keymap.c"))
 #+END_SRC
-* modus
+* theme
 
 #+BEGIN_SRC emacs-lisp :results output silent
 
 
     (use-package humanoid-themes :ensure t)
       (use-package ef-themes :ensure t)
+      (use-package standard-themes :ensure t)
 
   (defun load-dark ()
-    (load-theme 'modus-vivendi t)
+    (load-theme 'standard-dark t)
     (setq dark-light-state :dark ))
 
   (defun load-light ()
-    (load-theme 'modus-operandi t)
+    (load-theme 'standard-light t)
     (setq dark-light-state :light ))
 
   (defun reset-themes()
@@ -1739,22 +1780,4 @@ toggle fullscreen
 
 #+END_SRC
 
-
-* secrets??
-#+BEGIN_SRC emacs-lisp
-  ;; (load-file "~/.emacs.d/secrets.el.gpg")
-#+END_SRC
-
-#+RESULTS:
-* coda
-** minions
-#+BEGIN_SRC emacs-lisp
-
-  (use-package minions :ensure t :bind ("<S-down-mouse-3>" . #'minions-minor-modes-menu))
-#+END_SRC
-
-#+RESULTS:
-: minions-minor-modes-menu
-
-  
 
