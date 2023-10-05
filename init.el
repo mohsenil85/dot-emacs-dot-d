@@ -238,11 +238,8 @@
 	       ( "-" .  dired-up-directory)
 	       ("~" . (lambda ()(interactive) (find-alternate-file "~/")))
 	       ("RET" . dired-find-file)
-	       ("C-<return>" . dired-find-file-other-window)
- 	       )
-	      )
-
-   :config
+	       ("C-<return>" . dired-find-file-other-window)))
+  :config
   (use-package dired+
     :straight (dired+ :fetcher url :url "https://www.emacswiki.org/emacs/download/dired+.el")
     :defer 1
@@ -259,6 +256,16 @@
   :ensure t
   :bind (:map dired-mode-map
               (")" . dired-git-info-mode)))
+
+(use-package dired-hist
+  :straight (:host github :repo "karthink/dired-hist" :files ( "*.el"))
+  :ensure t
+  :bind (:map dired-mode-map
+	      ("l" . dired-hist-go-back)
+	      ("r" . dired-hist-go-forward))
+  :config
+  (dired-hist-mode 1)
+  )
 
 (use-package ag :ensure t :defer t :config (setq ag-highlight-search t)
   (setq ag-reuse-buffers 't))
@@ -1324,7 +1331,7 @@ Position the cursor at it's beginning, according to the current mode."
 (global-set-key (kbd "C-x C-c") 'halt)
 (global-set-key (kbd "C-x d") 'dired-jump)
 (global-set-key (kbd "C-x C-r") 'recentf)
-(global-set-key (kbd "C-x C-d") 'dired-jump)
+(global-set-key (kbd "C-x C-d") 'dired)
 (global-set-key (kbd "C-x g") 'magit-status)
 (global-set-key (kbd "C-x k") 'kill-this-buffer)
 (global-set-key (kbd "C-x m")  'mu4e-compose-new)
@@ -1356,7 +1363,8 @@ Position the cursor at it's beginning, according to the current mode."
 
 
 (global-set-key (kbd "C-`") 'jump-to-mark)
-(global-set-key (kbd "M-`") 'pop-global-mark)
+(global-set-key (kbd "M-`") 'backward-global-mark)
+(global-set-key (kbd "C-M-`") 'forward-global-mark)
 (global-set-key (kbd "C-SPC") 'push-mark-no-activate)
 (global-set-key (kbd "C-S-SPC") 'set-mark-command)
 
