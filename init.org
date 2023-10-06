@@ -356,7 +356,19 @@ vinagresque
       #+END_SRC
 
 ***
-
+** chat gpt
+#+BEGIN_SRC emacs-lisp :results output silent
+  (straight-use-package 'gptel)
+#+END_SRC
+** project-x
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package project-x
+    :straight (:host github :repo "karthink/project-x" :files ( "*.el"))
+    :after project
+    :config
+    (setq project-x-save-interval 600)    ;Save project state every 10 min
+    (project-x-mode 1))
+#+END_SRC
 ** copilot
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package copilot
@@ -1581,7 +1593,7 @@ https://stackoverflow.com/questions/14881020/emacs-shortcut-to-switch-from-a-hor
     (interactive)
     (set-frame-parameter nil 'fullscreen 'fullboth))
 #+END_SRC
-** full frame non toggle
+** pulse line
 #+BEGIN_SRC emacs-lisp :results silent
    (defun pulse-line (&rest _)
         "Pulse the current line."
@@ -1590,6 +1602,42 @@ https://stackoverflow.com/questions/14881020/emacs-shortcut-to-switch-from-a-hor
   (dolist (command '(scroll-up-command scroll-down-command
                      recenter-top-bottom other-window))
     (advice-add command :after #'pulse-line))
+#+END_SRC
+** hide-show cycle
+#+BEGIN_SRC emacs-lisp :results silent
+  (defun hs-cycle (&optional level)
+    (interactive "p")
+    (let (message-log-max
+          (inhibit-message t))
+      (if (= level 1)
+          (pcase last-command
+            ('hs-cycle
+             (hs-hide-level 1)
+             (setq this-command 'hs-cycle-children))
+            ('hs-cycle-children
+             ;; TODO: Fix this case. `hs-show-block' needs to be
+             ;; called twice to open all folds of the parent
+             ;; block.
+             (save-excursion (hs-show-block))
+             (hs-show-block)
+             (setq this-command 'hs-cycle-subtree))
+            ('hs-cycle-subtree
+             (hs-hide-block))
+            (_
+             (if (not (hs-already-hidden-p))
+                 (hs-hide-block)
+               (hs-hide-level 1)
+               (setq this-command 'hs-cycle-children))))
+        (hs-hide-level level)
+        (setq this-command 'hs-hide-level))))
+
+  (defun hs-global-cycle ()
+      (interactive)
+      (pcase last-command
+        ('hs-global-cycle
+         (save-excursion (hs-show-all))
+         (setq this-command 'hs-global-show))
+        (_ (hs-hide-all))))
 #+END_SRC
 
 
@@ -1659,7 +1707,7 @@ toggle fullscreen
 #+BEGIN_SRC emacs-lisp :results output silent
   ;;emacs style
 
-  
+
   (global-set-key (kbd "<f1>")  'eat)
   (global-set-key (kbd "<f2>")  'magit-status)
   (global-set-key (kbd "<f5>")  'mu4e)
@@ -1692,6 +1740,10 @@ toggle fullscreen
   (global-set-key (kbd "C-S-o") 'smart-open-line-above)
 
   (global-set-key (kbd "s-SPC") 'cycle-spacing)
+
+  (global-set-key (kbd "C-<tab>") 'hs-cycle)
+  (global-set-key (kbd "C-S-<tab>") 'hs-cycle)
+
 
 
 

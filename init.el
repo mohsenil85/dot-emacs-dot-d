@@ -289,6 +289,15 @@
   :ensure t
   :diminish )
 
+(straight-use-package 'gptel)
+
+(use-package project-x
+  :straight (:host github :repo "karthink/project-x" :files ( "*.el"))
+  :after project
+  :config
+  (setq project-x-save-interval 600)    ;Save project state every 10 min
+  (project-x-mode 1))
+
 (use-package copilot
   :straight (:host github :repo "zerolfx/copilot.el" :files ("dist" "*.el"))
   :ensure t
@@ -1259,6 +1268,40 @@ Position the cursor at it's beginning, according to the current mode."
                    recenter-top-bottom other-window))
   (advice-add command :after #'pulse-line))
 
+(defun hs-cycle (&optional level)
+  (interactive "p")
+  (let (message-log-max
+        (inhibit-message t))
+    (if (= level 1)
+        (pcase last-command
+          ('hs-cycle
+           (hs-hide-level 1)
+           (setq this-command 'hs-cycle-children))
+          ('hs-cycle-children
+           ;; TODO: Fix this case. `hs-show-block' needs to be
+           ;; called twice to open all folds of the parent
+           ;; block.
+           (save-excursion (hs-show-block))
+           (hs-show-block)
+           (setq this-command 'hs-cycle-subtree))
+          ('hs-cycle-subtree
+           (hs-hide-block))
+          (_
+           (if (not (hs-already-hidden-p))
+               (hs-hide-block)
+             (hs-hide-level 1)
+             (setq this-command 'hs-cycle-children))))
+      (hs-hide-level level)
+      (setq this-command 'hs-hide-level))))
+
+(defun hs-global-cycle ()
+    (interactive)
+    (pcase last-command
+      ('hs-global-cycle
+       (save-excursion (hs-show-all))
+       (setq this-command 'hs-global-show))
+      (_ (hs-hide-all))))
+
 (when (eq system-type 'darwin)
   (setq mac-command-modifier 'meta)
   (setq mac-option-modifier 'super)
@@ -1345,6 +1388,10 @@ Position the cursor at it's beginning, according to the current mode."
 (global-set-key (kbd "C-S-o") 'smart-open-line-above)
 
 (global-set-key (kbd "s-SPC") 'cycle-spacing)
+
+(global-set-key (kbd "C-<tab>") 'hs-cycle)
+(global-set-key (kbd "C-S-<tab>") 'hs-cycle)
+
 
 
 
