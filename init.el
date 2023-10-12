@@ -23,14 +23,14 @@
 (use-package no-littering :ensure t)
 
 (use-package bind-key
-    ;; A simple way to manage personal keybindings, provided by `use-package'
-    :demand
-    :init
-    ;; If non-nil, extract docstrings from lambdas, closures and keymaps if possible.
-    (setq bind-key-describe-special-forms t)
+  ;; A simple way to manage personal keybindings, provided by `use-package'
+  :demand
+  :init
+  ;; If non-nil, extract docstrings from lambdas, closures and keymaps if possible.
+  (setq bind-key-describe-special-forms t)
   :config
   (require 'bind-key)
-)
+  )
 
 (use-package org
   :ensure t
@@ -199,8 +199,8 @@
   (setq evil-want-integration t)
   (setq evil-want-keybinding nil)
   :config
-  ;(evil-mode 1)
-  ;(evil-set-undo-system 'undo-redo)
+                                        ;(evil-mode 1)
+                                        ;(evil-set-undo-system 'undo-redo)
 
   )
 
@@ -210,9 +210,9 @@
   :ensure t
   :config
   (setq
-  evil-collection-want-unimpaired-p nil
+   evil-collection-want-unimpaired-p nil
    forge-add-default-bindings t)
-  ;(evil-collection-init)
+                                        ;(evil-collection-init)
   )
 
 
@@ -272,7 +272,7 @@
 
 (use-package rg :ensure t :defer t
   :config
-    (rg-enable-default-bindings)
+  (rg-enable-default-bindings)
   )
 
 (use-package calfw :ensure t
@@ -342,8 +342,8 @@
   :command ("proselint" source-inplace)
   :error-patterns
   ((warning line-start (file-name) ":" line ":" column ": "
-	      (id (one-or-more (not (any " "))))
-	      (message) line-end))
+	    (id (one-or-more (not (any " "))))
+	    (message) line-end))
   :modes (text-mode prose-mode markdown-mode gfm-mode))
 
 (add-to-list 'flycheck-checkers 'proselint)
@@ -373,7 +373,7 @@
 (use-package git-link
   :ensure t
   :diminish
-)
+  )
 
 (use-package git-gutter
   :ensure t
@@ -382,7 +382,7 @@
   (global-git-gutter-mode t)
   
   ;; If you would like to use git-gutter.el and linum-mode
- ;; (git-gutter:linum-setup)
+  ;; (git-gutter:linum-setup)
 
   ;; If you enable git-gutter-mode for some modes
 
@@ -410,32 +410,32 @@
   :config
   (progn
     (eval-after-load 'image+
-	`(when (require 'hydra nil t)
-	   (defhydra imagex-sticky-binding (global-map "C-x C-l")
-	     "Manipulating Image"
-	     ("+" imagex-sticky-zoom-in "zoom in")
-	     ("-" imagex-sticky-zoom-out "zoom out")
-	     ("M" imagex-sticky-maximize "maximize")
-	     ("O" imagex-sticky-restore-original "restore original")
-	     ("S" imagex-sticky-save-image "save file")
-	     ("r" imagex-sticky-rotate-right "rotate right")
-	     ("l" imagex-sticky-rotate-left "rotate left"))))
+      `(when (require 'hydra nil t)
+	 (defhydra imagex-sticky-binding (global-map "C-x C-l")
+		   "Manipulating Image"
+		   ("+" imagex-sticky-zoom-in "zoom in")
+		   ("-" imagex-sticky-zoom-out "zoom out")
+		   ("M" imagex-sticky-maximize "maximize")
+		   ("O" imagex-sticky-restore-original "restore original")
+		   ("S" imagex-sticky-save-image "save file")
+		   ("r" imagex-sticky-rotate-right "rotate right")
+		   ("l" imagex-sticky-rotate-left "rotate left"))))
     )
   )
 
 (use-package keyfreq
-    :ensure t
-    :defer t
-    :init
-    (require 'keyfreq)
-    (keyfreq-mode 1)
-    (keyfreq-autosave-mode 1)
-(setq keyfreq-excluded-commands
-      '(pixel-scroll-precision
-	mwheel-scroll
-	self-insert-command
-	))
-    )
+  :ensure t
+  :defer t
+  :init
+  (require 'keyfreq)
+  (keyfreq-mode 1)
+  (keyfreq-autosave-mode 1)
+  (setq keyfreq-excluded-commands
+	'(pixel-scroll-precision
+	  mwheel-scroll
+	  self-insert-command
+	  ))
+  )
 
 (use-package magit
   :ensure t
@@ -447,7 +447,7 @@
 (use-package forge
   :after magit
   :config
-	   (setq auth-sources '("~/.authinfo"))
+  (setq auth-sources '("~/.authinfo"))
 
 
   )
@@ -473,11 +473,11 @@
   :config (persistent-scratch-setup-default))
 
 (use-package paren
-:ensure nil
-:init
-(setq show-paren-delay 0)
-:config
-(show-paren-mode +1))
+  :ensure nil
+  :init
+  (setq show-paren-delay 0)
+  :config
+  (show-paren-mode +1))
 
 (use-package savehist
   :config
@@ -501,34 +501,34 @@
   :defer t)
 
 (setq treesit-language-source-alist
-   '((bash "https://github.com/tree-sitter/tree-sitter-bash")
-     (cmake "https://github.com/uyha/tree-sitter-cmake")
-     (css "https://github.com/tree-sitter/tree-sitter-css")
-     (elisp "https://github.com/Wilfred/tree-sitter-elisp")
-     (go "https://github.com/tree-sitter/tree-sitter-go")
-     (html "https://github.com/tree-sitter/tree-sitter-html")
-     (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
-     (json "https://github.com/tree-sitter/tree-sitter-json")
-     (make "https://github.com/alemuller/tree-sitter-make")
-     (markdown "https://github.com/ikatyang/tree-sitter-markdown")
-     (python "https://github.com/tree-sitter/tree-sitter-python")
-     (toml "https://github.com/tree-sitter/tree-sitter-toml")
-     (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
-     (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
-     (yaml "https://github.com/ikatyang/tree-sitter-yaml")))
+      '((bash "https://github.com/tree-sitter/tree-sitter-bash")
+        (cmake "https://github.com/uyha/tree-sitter-cmake")
+        (css "https://github.com/tree-sitter/tree-sitter-css")
+        (elisp "https://github.com/Wilfred/tree-sitter-elisp")
+        (go "https://github.com/tree-sitter/tree-sitter-go")
+        (html "https://github.com/tree-sitter/tree-sitter-html")
+        (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
+        (json "https://github.com/tree-sitter/tree-sitter-json")
+        (make "https://github.com/alemuller/tree-sitter-make")
+        (markdown "https://github.com/ikatyang/tree-sitter-markdown")
+        (python "https://github.com/tree-sitter/tree-sitter-python")
+        (toml "https://github.com/tree-sitter/tree-sitter-toml")
+        (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
+        (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
+        (yaml "https://github.com/ikatyang/tree-sitter-yaml")))
 
 ;;uncomment and update these every so often
- ;;(mapc #'treesit-install-language-grammar (mapcar #'car treesit-language-source-alist))
+;;(mapc #'treesit-install-language-grammar (mapcar #'car treesit-language-source-alist))
 
 
 (setq major-mode-remap-alist
- '((yaml-mode . yaml-ts-mode)
-   (bash-mode . bash-ts-mode)
-   (js-mode . js-ts-mode)
-   (typescript-mode . typescript-ts-mode)
-   (json-mode . json-ts-mode)
-   (css-mode . css-ts-mode)
-   (python-mode . python-ts-mode)))
+      '((yaml-mode . yaml-ts-mode)
+        (bash-mode . bash-ts-mode)
+        (js-mode . js-ts-mode)
+        (typescript-mode . typescript-ts-mode)
+        (json-mode . json-ts-mode)
+        (css-mode . css-ts-mode)
+        (python-mode . python-ts-mode)))
 
 (use-package which-key
   :ensure t
@@ -625,7 +625,7 @@
   :config
   (golden-ratio-mode 1)
 
- (setq golden-ratio-exclude-modes '(ediff-mode))
+  (setq golden-ratio-exclude-modes '(ediff-mode))
   ;; (setq golden-ratio-exclude-buffer-names '("..."))
   )
 
@@ -661,7 +661,7 @@
 (use-package clojure-mode :ensure t :defer t)
 (use-package cider :ensure t :defer t
   )
-					  ;  (use-package inf-clojure :ensure t)
+					;  (use-package inf-clojure :ensure t)
 (add-hook 'clojure-mode-hook #'eldoc-mode)
 
 (add-to-list 'auto-mode-alist '("\\.boot\\'" . clojure-mode))
@@ -672,7 +672,7 @@
     (add-hook 'python-mode-hook 'jedi:setup)
     (setq jedi:complete-on-dot t)))
 (use-package ob-ipython :ensure t :defer t)
-					  ;(use-package ein :ensure)
+                                        ;(use-package ein :ensure)
 
 (use-package jest-test-mode
   :ensure t
@@ -696,15 +696,15 @@
 
 (use-package combobulate
   :preface
-     (setq combobulate-key-prefix "C-c o")
+  (setq combobulate-key-prefix "C-c o")
 
-   :hook ((python-ts-mode . combobulate-mode)
+  :hook ((python-ts-mode . combobulate-mode)
          (js-ts-mode . combobulate-mode)
          (css-ts-mode . combobulate-mode)
          (yaml-ts-mode . combobulate-mode)
          (typescript-ts-mode . combobulate-mode)
          (tsx-ts-mode . combobulate-mode))
- )
+  )
 
 ;; Ensure use-package is installed and configured if not done already
 (unless (package-installed-p 'use-package)
@@ -730,7 +730,7 @@
          (scheme-mode . enable-paredit-mode))  ;; ... and for scheme
   :bind (:map paredit-mode-map
               ("C-j" . paredit-newline))  ;; Example custom keybinding
-)
+  )
 
 ;;taken from https://macowners.club/posts/email-emacs-mu4e-macos/#storing-trusted-root-certificates
 ;;and https://rakhim.org/fastmail-setup-with-emacs-mu4e-and-mbsync-on-macos/
@@ -860,128 +860,128 @@
   )
 
 (use-package emacs
-    :init
-    (require 'misc)
-    ;; Add prompt indicator to `completing-read-multiple'.
-    ;; We display [CRM<separator>], e.g., [CRM,] if the separator is a comma.
-    (defun crm-indicator (args)
-      (cons (format "[CRM%s] %s"
-                    (replace-regexp-in-string
-                     "\\`\\[.*?]\\*\\|\\[.*?]\\*\\'" ""
-                     crm-separator)
-                    (car args))
-            (cdr args)))
-    (advice-add #'completing-read-multiple :filter-args #'crm-indicator)
+  :init
+  (require 'misc)
+  ;; Add prompt indicator to `completing-read-multiple'.
+  ;; We display [CRM<separator>], e.g., [CRM,] if the separator is a comma.
+  (defun crm-indicator (args)
+    (cons (format "[CRM%s] %s"
+                  (replace-regexp-in-string
+                   "\\`\\[.*?]\\*\\|\\[.*?]\\*\\'" ""
+                   crm-separator)
+                  (car args))
+          (cdr args)))
+  (advice-add #'completing-read-multiple :filter-args #'crm-indicator)
 
-    ;; Do not allow the cursor in the minibuffer prompt
-    (setq minibuffer-prompt-properties
-          '(read-only t cursor-intangible t face minibuffer-prompt))
-    (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
+  ;; Do not allow the cursor in the minibuffer prompt
+  (setq minibuffer-prompt-properties
+        '(read-only t cursor-intangible t face minibuffer-prompt))
+  (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
 
-    ;; Emacs 28: Hide commands in M-x which do not work in the current mode.
-    ;; Vertico commands are hidden in normal buffers.
-    ;; (setq read-extended-command-predicate
-    ;;       #'command-completion-default-include-p)
+  ;; Emacs 28: Hide commands in M-x which do not work in the current mode.
+  ;; Vertico commands are hidden in normal buffers.
+  ;; (setq read-extended-command-predicate
+  ;;       #'command-completion-default-include-p)
 
 
-    (blink-cursor-mode -1)
-    (defalias 'yes-or-no-p 'y-or-n-p)
-    (delete-selection-mode 1)
-    (electric-pair-mode 1)
-    (size-indication-mode 1)
-    (global-display-line-numbers-mode 1)
+  (blink-cursor-mode -1)
+  (defalias 'yes-or-no-p 'y-or-n-p)
+  (delete-selection-mode 1)
+  (electric-pair-mode 1)
+  (size-indication-mode 1)
+  (global-display-line-numbers-mode 1)
     ;;;        (visual-fill-column-mode 1)
-    (toggle-word-wrap 1)
-    ;;      (global-visual-line-mode t)
-    (menu-bar-mode 0)
-    (prefer-coding-system 'utf-8)
-    (recentf-mode 1)
-    (scroll-bar-mode 0)
-    (server-start)
-    (set-keyboard-coding-system 'utf-8)
-    (set-selection-coding-system 'utf-8)
-    (set-terminal-coding-system 'utf-8-unix)
-    (tool-bar-mode 0)
-    (tooltip-mode -1)
-    (setq tooltip-use-echo-area t)
-    (context-menu-mode)
-    (pixel-scroll-precision-mode)
-    (column-number-mode 1)
+  (toggle-word-wrap 1)
+  ;;      (global-visual-line-mode t)
+  (menu-bar-mode 0)
+  (prefer-coding-system 'utf-8)
+  (recentf-mode 1)
+  (scroll-bar-mode 0)
+  (server-start)
+  (set-keyboard-coding-system 'utf-8)
+  (set-selection-coding-system 'utf-8)
+  (set-terminal-coding-system 'utf-8-unix)
+  (tool-bar-mode 0)
+  (tooltip-mode -1)
+  (setq tooltip-use-echo-area t)
+  (context-menu-mode)
+  (pixel-scroll-precision-mode)
+  (column-number-mode 1)
 
-    (setq
-     view-read-only t
-     xref-search-program 'ripgrep
-;;     sentence-end-double-space nil
-     display-time-default-load-average nil
-     auto-save-file-name-transforms `((".*" ,temporary-file-directory t))
-     auto-save-visited-interval 1
-     auto-save-visited-mode 1
-     backup-by-copying t
-     backup-directory-alist `((".*" . ,temporary-file-directory))
-     confirm-kill-processes nil
-     confirm-nonexistent-file-or-buffer nil
-     default-fill-column 80		; toggle wrapping text at the 80th character
-     delete-old-versions t 		; delete excess backup versions silently
-     ;; enable-recursive-minibuffers t
-     explicit-shell-file-name "/bin/zsh"
-     explicit-zsh-args '("--login" "--interactive")
-     history-length 250
-     indicate-empty-lines t
-     inhibit-startup-echo-area-message "loganmohseni"
-     inhibit-startup-message t
-     inhibit-startup-screen t
-     initial-scratch-message ";         :D"
-     kill-ring-max 5000                     ;truncate kill ring after 5000 entries
-     load-prefer-newer t
-     locale-coding-system 'utf-8
-     mark-ring-max 5000
-     recentf-max-saved-items 5000
-     ring-bell-function 'ignore 	; silent bell when you make a mistake
-     sentence-end-double-space t	;
-     shell-file-name "/bin/zsh"
-     show-paren-delay 0
-     show-paren-style 'parenthesis
-     show-paren-when-point-inside-paren t
-     ;;     split-width-threshold 80
-     switch-to-buffer-preserve-window-point t
-     tab-always-indent 'complete
-     tooltip-use-echo-area t
-     use-dialog-box nil
-     user-full-name "Logan Mohseni"
-     user-mail-address "logan@mohseni.io"
-     vc-follow-symlinks t 				       ; don't ask for confirmation when opening symlinked file
-     vc-make-backup-files t 		; make backups file even when in version controlled dir
-     version-control t 		; use version control
-     visible-bell t
-     )
-    (setq-default indicate-buffer-boundaries 'left)
-    (setq display-time-format "%l:%M")
-    (setq display-time-interval 1)
-    (display-time-mode)
+  (setq
+   view-read-only t
+   xref-search-program 'ripgrep
+   ;;     sentence-end-double-space nil
+   display-time-default-load-average nil
+   auto-save-file-name-transforms `((".*" ,temporary-file-directory t))
+   auto-save-visited-interval 1
+   auto-save-visited-mode 1
+   backup-by-copying t
+   backup-directory-alist `((".*" . ,temporary-file-directory))
+   confirm-kill-processes nil
+   confirm-nonexistent-file-or-buffer nil
+   default-fill-column 80		; toggle wrapping text at the 80th character
+   delete-old-versions t 		; delete excess backup versions silently
+   ;; enable-recursive-minibuffers t
+   explicit-shell-file-name "/bin/zsh"
+   explicit-zsh-args '("--login" "--interactive")
+   history-length 250
+   indicate-empty-lines t
+   inhibit-startup-echo-area-message "loganmohseni"
+   inhibit-startup-message t
+   inhibit-startup-screen t
+   initial-scratch-message ";         :D"
+   kill-ring-max 5000                     ;truncate kill ring after 5000 entries
+   load-prefer-newer t
+   locale-coding-system 'utf-8
+   mark-ring-max 5000
+   recentf-max-saved-items 5000
+   ring-bell-function 'ignore 	; silent bell when you make a mistake
+   sentence-end-double-space t	;
+   shell-file-name "/bin/zsh"
+   show-paren-delay 0
+   show-paren-style 'parenthesis
+   show-paren-when-point-inside-paren t
+   ;;     split-width-threshold 80
+   switch-to-buffer-preserve-window-point t
+   tab-always-indent 'complete
+   tooltip-use-echo-area t
+   use-dialog-box nil
+   user-full-name "Logan Mohseni"
+   user-mail-address "logan@mohseni.io"
+   vc-follow-symlinks t 				       ; don't ask for confirmation when opening symlinked file
+   vc-make-backup-files t 		; make backups file even when in version controlled dir
+   version-control t 		; use version control
+   visible-bell t
+   )
+  (setq-default indicate-buffer-boundaries 'left)
+  (setq display-time-format "%l:%M")
+  (setq display-time-interval 1)
+  (display-time-mode)
 
-    (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
-    (add-to-list 'comint-output-filter-functions 'ansi-color-process-output)
+  (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+  (add-to-list 'comint-output-filter-functions 'ansi-color-process-output)
 
-    )
-
-
+  )
 
 
-  (defun zsh-shell-mode-setup ()
-    (setq-local comint-process-echoes t))
-  (add-hook 'shell-mode-hook #'zsh-shell-mode-setup)
-
-  (require 'uniquify)
-  (setq uniquify-buffer-name-style 'forward)
-  (winner-mode 1)
 
 
-  (require 'ansi-color)
-  (defun colorize-compilation-buffer ()
-    (toggle-read-only)
-    (ansi-color-apply-on-region compilation-filter-start (point))
-    (toggle-read-only))
-  (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
+(defun zsh-shell-mode-setup ()
+  (setq-local comint-process-echoes t))
+(add-hook 'shell-mode-hook #'zsh-shell-mode-setup)
+
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'forward)
+(winner-mode 1)
+
+
+(require 'ansi-color)
+(defun colorize-compilation-buffer ()
+  (toggle-read-only)
+  (ansi-color-apply-on-region compilation-filter-start (point))
+  (toggle-read-only))
+(add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
 
 ;;(require 'cl)
 
@@ -1051,9 +1051,9 @@
   "Put the buffer from the selected window in next window, and vice versa"
   (interactive)
   (let* ((this (selected-window))
-	   (other (next-window))
-	   (this-buffer (window-buffer this))
-	   (other-buffer (window-buffer other)))
+	 (other (next-window))
+	 (this-buffer (window-buffer this))
+	 (other-buffer (window-buffer other)))
     (set-window-buffer other this-buffer)
     (set-window-buffer this other-buffer)
     )
@@ -1079,14 +1079,14 @@
 (defun marker-is-point-p (marker)
   "test if marker is current point"
   (and (eq (marker-buffer marker) (current-buffer))
-	 (= (marker-position marker) (point))))
+       (= (marker-position marker) (point))))
 
 (defun push-mark-maybe ()
   "push mark onto `global-mark-ring' if mark head or tail is not current location"
   (if (not global-mark-ring) (error "global-mark-ring empty")
     (unless (or (marker-is-point-p (car global-mark-ring))
-		  (marker-is-point-p (car (reverse global-mark-ring))))
-	(push-mark))))
+		(marker-is-point-p (car (reverse global-mark-ring))))
+      (push-mark))))
 
 
 (defun backward-global-mark ()
@@ -1144,27 +1144,27 @@
 (defun vertical-horizontal-swizzle ()
   (interactive)
   (if (= (count-windows) 2)
-	(let* ((this-win-buffer (window-buffer))
-	       (next-win-buffer (window-buffer (next-window)))
-	       (this-win-edges (window-edges (selected-window)))
-	       (next-win-edges (window-edges (next-window)))
-	       (this-win-2nd (not (and (<= (car this-win-edges)
-					   (car next-win-edges))
-				       (<= (cadr this-win-edges)
-					   (cadr next-win-edges)))))
-	       (splitter
-		(if (= (car this-win-edges)
-		       (car (window-edges (next-window))))
-		    'split-window-horizontally
-		  'split-window-vertically)))
-	  (delete-other-windows)
-	  (let ((first-win (selected-window)))
-	    (funcall splitter)
-	    (if this-win-2nd (other-window 1))
-	    (set-window-buffer (selected-window) this-win-buffer)
-	    (set-window-buffer (next-window) next-win-buffer)
-	    (select-window first-win)
-	    (if this-win-2nd (other-window 1))))))
+      (let* ((this-win-buffer (window-buffer))
+	     (next-win-buffer (window-buffer (next-window)))
+	     (this-win-edges (window-edges (selected-window)))
+	     (next-win-edges (window-edges (next-window)))
+	     (this-win-2nd (not (and (<= (car this-win-edges)
+					 (car next-win-edges))
+				     (<= (cadr this-win-edges)
+					 (cadr next-win-edges)))))
+	     (splitter
+	      (if (= (car this-win-edges)
+		     (car (window-edges (next-window))))
+		  'split-window-horizontally
+		'split-window-vertically)))
+	(delete-other-windows)
+	(let ((first-win (selected-window)))
+	  (funcall splitter)
+	  (if this-win-2nd (other-window 1))
+	  (set-window-buffer (selected-window) this-win-buffer)
+	  (set-window-buffer (next-window) next-win-buffer)
+	  (select-window first-win)
+	  (if this-win-2nd (other-window 1))))))
 
 (defun not-anymore ()
   "not any more"
@@ -1183,9 +1183,9 @@
   (abbrev-mode 1)
   (word-wrap-mode 1)
   (setq buffer-face-mode-face
-	  '(:family "Times New Roman"
-		    :height 180
-		    :width semi-condensed))
+	'(:family "Times New Roman"
+		  :height 180
+		  :width semi-condensed))
   (buffer-face-mode)
   )
 
@@ -1204,7 +1204,7 @@
 then it takes a second \\[keyboard-quit] to abort the minibuffer."
   (interactive)
   (if (and delete-selection-mode transient-mark-mode mark-active)
-	(setq deactivate-mark  t)
+      (setq deactivate-mark  t)
     (when (get-buffer "*Completions*") (delete-windows-on "*Completions*"))
     (abort-recursive-edit)))
 (define-key evil-normal-state-map [escape] 'keyboard-quit)
@@ -1289,11 +1289,11 @@ Position the cursor at it's beginning, according to the current mode."
   (set-frame-parameter nil 'fullscreen 'fullboth))
 
 (defun pulse-line (&rest _)
-      "Pulse the current line."
-      (pulse-momentary-highlight-one-line (point)))
+  "Pulse the current line."
+  (pulse-momentary-highlight-one-line (point)))
 
 (dolist (command '(scroll-up-command scroll-down-command
-                   recenter-top-bottom other-window))
+                                     recenter-top-bottom other-window))
   (advice-add command :after #'pulse-line))
 
 (defun hs-cycle (&optional level)
@@ -1323,12 +1323,12 @@ Position the cursor at it's beginning, according to the current mode."
       (setq this-command 'hs-hide-level))))
 
 (defun hs-global-cycle ()
-    (interactive)
-    (pcase last-command
-      ('hs-global-cycle
-       (save-excursion (hs-show-all))
-       (setq this-command 'hs-global-show))
-      (_ (hs-hide-all))))
+  (interactive)
+  (pcase last-command
+    ('hs-global-cycle
+     (save-excursion (hs-show-all))
+     (setq this-command 'hs-global-show))
+    (_ (hs-hide-all))))
 
 (when (eq system-type 'darwin)
   (setq mac-command-modifier 'meta)
@@ -1377,9 +1377,9 @@ Position the cursor at it's beginning, according to the current mode."
   (global-set-key (kbd "M-X") 'evil-delete-char)
 
   )
-					  ;  (when (string= (system-name) "zig")
-					  ;(set-frame-font "Inconsolata-16")
-					  ;)
+					;  (when (string= (system-name) "zig")
+					;(set-frame-font "Inconsolata-16")
+					;)
 
 ;;emacs style
 
@@ -1454,20 +1454,20 @@ Position the cursor at it's beginning, according to the current mode."
 (global-set-key (kbd "C-h C-a") 'not-anymore)
 
 (set-register ?e (cons 'file "~/.emacs.d/init.org"))
-  (set-register ?o (cons 'file "~/org/main.org"))
-  (set-register ?i (cons 'file "~/org/inbox.org"))
-  (set-register ?n (cons 'file "~/org/notes.org"))
-  (set-register ?w (cons 'file "~/org/work.org"))
-  (set-register ?z (cons 'file "~/.zshrc"))
-  (set-register ?d (cons 'file "~/Projects/lisp/drogue/drogue.lisp"))
-  (set-register ?p (cons 'file "~/Projects/"))
+(set-register ?o (cons 'file "~/org/main.org"))
+(set-register ?i (cons 'file "~/org/inbox.org"))
+(set-register ?n (cons 'file "~/org/notes.org"))
+(set-register ?w (cons 'file "~/org/work.org"))
+(set-register ?z (cons 'file "~/.zshrc"))
+(set-register ?d (cons 'file "~/Projects/lisp/drogue/drogue.lisp"))
+(set-register ?p (cons 'file "~/Projects/"))
 ;;  (set-register ?e (cons 'file "~/Dropbox/elfeed.org"))
-  (set-register ?s (cons 'file "~/org/stories/ideas.org"))
-  (set-register ?k (cons 'file "~/Projects/Builds/qmk_firmware/keyboards/ergodox_ez/keymaps/mohsenil85/keymap.c"))
+(set-register ?s (cons 'file "~/org/stories/ideas.org"))
+(set-register ?k (cons 'file "~/Projects/Builds/qmk_firmware/keyboards/ergodox_ez/keymaps/mohsenil85/keymap.c"))
 
 (use-package humanoid-themes :ensure t)
-    (use-package ef-themes :ensure t)
-    (use-package standard-themes :ensure t)
+(use-package ef-themes :ensure t)
+(use-package standard-themes :ensure t)
 
 (defun load-dark ()
   (load-theme 'ef-dark t)
