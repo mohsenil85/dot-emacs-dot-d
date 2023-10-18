@@ -641,6 +641,21 @@
   ;; Additional configuration can be added here
   )
 
+(use-package restclient
+  :ensure t
+  :mode ("\\.http\\'" . restclient-mode);
+  :config
+  (progn ;; Further configuration goes here.
+    (use-package ob-restclient
+      :ensure t
+      :config
+      (progn
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((restclient . t)))
+        ))
+    ))
+
 (use-package eldoc
   :diminish
   :init

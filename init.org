@@ -819,7 +819,24 @@ visit file with browser
     ;; Additional configuration can be added here
     )
 #+end_src
-
+** restclient
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package restclient
+    :ensure t
+    :mode ("\\.http\\'" . restclient-mode);
+    :config
+    (progn ;; Further configuration goes here.
+      (use-package ob-restclient
+        :ensure t
+        :config
+        (progn
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((restclient . t)))
+          ))
+      ))
+  
+#+end_src
 
 * languages
 ** elisp
