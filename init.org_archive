@@ -1493,3 +1493,23 @@ general lisp stuff
 #+END_SRC
 
 #+RESULTS:
+
+* zig specific
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-10-18 Wed 12:42
+:ARCHIVE_FILE: ~/.emacs.d/init.org
+:ARCHIVE_CATEGORY: init
+:END:
+
+#+BEGIN_SRC emacs-lisp :results output silent
+  (when (eq system-type 'gnu/linux)
+    (global-set-key (kbd "M-V") 'mouse-yank-primary)
+    (global-set-key (kbd "M-v") 'evil-paste-after)
+    (global-set-key (kbd "M-c") 'evil-yank)
+    (global-set-key (kbd "M-X") 'evil-delete-char)
+
+    )
+  					;  (when (string= (system-name) "zig")
+  					;(set-frame-font "Inconsolata-16")
+  					;)
+#+END_SRC

@@ -650,9 +650,10 @@
       :ensure t
       :config
       (progn
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((restclient . t)))
+        (org-babel-do-load-languages
+         'org-babel-load-languages
+         '((restclient . t)))
+        (setq org-babel-restclient--jq-path "/opt/homebrew/bin/jq")
         ))
     ))
 
@@ -899,6 +900,7 @@
   ;;       #'command-completion-default-include-p)
 
 
+  (full-frame-irregardless)
   (blink-cursor-mode -1)
   (defalias 'yes-or-no-p 'y-or-n-p)
   (delete-selection-mode 1)
@@ -1380,21 +1382,10 @@ Position the cursor at it's beginning, according to the current mode."
     (normal-top-level-add-subdirs-to-load-path))
 
   (use-package exec-path-from-shell :ensure t
-    :config
+    :init
     (exec-path-from-shell-initialize))
 
   )
-
-(when (eq system-type 'gnu/linux)
-  (global-set-key (kbd "M-V") 'mouse-yank-primary)
-  (global-set-key (kbd "M-v") 'evil-paste-after)
-  (global-set-key (kbd "M-c") 'evil-yank)
-  (global-set-key (kbd "M-X") 'evil-delete-char)
-
-  )
-					;  (when (string= (system-name) "zig")
-					;(set-frame-font "Inconsolata-16")
-					;)
 
 ;;emacs style
 
