@@ -68,3 +68,4 @@ url*
 *.elc
 /#emacs-init.org#
 /eln-cache/
+project-window-list

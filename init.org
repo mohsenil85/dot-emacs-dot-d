@@ -1118,7 +1118,6 @@ visit file with browser
     ;;       #'command-completion-default-include-p)
 
 
-    (full-frame-irregardless)
     (blink-cursor-mode -1)
     (defalias 'yes-or-no-p 'y-or-n-p)
     (delete-selection-mode 1)
@@ -1641,7 +1640,9 @@ taken from: https://www.masteringemacs.org/article/searching-buffers-occur-mode
   (defun full-frame-irregardless ()
     (interactive)
     (set-frame-parameter nil 'fullscreen 'fullboth))
-#+END_SRC
+  (full-frame-irregardless)
+
+    #+END_SRC
 ** pulse line
 #+BEGIN_SRC emacs-lisp :results silent
   (defun pulse-line (&rest _)
