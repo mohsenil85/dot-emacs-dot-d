@@ -805,9 +805,14 @@ visit file with browser
 #+end_src
 ** hcl mode
 #+BEGIN_SRC emacs-lisp :results output silent
+
   (use-package hcl-mode
-    :ensure t
-    :mode (("\\.hcl\\'" . hcl-mode)))
+  :ensure t
+  :mode (("\\.tf\\'" . hcl-mode)
+         ("\\.tfvars\\'" . hcl-mode))
+  :config
+  ;; Additional configuration specific to hcl-mode
+  )
 #+end_src
 ** yaml mode
 #+BEGIN_SRC emacs-lisp :results output silent
@@ -1131,7 +1136,7 @@ visit file with browser
     (prefer-coding-system 'utf-8)
     (recentf-mode 1)
     (scroll-bar-mode 0)
-    (server-start)
+;;    (server-start)
     (set-keyboard-coding-system 'utf-8)
     (set-selection-coding-system 'utf-8)
     (set-terminal-coding-system 'utf-8-unix)
