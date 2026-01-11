@@ -629,8 +629,12 @@
   )
 
 (use-package hcl-mode
-  :ensure t
-  :mode (("\\.hcl\\'" . hcl-mode)))
+:ensure t
+:mode (("\\.tf\\'" . hcl-mode)
+       ("\\.tfvars\\'" . hcl-mode))
+:config
+;; Additional configuration specific to hcl-mode
+)
 
 (use-package highlight-indent-guides
   :ensure t
@@ -856,127 +860,127 @@
   )
 
 (use-package emacs
-  :init
-  (require 'misc)
-  ;; Add prompt indicator to `completing-read-multiple'.
-  ;; We display [CRM<separator>], e.g., [CRM,] if the separator is a comma.
-  (defun crm-indicator (args)
-    (cons (format "[CRM%s] %s"
-                  (replace-regexp-in-string
-                   "\\`\\[.*?]\\*\\|\\[.*?]\\*\\'" ""
-                   crm-separator)
-                  (car args))
-          (cdr args)))
-  (advice-add #'completing-read-multiple :filter-args #'crm-indicator)
+    :init
+    (require 'misc)
+    ;; Add prompt indicator to `completing-read-multiple'.
+    ;; We display [CRM<separator>], e.g., [CRM,] if the separator is a comma.
+    (defun crm-indicator (args)
+      (cons (format "[CRM%s] %s"
+                    (replace-regexp-in-string
+                     "\\`\\[.*?]\\*\\|\\[.*?]\\*\\'" ""
+                     crm-separator)
+                    (car args))
+            (cdr args)))
+    (advice-add #'completing-read-multiple :filter-args #'crm-indicator)
 
-  ;; Do not allow the cursor in the minibuffer prompt
-  (setq minibuffer-prompt-properties
-        '(read-only t cursor-intangible t face minibuffer-prompt))
-  (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
+    ;; Do not allow the cursor in the minibuffer prompt
+    (setq minibuffer-prompt-properties
+          '(read-only t cursor-intangible t face minibuffer-prompt))
+    (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
 
-  ;; Emacs 28: Hide commands in M-x which do not work in the current mode.
-  ;; Vertico commands are hidden in normal buffers.
-  ;; (setq read-extended-command-predicate
-  ;;       #'command-completion-default-include-p)
-
-
-  (blink-cursor-mode -1)
-  (defalias 'yes-or-no-p 'y-or-n-p)
-  (delete-selection-mode 1)
-  (electric-pair-mode 1)
-  (size-indication-mode 1)
-  (global-display-line-numbers-mode 1)
-    ;;;        (visual-fill-column-mode 1)
-  (toggle-word-wrap 1)
-  ;;      (global-visual-line-mode t)
-  (menu-bar-mode 0)
-  (prefer-coding-system 'utf-8)
-  (recentf-mode 1)
-  (scroll-bar-mode 0)
-  (server-start)
-  (set-keyboard-coding-system 'utf-8)
-  (set-selection-coding-system 'utf-8)
-  (set-terminal-coding-system 'utf-8-unix)
-  (tool-bar-mode 0)
-  (tooltip-mode -1)
-  (setq tooltip-use-echo-area t)
-  (context-menu-mode)
-  (pixel-scroll-precision-mode)
-  (column-number-mode 1)
-
-  (setq
-   view-read-only t
-   xref-search-program 'ripgrep
-   ;;     sentence-end-double-space nil
-   display-time-default-load-average nil
-   auto-save-file-name-transforms `((".*" ,temporary-file-directory t))
-   auto-save-visited-interval 1
-   auto-save-visited-mode 1
-   backup-by-copying t
-   backup-directory-alist `((".*" . ,temporary-file-directory))
-   confirm-kill-processes nil
-   confirm-nonexistent-file-or-buffer nil
-   default-fill-column 80		; toggle wrapping text at the 80th character
-   delete-old-versions t 		; delete excess backup versions silently
-   ;; enable-recursive-minibuffers t
-   explicit-shell-file-name "/bin/zsh"
-   explicit-zsh-args '("--login" "--interactive")
-   history-length 250
-   indicate-empty-lines t
-   inhibit-startup-echo-area-message "loganmohseni"
-   inhibit-startup-message t
-   inhibit-startup-screen t
-   initial-scratch-message ";         :D"
-   kill-ring-max 5000                     ;truncate kill ring after 5000 entries
-   load-prefer-newer t
-   locale-coding-system 'utf-8
-   mark-ring-max 5000
-   recentf-max-saved-items 5000
-   ring-bell-function 'ignore 	; silent bell when you make a mistake
-   sentence-end-double-space t	;
-   shell-file-name "/bin/zsh"
-   show-paren-delay 0
-   show-paren-style 'parenthesis
-   show-paren-when-point-inside-paren t
-   ;;     split-width-threshold 80
-   switch-to-buffer-preserve-window-point t
-   tab-always-indent 'complete
-   tooltip-use-echo-area t
-   use-dialog-box nil
-   user-full-name "Logan Mohseni"
-   user-mail-address "logan@mohseni.io"
-   vc-follow-symlinks t 				       ; don't ask for confirmation when opening symlinked file
-   vc-make-backup-files t 		; make backups file even when in version controlled dir
-   version-control t 		; use version control
-   visible-bell t
-   )
-  (setq-default indicate-buffer-boundaries 'left)
-  (setq display-time-format "%l:%M")
-  (setq display-time-interval 1)
-  (display-time-mode)
-
-  (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
-  (add-to-list 'comint-output-filter-functions 'ansi-color-process-output)
-
-  )
+    ;; Emacs 28: Hide commands in M-x which do not work in the current mode.
+    ;; Vertico commands are hidden in normal buffers.
+    ;; (setq read-extended-command-predicate
+    ;;       #'command-completion-default-include-p)
 
 
+    (blink-cursor-mode -1)
+    (defalias 'yes-or-no-p 'y-or-n-p)
+    (delete-selection-mode 1)
+    (electric-pair-mode 1)
+    (size-indication-mode 1)
+    (global-display-line-numbers-mode 1)
+      ;;;        (visual-fill-column-mode 1)
+    (toggle-word-wrap 1)
+    ;;      (global-visual-line-mode t)
+    (menu-bar-mode 0)
+    (prefer-coding-system 'utf-8)
+    (recentf-mode 1)
+    (scroll-bar-mode 0)
+;;    (server-start)
+    (set-keyboard-coding-system 'utf-8)
+    (set-selection-coding-system 'utf-8)
+    (set-terminal-coding-system 'utf-8-unix)
+    (tool-bar-mode 0)
+    (tooltip-mode -1)
+    (setq tooltip-use-echo-area t)
+    (context-menu-mode)
+    (pixel-scroll-precision-mode)
+    (column-number-mode 1)
+
+    (setq
+     view-read-only t
+     xref-search-program 'ripgrep
+     ;;     sentence-end-double-space nil
+     display-time-default-load-average nil
+     auto-save-file-name-transforms `((".*" ,temporary-file-directory t))
+     auto-save-visited-interval 1
+     auto-save-visited-mode 1
+     backup-by-copying t
+     backup-directory-alist `((".*" . ,temporary-file-directory))
+     confirm-kill-processes nil
+     confirm-nonexistent-file-or-buffer nil
+     default-fill-column 80		; toggle wrapping text at the 80th character
+     delete-old-versions t 		; delete excess backup versions silently
+     ;; enable-recursive-minibuffers t
+     explicit-shell-file-name "/bin/zsh"
+     explicit-zsh-args '("--login" "--interactive")
+     history-length 250
+     indicate-empty-lines t
+     inhibit-startup-echo-area-message "loganmohseni"
+     inhibit-startup-message t
+     inhibit-startup-screen t
+     initial-scratch-message ";         :D"
+     kill-ring-max 5000                     ;truncate kill ring after 5000 entries
+     load-prefer-newer t
+     locale-coding-system 'utf-8
+     mark-ring-max 5000
+     recentf-max-saved-items 5000
+     ring-bell-function 'ignore 	; silent bell when you make a mistake
+     sentence-end-double-space t	;
+     shell-file-name "/bin/zsh"
+     show-paren-delay 0
+     show-paren-style 'parenthesis
+     show-paren-when-point-inside-paren t
+     ;;     split-width-threshold 80
+     switch-to-buffer-preserve-window-point t
+     tab-always-indent 'complete
+     tooltip-use-echo-area t
+     use-dialog-box nil
+     user-full-name "Logan Mohseni"
+     user-mail-address "logan@mohseni.io"
+     vc-follow-symlinks t 				       ; don't ask for confirmation when opening symlinked file
+     vc-make-backup-files t 		; make backups file even when in version controlled dir
+     version-control t 		; use version control
+     visible-bell t
+     )
+    (setq-default indicate-buffer-boundaries 'left)
+    (setq display-time-format "%l:%M")
+    (setq display-time-interval 1)
+    (display-time-mode)
+
+    (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+    (add-to-list 'comint-output-filter-functions 'ansi-color-process-output)
+
+    )
 
 
-(defun zsh-shell-mode-setup ()
-  (setq-local comint-process-echoes t))
-(add-hook 'shell-mode-hook #'zsh-shell-mode-setup)
-
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'forward)
-(winner-mode 1)
 
 
-(require 'ansi-color)
-(defun colorize-compilation-buffer ()
-  (let ((inhibit-read-only t))
-    (ansi-color-apply-on-region compilation-filter-start (point))))
-(add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
+  (defun zsh-shell-mode-setup ()
+    (setq-local comint-process-echoes t))
+  (add-hook 'shell-mode-hook #'zsh-shell-mode-setup)
+
+  (require 'uniquify)
+  (setq uniquify-buffer-name-style 'forward)
+  (winner-mode 1)
+
+
+  (require 'ansi-color)
+  (defun colorize-compilation-buffer ()
+    (let ((inhibit-read-only t))
+      (ansi-color-apply-on-region compilation-filter-start (point))))
+  (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
 
 ;;(require 'cl)
 
