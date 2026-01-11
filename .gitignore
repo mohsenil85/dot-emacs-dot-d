@@ -68,3 +68,5 @@ url*
 *.elc
 /#emacs-init.org#
 /eln-cache/
+/project-window-list
+/gptel-crowdsourced-prompts.csv
