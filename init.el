@@ -289,7 +289,14 @@
   :ensure t
   :diminish )
 
-(straight-use-package 'gptel)
+(use-package gptel)
+ ;;(straight-use-package 'gptel)
+;; (use-package gptel
+;;   :config
+;;   (setq gptel-model "claude-sonnet-4-20250514"
+;;         gptel-backend (gptel-make-anthropic "Claude"
+;;                         :stream t
+;;                         :key "your-api-key-here")))
 
 (use-package project-x
   :straight (:host github :repo "karthink/project-x" :files ( "*.el"))
@@ -900,7 +907,6 @@
   ;;       #'command-completion-default-include-p)
 
 
-  (full-frame-irregardless)
   (blink-cursor-mode -1)
   (defalias 'yes-or-no-p 'y-or-n-p)
   (delete-selection-mode 1)
@@ -1304,6 +1310,8 @@ Position the cursor at it's beginning, according to the current mode."
 (defun full-frame-irregardless ()
   (interactive)
   (set-frame-parameter nil 'fullscreen 'fullboth))
+
+    (full-frame-irregardless)
 
 (defun pulse-line (&rest _)
   "Pulse the current line."

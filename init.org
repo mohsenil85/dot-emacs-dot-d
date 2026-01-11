@@ -358,7 +358,14 @@ vinagresque
 ***
 ** chat gpt
 #+BEGIN_SRC emacs-lisp :results output silent
-  (straight-use-package 'gptel)
+   (use-package gptel)
+   ;;(straight-use-package 'gptel)
+  ;; (use-package gptel
+  ;;   :config
+  ;;   (setq gptel-model "claude-sonnet-4-20250514"
+  ;;         gptel-backend (gptel-make-anthropic "Claude"
+  ;;                         :stream t
+  ;;                         :key "your-api-key-here")))
 #+END_SRC
 ** project-x
 #+BEGIN_SRC emacs-lisp :results output silent
@@ -1118,7 +1125,6 @@ visit file with browser
     ;;       #'command-completion-default-include-p)
 
 
-    (full-frame-irregardless)
     (blink-cursor-mode -1)
     (defalias 'yes-or-no-p 'y-or-n-p)
     (delete-selection-mode 1)
@@ -1641,6 +1647,9 @@ taken from: https://www.masteringemacs.org/article/searching-buffers-occur-mode
   (defun full-frame-irregardless ()
     (interactive)
     (set-frame-parameter nil 'fullscreen 'fullboth))
+
+      (full-frame-irregardless)
+
 #+END_SRC
 ** pulse line
 #+BEGIN_SRC emacs-lisp :results silent
