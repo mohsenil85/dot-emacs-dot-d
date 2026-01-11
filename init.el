@@ -286,14 +286,14 @@
   :ensure t
   :diminish )
 
-(use-package gptel)
- ;;(straight-use-package 'gptel)
-;; (use-package gptel
-;;   :config
-;;   (setq gptel-model "claude-sonnet-4-20250514"
-;;         gptel-backend (gptel-make-anthropic "Claude"
-;;                         :stream t
-;;                         :key "your-api-key-here")))
+(use-package gptel
+  :ensure t
+  :config
+  (setq gptel-backend (gptel-make-anthropic "Claude"
+                        :stream t
+                        :key (getenv "ANTHROPIC_API_KEY"))
+        gptel-model 'claude-opus-4-20250514
+        gptel-default-mode 'org-mode))
 
 (use-package project-x
   :straight (:host github :repo "karthink/project-x" :files ( "*.el"))
