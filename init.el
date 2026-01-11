@@ -51,13 +51,13 @@
     (setq org-agenda-todo-ignore-with-date t) ;hide shed. and deadlined from global todo
     (setq org-agenda-start-with-follow-mode nil)
     (setq org-agenda-text-search-extra-files '(agenda-archives))
-    (setq org-catch-invisible-edits t)
+    (setq org-catch-invisible-edits 'smart)
     (setq org-deadline-warning-days 14)
     (setq org-default-notes-file "~/org/main.org")
     (setq org-edit-src-persistent-message nil)
     (setq org-enforce-todo-checkbox-dependencies t)
     (setq org-enforce-todo-dependencies t)
-    (setq org-indent-mode t)
+    (add-hook 'org-mode-hook 'org-indent-mode)
     (setq org-log-done 'time)
     (setq org-log-into-drawer t)
     (setq org-log-redeadline (quote time))
@@ -176,11 +176,10 @@
 
 (org-babel-do-load-languages
  'org-babel-load-languages
- '(
-   (lisp . t)
+ '((lisp . t)
    (shell . t)
    (python . t)
-   ))
+   (restclient . t)))
 
 (defun org-babel-tangle-config ()
   (when (string-equal (buffer-file-name)
@@ -209,10 +208,8 @@
   :diminish
   :ensure t
   :config
-  (setq
-   evil-collection-want-unimpaired-p nil
-   forge-add-default-bindings t)
-                                        ;(evil-collection-init)
+  (setq evil-collection-want-unimpaired-p nil)
+  ;; (evil-collection-init)
   )
 
 
@@ -313,7 +310,7 @@
   (progn
     (setq copilot-expansion-delay 0.2)
     (setq copilot-expansion-limit 500)
-    (setq copilot-node-executable "/Users/logan.k.mohseni/.nvm/versions/node/v16.20.2/bin/node" )
+    (setq copilot-node-executable (executable-find "node"))
     )
 
   :bind (("C-c M-f" . copilot-complete)
@@ -432,17 +429,13 @@
 
 (use-package keyfreq
   :ensure t
-  :defer t
-  :init
-  (require 'keyfreq)
+  :config
   (keyfreq-mode 1)
   (keyfreq-autosave-mode 1)
   (setq keyfreq-excluded-commands
 	'(pixel-scroll-precision
 	  mwheel-scroll
-	  self-insert-command
-	  ))
-  )
+	  self-insert-command)))
 
 (use-package magit
   :ensure t
@@ -453,13 +446,12 @@
   )
 (use-package forge
   :after magit
+  :init
+  (setq forge-add-default-bindings t)
   :config
-  (setq auth-sources '("~/.authinfo"))
+  (setq auth-sources '("~/.authinfo")))
 
-
-  )
-
-(use-package better-defaults :ensure t :defer t )
+(use-package better-defaults :ensure t)
 (use-package bind-map :ensure t :defer t)
 (use-package emojify :ensure t :defer t )
 (use-package markdown-mode :ensure t :defer t)
@@ -640,29 +632,25 @@
   :ensure t
   :mode (("\\.hcl\\'" . hcl-mode)))
 
+(use-package highlight-indent-guides
+  :ensure t
+  :diminish
+  :hook (yaml-mode . highlight-indent-guides-mode)
+  :config
+  (setq highlight-indent-guides-method 'character))
+
 (use-package yaml-mode
   :ensure t
-  :mode ("\\.ya?ml\\'" . yaml-mode)
-  :config
-  (add-hook 'yaml-mode-hook 'highlight-indent-guides-mode)
-  ;; Additional configuration can be added here
-  )
+  :mode ("\\.ya?ml\\'" . yaml-mode))
 
 (use-package restclient
   :ensure t
   :mode ("\\.http\\'" . restclient-mode);
   :config
-  (progn ;; Further configuration goes here.
-    (use-package ob-restclient
-      :ensure t
-      :config
-      (progn
-        (org-babel-do-load-languages
-         'org-babel-load-languages
-         '((restclient . t)))
-        (setq org-babel-restclient--jq-path "/opt/homebrew/bin/jq")
-        ))
-    ))
+  (use-package ob-restclient
+    :ensure t
+    :config
+    (setq org-babel-restclient--jq-path "/opt/homebrew/bin/jq")))
 
 (use-package eldoc
   :diminish
@@ -718,42 +706,27 @@
   ((prog-mode-hook . smartscan-mode )))
 
 (use-package combobulate
+  :straight (:host github :repo "mickeynp/combobulate")
   :preface
   (setq combobulate-key-prefix "C-c o")
-
   :hook ((python-ts-mode . combobulate-mode)
          (js-ts-mode . combobulate-mode)
          (css-ts-mode . combobulate-mode)
          (yaml-ts-mode . combobulate-mode)
          (typescript-ts-mode . combobulate-mode)
-         (tsx-ts-mode . combobulate-mode))
-  )
+         (tsx-ts-mode . combobulate-mode)))
 
-;; Ensure use-package is installed and configured if not done already
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
-
-(eval-when-compile
-  (require 'use-package))
-
-;; Optionally, also enable diminishing and ensure for automatic installation of dependencies
-(use-package diminish :ensure t)
-(use-package bind-key :ensure t)
-
-;; Use-package for paredit
 (use-package paredit
-  :ensure t  ;; Ensure the package is installed on startup if not installed already
-  :diminish paredit-mode  ;; Optionally: do not show paredit in the mode line
-  :hook ((emacs-lisp-mode . enable-paredit-mode)  ;; Enable paredit for emacs-lisp-mode
-         (eval-expression-minibuffer-setup . enable-paredit-mode)  ;; ... and in minibuffer
-         (ielm-mode . enable-paredit-mode)  ;; ... and for ielm
-         (lisp-mode . enable-paredit-mode)  ;; ... and for lisp
+  :ensure t
+  :diminish paredit-mode
+  :hook ((emacs-lisp-mode . enable-paredit-mode)
+         (eval-expression-minibuffer-setup . enable-paredit-mode)
+         (ielm-mode . enable-paredit-mode)
+         (lisp-mode . enable-paredit-mode)
          (lisp-interaction-mode . enable-paredit-mode)
-         (scheme-mode . enable-paredit-mode))  ;; ... and for scheme
+         (scheme-mode . enable-paredit-mode))
   :bind (:map paredit-mode-map
-              ("C-j" . paredit-newline))  ;; Example custom keybinding
-  )
+              ("C-j" . paredit-newline)))
 
 ;;taken from https://macowners.club/posts/email-emacs-mu4e-macos/#storing-trusted-root-certificates
 ;;and https://rakhim.org/fastmail-setup-with-emacs-mu4e-and-mbsync-on-macos/
@@ -1001,9 +974,8 @@
 
 (require 'ansi-color)
 (defun colorize-compilation-buffer ()
-  (toggle-read-only)
-  (ansi-color-apply-on-region compilation-filter-start (point))
-  (toggle-read-only))
+  (let ((inhibit-read-only t))
+    (ansi-color-apply-on-region compilation-filter-start (point))))
 (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
 
 ;;(require 'cl)
@@ -1024,12 +996,6 @@
   (interactive)
   (message "loading init...")
   (load-file (concat "~/.emacs.d/init.el")))
-
-(defun foobl (ak)
-  (let ((foo 'bar)
-	(zip 'ping)
-	))
-  (print foo))
 
 (defun edit-init-org-file ()
   (interactive)
@@ -1197,14 +1163,13 @@
 
 (defun prose-mode ()
   (interactive)
-
-  (linum-mode 0)
+  (display-line-numbers-mode 0)
   (writeroom-mode 1)
   (page-break-lines-mode 1)
   (flyspell-mode 1)
   (electric-quote-mode 1)
   (abbrev-mode 1)
-  (word-wrap-mode 1)
+  (toggle-word-wrap 1)
   (setq buffer-face-mode-face
 	'(:family "Times New Roman"
 		  :height 180
@@ -1216,7 +1181,7 @@
   "sloppily reschedule current item into next week"
   (interactive)
   (org-schedule nil (format "+%dd"(+ 11 (random 9))) )
-  (org-set-tags-to ":chucked:")
+  (org-set-tags ":chucked:")
   )
 
 ;;taken from: https://www.reddit.com/r/emacs/comments/98w150/yet_another_emacs_convert/e4kf1y3/
