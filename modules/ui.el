@@ -5,22 +5,24 @@
 
 ;;; Code:
 
-;; Themes
-(use-package humanoid-themes :ensure t)
-(use-package ef-themes :ensure t)
-(use-package standard-themes :ensure t)
+;; Modus themes (by Protesilaos)
+(use-package modus-themes
+  :ensure t
+  :config
+  (setq modus-themes-italic-constructs t
+        modus-themes-bold-constructs t))
 
 (defvar dark-light-state :light
   "Current theme state, :dark or :light.")
 
 (defun load-dark ()
   "Load dark theme."
-  (load-theme 'ef-dark t)
+  (load-theme 'modus-vivendi t)
   (setq dark-light-state :dark))
 
 (defun load-light ()
   "Load light theme."
-  (load-theme 'ef-light t)
+  (load-theme 'modus-operandi t)
   (setq dark-light-state :light))
 
 (defun reset-themes ()

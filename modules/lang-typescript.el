@@ -44,10 +44,12 @@
   :custom
   (typescript-ts-mode-indent-offset 2))
 
-;; Flymake-eslint
-;; Requires: npm install -g eslint
+;; Flymake-eslint (uses npx to find project-local eslint)
 (use-package flymake-eslint
   :ensure t
+  :config
+  (setq flymake-eslint-executable-name "npx")
+  (setq flymake-eslint-executable-args '("eslint"))
   :hook ((typescript-ts-mode . flymake-eslint-enable)
          (tsx-ts-mode . flymake-eslint-enable)
          (js-ts-mode . flymake-eslint-enable)))
