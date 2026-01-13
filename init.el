@@ -322,6 +322,13 @@
 	 ("M-f" . 'copilot-accept-completion-by-word)
 	 ("M-<return>" . 'copilot-accept-completion-by-line)))
 
+(use-package claude-code-ide
+  :straight (:type git :host github :repo "manzaltu/claude-code-ide.el")
+  :bind ("C-c C-'" . claude-code-ide-menu) ; Set your favorite keybinding
+  :config
+  (setq claude-code-ide-terminal-backend 'eat)
+  (claude-code-ide-emacs-tools-setup)) ; Optionally enable Emacs MCP tools
+
 (straight-use-package
  '(eat :type git
        :host codeberg
@@ -689,26 +696,65 @@
 (use-package ob-ipython :ensure t :defer t)
                                         ;(use-package ein :ensure)
 
+;; Eglot is built-in to Emacs 29+, provides LSP support
+;; Requires: npm install -g typescript-language-server typescript
+(use-package eglot
+  :ensure nil ;; built-in
+  :hook ((typescript-ts-mode . eglot-ensure)
+         (tsx-ts-mode . eglot-ensure)
+         (js-ts-mode . eglot-ensure))
+  :config
+  (setq eglot-autoshutdown t)
+  (setq eglot-confirm-server-initiated-edits nil)
+  ;; Performance tuning
+  (setq eglot-events-buffer-size 0) ;; disable event logging for performance
+  (fset #'jsonrpc--log-event #'ignore)
+  ;; Add typescript-language-server
+  (add-to-list 'eglot-server-programs
+               '((typescript-ts-mode tsx-ts-mode js-ts-mode)
+                 . ("typescript-language-server" "--stdio"))))
+
+;; Use tree-sitter based modes for better performance and syntax highlighting
+(use-package typescript-ts-mode
+  :ensure nil ;; built-in to Emacs 29+
+  :mode (("\\.ts\\'" . typescript-ts-mode)
+         ("\\.tsx\\'" . tsx-ts-mode))
+  :custom
+  (typescript-ts-mode-indent-offset 2))
+
+;; ESLint integration via flymake (works with eglot)
+;; Requires: npm install -g eslint
+(use-package flymake-eslint
+  :ensure t
+  :hook ((typescript-ts-mode . flymake-eslint-enable)
+         (tsx-ts-mode . flymake-eslint-enable)
+         (js-ts-mode . flymake-eslint-enable)))
+
+;; Auto-format with prettier on save
+;; Requires: npm install -g prettier
+(use-package prettier
+  :ensure t
+  :hook ((typescript-ts-mode . prettier-mode)
+         (tsx-ts-mode . prettier-mode)
+         (js-ts-mode . prettier-mode)
+         (json-ts-mode . prettier-mode)
+         (css-ts-mode . prettier-mode)))
+
 (use-package jest-test-mode
   :ensure t
   :commands jest-test-mode
-  :hook (typescript-mode js-mode typescript-tsx-mode))
-
-(use-package indium
-  :ensure t
-  :hook ((js-mode . indium-interaction-mode)
-         (js2-mode . indium-interaction-mode)
-         (typescript-mode . indium-interaction-mode))
+  :hook ((typescript-ts-mode . jest-test-mode)
+         (tsx-ts-mode . jest-test-mode)
+         (js-ts-mode . jest-test-mode))
   :config
-  ;; If you have any custom configuration, place it here.
-  )
+  (setq jest-test-command-string "npx jest %s"))
 
 (use-package smartscan
   :ensure t
   :demand t
-  :hook
-  ((prog-mode-hook . smartscan-mode )))
+  :hook (prog-mode . smartscan-mode))
 
+;; Structural navigation and editing for tree-sitter modes
 (use-package combobulate
   :straight (:host github :repo "mickeynp/combobulate")
   :preface
@@ -719,6 +765,13 @@
          (yaml-ts-mode . combobulate-mode)
          (typescript-ts-mode . combobulate-mode)
          (tsx-ts-mode . combobulate-mode)))
+
+;; Use project-local node_modules binaries
+(use-package add-node-modules-path
+  :ensure t
+  :hook ((typescript-ts-mode . add-node-modules-path)
+         (tsx-ts-mode . add-node-modules-path)
+         (js-ts-mode . add-node-modules-path)))
 
 (use-package paredit
   :ensure t
@@ -736,251 +789,251 @@
 ;;and https://rakhim.org/fastmail-setup-with-emacs-mu4e-and-mbsync-on-macos/
 
 
-(use-package mu4e
-  :straight nil
-  :load-path "/opt/homebrew/share/emacs/site-lisp/mu/mu4e/"
-  :config
-  (require 'mu4e-contrib)
-  (require 'smtpmail)
+;; (use-package mu4e
+;;   :straight nil
+;;   :load-path "/opt/homebrew/share/emacs/site-lisp/mu/mu4e/"
+;;   :config
+;;   (require 'mu4e-contrib)
+;;   (require 'smtpmail)
+;;   (setq
+;;    message-send-mail-function 'sendmail-send-it
+;;    message-sendmail-envelope-from 'header
+;;    send-mail-function 'sendmail-send-it
+;;    sendmail-program (executable-find "msmtp")
+
+;;    mu4e-attachments-dir "~/Downloads"
+;;    mu4e-change-filenames-when-moving t
+;;    mu4e-completing-read-function 'completing-read
+;;    mu4e-compose-format-flowed nil
+;;    mu4e-date-format "%y/%m/%d"
+;;    mu4e-get-mail-command  "mbsync -a"
+;;    mu4e-headers-date-format "%Y/%m/%d"
+;;    mu4e-mu-binary "/opt/homebrew/bin/mu"
+;;    mu4e-read-option-use-builtin nil
+;;    mu4e-view-show-addresses t
+;;    mu4e-view-show-images t
+;;    mu4e-headers-skip-duplicates t)
+
+;;   (setq mu4e-contexts
+;;         `(
+
+
+;;           ,(make-mu4e-context
+;;             :name "Fastmail"
+;;             :enter-func (lambda () (mu4e-message "Switch to the Fastmail context"))
+;;             :match-func (lambda (msg)
+;;                           (when msg
+;;                             (mu4e-message-contact-field-matches msg :to "logan@mohseni.io")))
+;;             :vars '(
+;; 		    (user-full-name         . "Logan Mohseni" )
+;;                     (mu4e-compose-signature  . (concat "\n\n--Logan Mohseni\n"))
+;;             	    (mu4e-maildir            . "~/Maildir/fastmail" )
+;;             	    (mu4e-refile-folder      . "/fastmail/Archive")
+;;             	    (mu4e-sent-folder        . "/fastmail/Sent")
+;;             	    (mu4e-drafts-folder      . "/fastmail/Drafts")
+;;             	    (mu4e-trash-folder       . "/fastmail/Trash")
+;;             	    (mu4e-maildir-shortcuts  . (
+;;             					("/fastmail/Banking" . ?b)
+;;             					("/fastmail/Bills" . ?B)
+;;             					("/fastmail/Reading" . ?r)
+;;             					("/fastmail/Lists/OpenBSD" . ?p)
+;;             					("/fastmail/Lists/Org" . ?O)
+;;             					("/fastmail/Lists/Sbcl" . ?s)
+;;             					("/fastmail/Lists/Emacs" . ?e)
+;;             					("/fastmail/Shopping/Amazon" . ?A)
+;;             					("/fastmail/House Hunt" . ?h)
+;;             					("/fastmail/Shipping" . ?R)))
+
+;;             	    (mu4e-bookmarks          . (
+;;             					(:name "Unread messages" :query "flag:unread AND NOT flag:trashed" :key ?u)
+;;             					(:name "Today's messages" :query "date:today..now" :key ?g)
+;;             					(:name "Last 7 days" :query "date:7d..now" :hide-unread t :key ?w)
+;;             					(:name "Messages with images" :query "mime:image/*" :key ?p)
+;;             					(:query "maildir:/fastmail/Inbox" :name   "Inbox" :key   ?i)
+;;             					(:query "maildir:/fastmail/Sent" :name "Sent Mail" :key   ?s)
+;;             					(:query "maildir:/fastmail/Drafts" :name  "Drafts" :key ?d)
+;;             					(:query "maildir:/fastmail/Archive" :name    "Archive" :key    ?x)))
+;; 		    ))
+
+;; 	  ,(make-mu4e-context
+;;             :name "Gmail"
+;;             :enter-func (lambda () (mu4e-message "Entering Private context"))
+;;             :leave-func (lambda () (mu4e-message "Leaving Private context"))
+;;             ;; we match based on the contact-fields of the message
+;;             :match-func (lambda (msg)
+;;                           (when msg
+;;                             (mu4e-message-contact-field-matches msg :to "mohsenil85@gmail.com")))
+;;             :vars '( (user-mail-address      . "mohsenil85@gmail.com"  )
+;;                      (user-full-name         . "Logan Mohseni" )
+;;                      (mu4e-compose-signature . (concat "\n\n--Logan Mohseni\n"))
+;;             	     (mu4e-maildir           . "~/Maildir/gmail" )
+;;             	     (mu4e-refile-folder     . "/gmail/Archive")
+;;             	     (mu4e-sent-folder       . "/gmail/Sent")
+;;             	     (mu4e-drafts-folder     . "/gmail/Drafts")
+
+;;             	     (mu4e-trash-folder      . "/gmail/Trash")
+;;             	     (mu4e-maildir-shortcuts  . (
+;;             					 ("/gmail/Banking" . ?b)
+;;             					 ("/gmail/Bills" . ?B)
+;;             					 ("/gmail/Reading" . ?r)
+;;             					 ("/gmail/Lists/OpenBSD" . ?p)
+;;             					 ("/gmail/Lists/Org" . ?O)
+;;             					 ("/gmail/Lists/Sbcl" . ?s)
+;;             					 ("/gmail/Lists/Emacs" . ?e)
+;;             					 ("/gmail/Shopping/Amazon" . ?A)
+;;             					 ("/gmail/House Hunt" . ?h)
+;;             					 ("/gmail/Shipping" . ?S)))
+
+;;             	     (mu4e-bookmarks          . (
+;;             					 (:name "Unread messages" :query "flag:unread AND NOT flag:trashed AND to:mohsenil85@gmail.com" :key ?u)
+;;             					 (:name "Today's messages" :query "date:today..now" :key ?g)
+;;             					 (:name "Last 7 days" :query "date:7d..now" :hide-unread t :key ?w)
+;;             					 (:name "Messages with images" :query "mime:image/*" :key ?p)
+;;             					 (:query "maildir:/gmail/Inbox" :name   "Inbox" :key   ?i)
+;;             					 (:query "maildir:/gmail/Sent" :name "Sent Mail" :key   ?s)
+;;             					 (:query "maildir:/gmail/Drafts" :name  "Drafts" :key ?d)
+;;             					 (:query "maildir:/gmail/Archive" :name    "Archive" :key    ?x)))
+;; 		     ))
+
+;;   	  );;list
+;;         );;contexts
+
+
+;;   ;; set `mu4e-context-policy` and `mu4e-compose-policy` to tweak when mu4e should
+;;   ;; guess or ask the correct context, e.g.
+
+;;   ;; start with the first (default) context;
+;;   ;; default is to ask-if-none (ask when there's no context yet, and none match)
+;;   (setq mu4e-context-policy 'pick-first)
+
+;;   ;; compose with the current context is no context matches;
+;;   ;; default is to ask
+;;   ;; (setq mu4e-compose-context-policy nil)
+
+;;   )
+
+(use-package emacs
+  :init
+  (require 'misc)
+  ;; Add prompt indicator to `completing-read-multiple'.
+  ;; We display [CRM<separator>], e.g., [CRM,] if the separator is a comma.
+  (defun crm-indicator (args)
+    (cons (format "[CRM%s] %s"
+                  (replace-regexp-in-string
+                   "\\`\\[.*?]\\*\\|\\[.*?]\\*\\'" ""
+                   crm-separator)
+                  (car args))
+          (cdr args)))
+  (advice-add #'completing-read-multiple :filter-args #'crm-indicator)
+
+  ;; Do not allow the cursor in the minibuffer prompt
+  (setq minibuffer-prompt-properties
+        '(read-only t cursor-intangible t face minibuffer-prompt))
+  (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
+
+  ;; Emacs 28: Hide commands in M-x which do not work in the current mode.
+  ;; Vertico commands are hidden in normal buffers.
+  ;; (setq read-extended-command-predicate
+  ;;       #'command-completion-default-include-p)
+
+
+  (blink-cursor-mode -1)
+  (defalias 'yes-or-no-p 'y-or-n-p)
+  (delete-selection-mode 1)
+  (electric-pair-mode 1)
+  (size-indication-mode 1)
+  (global-display-line-numbers-mode 1)
+    ;;;        (visual-fill-column-mode 1)
+  (toggle-word-wrap 1)
+  ;;      (global-visual-line-mode t)
+  (menu-bar-mode 0)
+  (prefer-coding-system 'utf-8)
+  (recentf-mode 1)
+  (scroll-bar-mode 0)
+  (server-start)
+  (set-keyboard-coding-system 'utf-8)
+  (set-selection-coding-system 'utf-8)
+  (set-terminal-coding-system 'utf-8-unix)
+  (tool-bar-mode 0)
+  (tooltip-mode -1)
+  (setq tooltip-use-echo-area t)
+  (context-menu-mode)
+  (pixel-scroll-precision-mode)
+  (column-number-mode 1)
+
   (setq
-   message-send-mail-function 'sendmail-send-it
-   message-sendmail-envelope-from 'header
-   send-mail-function 'sendmail-send-it
-   sendmail-program (executable-find "msmtp")
+   view-read-only t
+   xref-search-program 'ripgrep
+   ;;     sentence-end-double-space nil
+   display-time-default-load-average nil
+   auto-save-file-name-transforms `((".*" ,temporary-file-directory t))
+   auto-save-visited-interval 1
+   auto-save-visited-mode 1
+      backup-by-copying t
+   backup-directory-alist `((".*" . ,temporary-file-directory))
+   confirm-kill-processes nil
+   confirm-nonexistent-file-or-buffer nil
+   default-fill-column 80		; toggle wrapping text at the 80th character
+   delete-old-versions t 		; delete excess backup versions silently
+   ;; enable-recursive-minibuffers t
+   explicit-shell-file-name "/bin/zsh"
+   explicit-zsh-args '("--login" "--interactive")
+   history-length 250
+   indicate-empty-lines t
+   inhibit-startup-echo-area-message "loganmohseni"
+   inhibit-startup-message t
+   inhibit-startup-screen t
+   initial-scratch-message ";         :D"
+   kill-ring-max 5000                     ;truncate kill ring after 5000 entries
+   load-prefer-newer t
+   locale-coding-system 'utf-8
+   mark-ring-max 5000
+   recentf-max-saved-items 5000
+   ring-bell-function 'ignore 	; silent bell when you make a mistake
+   sentence-end-double-space t	;
+   shell-file-name "/bin/zsh"
+   show-paren-delay 0
+   show-paren-style 'parenthesis
+   show-paren-when-point-inside-paren t
+   ;;     split-width-threshold 80
+   switch-to-buffer-preserve-window-point t
+   tab-always-indent 'complete
+   tooltip-use-echo-area t
+   use-dialog-box nil
+   user-full-name "Logan Mohseni"
+   user-mail-address "logan@mohseni.io"
+   vc-follow-symlinks t 				       ; don't ask for confirmation when opening symlinked file
+   vc-make-backup-files t 		; make backups file even when in version controlled dir
+   version-control t 		; use version control
+   visible-bell t
+   )
+  (setq-default indicate-buffer-boundaries 'left)
+  (setq display-time-format "%l:%M")
+  (setq display-time-interval 1)
+  (display-time-mode)
 
-   mu4e-attachments-dir "~/Downloads"
-   mu4e-change-filenames-when-moving t
-   mu4e-completing-read-function 'completing-read
-   mu4e-compose-format-flowed nil
-   mu4e-date-format "%y/%m/%d"
-   mu4e-get-mail-command  "mbsync -a"
-   mu4e-headers-date-format "%Y/%m/%d"
-   mu4e-mu-binary "/opt/homebrew/bin/mu"
-   mu4e-read-option-use-builtin nil
-   mu4e-view-show-addresses t
-   mu4e-view-show-images t
-   mu4e-headers-skip-duplicates t)
-
-  (setq mu4e-contexts
-        `(
-
-
-          ,(make-mu4e-context
-            :name "Fastmail"
-            :enter-func (lambda () (mu4e-message "Switch to the Fastmail context"))
-            :match-func (lambda (msg)
-                          (when msg
-                            (mu4e-message-contact-field-matches msg :to "logan@mohseni.io")))
-            :vars '(
-		    (user-full-name         . "Logan Mohseni" )
-                    (mu4e-compose-signature  . (concat "\n\n--Logan Mohseni\n"))
-            	    (mu4e-maildir            . "~/Maildir/fastmail" )
-            	    (mu4e-refile-folder      . "/fastmail/Archive")
-            	    (mu4e-sent-folder        . "/fastmail/Sent")
-            	    (mu4e-drafts-folder      . "/fastmail/Drafts")
-            	    (mu4e-trash-folder       . "/fastmail/Trash")
-            	    (mu4e-maildir-shortcuts  . (
-            					("/fastmail/Banking" . ?b)
-            					("/fastmail/Bills" . ?B)
-            					("/fastmail/Reading" . ?r)
-            					("/fastmail/Lists/OpenBSD" . ?p)
-            					("/fastmail/Lists/Org" . ?O)
-            					("/fastmail/Lists/Sbcl" . ?s)
-            					("/fastmail/Lists/Emacs" . ?e)
-            					("/fastmail/Shopping/Amazon" . ?A)
-            					("/fastmail/House Hunt" . ?h)
-            					("/fastmail/Shipping" . ?R)))
-
-            	    (mu4e-bookmarks          . (
-            					(:name "Unread messages" :query "flag:unread AND NOT flag:trashed" :key ?u)
-            					(:name "Today's messages" :query "date:today..now" :key ?g)
-            					(:name "Last 7 days" :query "date:7d..now" :hide-unread t :key ?w)
-            					(:name "Messages with images" :query "mime:image/*" :key ?p)
-            					(:query "maildir:/fastmail/Inbox" :name   "Inbox" :key   ?i)
-            					(:query "maildir:/fastmail/Sent" :name "Sent Mail" :key   ?s)
-            					(:query "maildir:/fastmail/Drafts" :name  "Drafts" :key ?d)
-            					(:query "maildir:/fastmail/Archive" :name    "Archive" :key    ?x)))
-		    ))
-
-	  ,(make-mu4e-context
-            :name "Gmail"
-            :enter-func (lambda () (mu4e-message "Entering Private context"))
-            :leave-func (lambda () (mu4e-message "Leaving Private context"))
-            ;; we match based on the contact-fields of the message
-            :match-func (lambda (msg)
-                          (when msg
-                            (mu4e-message-contact-field-matches msg :to "mohsenil85@gmail.com")))
-            :vars '( (user-mail-address      . "mohsenil85@gmail.com"  )
-                     (user-full-name         . "Logan Mohseni" )
-                     (mu4e-compose-signature . (concat "\n\n--Logan Mohseni\n"))
-            	     (mu4e-maildir           . "~/Maildir/gmail" )
-            	     (mu4e-refile-folder     . "/gmail/Archive")
-            	     (mu4e-sent-folder       . "/gmail/Sent")
-            	     (mu4e-drafts-folder     . "/gmail/Drafts")
-
-            	     (mu4e-trash-folder      . "/gmail/Trash")
-            	     (mu4e-maildir-shortcuts  . (
-            					 ("/gmail/Banking" . ?b)
-            					 ("/gmail/Bills" . ?B)
-            					 ("/gmail/Reading" . ?r)
-            					 ("/gmail/Lists/OpenBSD" . ?p)
-            					 ("/gmail/Lists/Org" . ?O)
-            					 ("/gmail/Lists/Sbcl" . ?s)
-            					 ("/gmail/Lists/Emacs" . ?e)
-            					 ("/gmail/Shopping/Amazon" . ?A)
-            					 ("/gmail/House Hunt" . ?h)
-            					 ("/gmail/Shipping" . ?S)))
-
-            	     (mu4e-bookmarks          . (
-            					 (:name "Unread messages" :query "flag:unread AND NOT flag:trashed AND to:mohsenil85@gmail.com" :key ?u)
-            					 (:name "Today's messages" :query "date:today..now" :key ?g)
-            					 (:name "Last 7 days" :query "date:7d..now" :hide-unread t :key ?w)
-            					 (:name "Messages with images" :query "mime:image/*" :key ?p)
-            					 (:query "maildir:/gmail/Inbox" :name   "Inbox" :key   ?i)
-            					 (:query "maildir:/gmail/Sent" :name "Sent Mail" :key   ?s)
-            					 (:query "maildir:/gmail/Drafts" :name  "Drafts" :key ?d)
-            					 (:query "maildir:/gmail/Archive" :name    "Archive" :key    ?x)))
-		     ))
-
-  	  );;list
-        );;contexts
-
-
-  ;; set `mu4e-context-policy` and `mu4e-compose-policy` to tweak when mu4e should
-  ;; guess or ask the correct context, e.g.
-
-  ;; start with the first (default) context;
-  ;; default is to ask-if-none (ask when there's no context yet, and none match)
-  (setq mu4e-context-policy 'pick-first)
-
-  ;; compose with the current context is no context matches;
-  ;; default is to ask
-  ;; (setq mu4e-compose-context-policy nil)
+  (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+  (add-to-list 'comint-output-filter-functions 'ansi-color-process-output)
 
   )
 
-(use-package emacs
-    :init
-    (require 'misc)
-    ;; Add prompt indicator to `completing-read-multiple'.
-    ;; We display [CRM<separator>], e.g., [CRM,] if the separator is a comma.
-    (defun crm-indicator (args)
-      (cons (format "[CRM%s] %s"
-                    (replace-regexp-in-string
-                     "\\`\\[.*?]\\*\\|\\[.*?]\\*\\'" ""
-                     crm-separator)
-                    (car args))
-            (cdr args)))
-    (advice-add #'completing-read-multiple :filter-args #'crm-indicator)
-
-    ;; Do not allow the cursor in the minibuffer prompt
-    (setq minibuffer-prompt-properties
-          '(read-only t cursor-intangible t face minibuffer-prompt))
-    (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
-
-    ;; Emacs 28: Hide commands in M-x which do not work in the current mode.
-    ;; Vertico commands are hidden in normal buffers.
-    ;; (setq read-extended-command-predicate
-    ;;       #'command-completion-default-include-p)
-
-
-    (blink-cursor-mode -1)
-    (defalias 'yes-or-no-p 'y-or-n-p)
-    (delete-selection-mode 1)
-    (electric-pair-mode 1)
-    (size-indication-mode 1)
-    (global-display-line-numbers-mode 1)
-      ;;;        (visual-fill-column-mode 1)
-    (toggle-word-wrap 1)
-    ;;      (global-visual-line-mode t)
-    (menu-bar-mode 0)
-    (prefer-coding-system 'utf-8)
-    (recentf-mode 1)
-    (scroll-bar-mode 0)
-;;    (server-start)
-    (set-keyboard-coding-system 'utf-8)
-    (set-selection-coding-system 'utf-8)
-    (set-terminal-coding-system 'utf-8-unix)
-    (tool-bar-mode 0)
-    (tooltip-mode -1)
-    (setq tooltip-use-echo-area t)
-    (context-menu-mode)
-    (pixel-scroll-precision-mode)
-    (column-number-mode 1)
-
-    (setq
-     view-read-only t
-     xref-search-program 'ripgrep
-     ;;     sentence-end-double-space nil
-     display-time-default-load-average nil
-     auto-save-file-name-transforms `((".*" ,temporary-file-directory t))
-     auto-save-visited-interval 1
-     auto-save-visited-mode 1
-     backup-by-copying t
-     backup-directory-alist `((".*" . ,temporary-file-directory))
-     confirm-kill-processes nil
-     confirm-nonexistent-file-or-buffer nil
-     default-fill-column 80		; toggle wrapping text at the 80th character
-     delete-old-versions t 		; delete excess backup versions silently
-     ;; enable-recursive-minibuffers t
-     explicit-shell-file-name "/bin/zsh"
-     explicit-zsh-args '("--login" "--interactive")
-     history-length 250
-     indicate-empty-lines t
-     inhibit-startup-echo-area-message "loganmohseni"
-     inhibit-startup-message t
-     inhibit-startup-screen t
-     initial-scratch-message ";         :D"
-     kill-ring-max 5000                     ;truncate kill ring after 5000 entries
-     load-prefer-newer t
-     locale-coding-system 'utf-8
-     mark-ring-max 5000
-     recentf-max-saved-items 5000
-     ring-bell-function 'ignore 	; silent bell when you make a mistake
-     sentence-end-double-space t	;
-     shell-file-name "/bin/zsh"
-     show-paren-delay 0
-     show-paren-style 'parenthesis
-     show-paren-when-point-inside-paren t
-     ;;     split-width-threshold 80
-     switch-to-buffer-preserve-window-point t
-     tab-always-indent 'complete
-     tooltip-use-echo-area t
-     use-dialog-box nil
-     user-full-name "Logan Mohseni"
-     user-mail-address "logan@mohseni.io"
-     vc-follow-symlinks t 				       ; don't ask for confirmation when opening symlinked file
-     vc-make-backup-files t 		; make backups file even when in version controlled dir
-     version-control t 		; use version control
-     visible-bell t
-     )
-    (setq-default indicate-buffer-boundaries 'left)
-    (setq display-time-format "%l:%M")
-    (setq display-time-interval 1)
-    (display-time-mode)
-
-    (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
-    (add-to-list 'comint-output-filter-functions 'ansi-color-process-output)
-
-    )
 
 
 
+(defun zsh-shell-mode-setup ()
+  (setq-local comint-process-echoes t))
+(add-hook 'shell-mode-hook #'zsh-shell-mode-setup)
 
-  (defun zsh-shell-mode-setup ()
-    (setq-local comint-process-echoes t))
-  (add-hook 'shell-mode-hook #'zsh-shell-mode-setup)
-
-  (require 'uniquify)
-  (setq uniquify-buffer-name-style 'forward)
-  (winner-mode 1)
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'forward)
+(winner-mode 1)
 
 
-  (require 'ansi-color)
-  (defun colorize-compilation-buffer ()
-    (let ((inhibit-read-only t))
-      (ansi-color-apply-on-region compilation-filter-start (point))))
-  (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
+(require 'ansi-color)
+(defun colorize-compilation-buffer ()
+  (let ((inhibit-read-only t))
+    (ansi-color-apply-on-region compilation-filter-start (point))))
+(add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
 
 ;;(require 'cl)
 
