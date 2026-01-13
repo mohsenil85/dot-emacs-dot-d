@@ -40,8 +40,11 @@
   :config
   (require 'bind-key))
 
-;; Better defaults
-(use-package better-defaults :ensure t)
+;; Better defaults (but disable ido - we use vertico)
+(use-package better-defaults
+  :ensure t
+  :config
+  (ido-mode -1))
 
 ;; Core Emacs settings
 (use-package emacs

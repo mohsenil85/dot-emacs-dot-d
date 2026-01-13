@@ -24,6 +24,19 @@
   :config
   (setq completion-styles '(orderless)))
 
+;; Consult - enhanced commands with Vertico
+(use-package consult
+  :ensure t
+  :bind (("C-x b" . consult-buffer)
+         ("C-x 4 b" . consult-buffer-other-window)
+         ("C-x r b" . consult-bookmark)
+         ("M-g g" . consult-goto-line)
+         ("M-g M-g" . consult-goto-line)
+         ("M-s l" . consult-line)
+         ("M-s r" . consult-ripgrep))
+  :config
+  (setq consult-narrow-key "<"))
+
 ;; Corfu - popup completion at point
 (use-package corfu
   :ensure t

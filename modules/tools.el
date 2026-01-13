@@ -68,6 +68,11 @@
 (use-package fzf :ensure t :defer t)
 
 ;; Project management
+(use-package project
+  :straight nil
+  :config
+  (setq project-switch-commands 'project-dired))
+
 (use-package project-x
   :straight (:host github :repo "karthink/project-x" :files ("*.el"))
   :after project
