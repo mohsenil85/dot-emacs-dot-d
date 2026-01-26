@@ -38,27 +38,14 @@
   :config
   (dired-hist-mode 1))
 
-;; Terminal - Eat
-(straight-use-package
- '(eat :type git
-       :host codeberg
-       :repo "akib/emacs-eat"
-       :files ("*.el" ("term" "term/*.el") "*.texi"
-               "*.ti" ("terminfo/e" "terminfo/e/*")
-               ("terminfo/65" "terminfo/65/*")
-               ("integration" "integration/*")
-               (:exclude ".dir-locals.el" "*-tests.el"))))
-
-(use-package term)
+;; Terminal - vterm
+(use-package vterm
+  :commands vterm
+  :config
+  (setq vterm-max-scrollback 10000)
+  (setq vterm-kill-buffer-on-exit t))
 
 ;; Search tools
-(use-package ag
-  :ensure t
-  :defer t
-  :config
-  (setq ag-highlight-search t)
-  (setq ag-reuse-buffers t))
-
 (use-package rg
   :ensure t
   :defer t
@@ -71,7 +58,10 @@
 (use-package project
   :straight nil
   :config
-  (setq project-switch-commands 'project-dired))
+  (setq project-switch-commands '((project-dired "Dired")
+                                  (project-find-file "Find file")
+                                  (project-find-regexp "Find regexp")
+                                  (magit-project-status "Magit"))))
 
 (use-package project-x
   :straight (:host github :repo "karthink/project-x" :files ("*.el"))
@@ -112,7 +102,7 @@
   :straight (:type git :host github :repo "manzaltu/claude-code-ide.el")
   :bind ("C-c C-'" . claude-code-ide-menu)
   :config
-  (setq claude-code-ide-terminal-backend 'eat)
+  (setq claude-code-ide-terminal-backend 'vterm)
   (claude-code-ide-emacs-tools-setup))
 
 ;; REST client
@@ -129,9 +119,6 @@
   (org-babel-do-load-languages 'org-babel-load-languages org-babel-load-languages))
 
 ;; Misc tools
-(use-package bind-map :ensure t :defer t)
-(use-package emojify :ensure t :defer t)
-(use-package feebleline :ensure t :defer t)
 (use-package speed-type
   :ensure t
   :custom

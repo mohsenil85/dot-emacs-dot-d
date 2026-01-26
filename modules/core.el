@@ -36,15 +36,7 @@
 (use-package bind-key
   :demand
   :init
-  (setq bind-key-describe-special-forms t)
-  :config
-  (require 'bind-key))
-
-;; Better defaults (but disable ido - we use vertico)
-(use-package better-defaults
-  :ensure t
-  :config
-  (ido-mode -1))
+  (setq bind-key-describe-special-forms t))
 
 ;; Core Emacs settings
 (use-package emacs
@@ -111,12 +103,10 @@
    recentf-max-saved-items 5000
    sentence-end-double-space t
    shell-file-name "/bin/zsh"
-   show-paren-delay 0
    show-paren-style 'parenthesis
    show-paren-when-point-inside-paren t
    switch-to-buffer-preserve-window-point t
    tab-always-indent 'complete
-   tooltip-use-echo-area t
    use-dialog-box nil
    user-full-name "Logan Mohseni"
    user-mail-address "logan@mohseni.io"
@@ -216,34 +206,12 @@
         (css-mode . css-ts-mode)
         (python-mode . python-ts-mode)))
 
-;; Flycheck
-(use-package flycheck
-  :ensure t
-  :diminish "")
-
-(flycheck-define-checker proselint
-  "A linter for prose."
-  :command ("proselint" source-inplace)
-  :error-patterns
-  ((warning line-start (file-name) ":" line ":" column ": "
-            (id (one-or-more (not (any " "))))
-            (message) line-end))
-  :modes (text-mode markdown-mode gfm-mode))
-(add-to-list 'flycheck-checkers 'proselint)
-
 ;; Dtrt-indent - auto-detect indentation
 (use-package dtrt-indent
   :diminish
   :ensure t
   :init
   (dtrt-indent-global-mode 1))
-
-;; General (for keybinding)
-(use-package general
-  :ensure t
-  :defer 1
-  :config
-  (setq leader "SPC"))
 
 (provide 'core)
 ;;; core.el ends here

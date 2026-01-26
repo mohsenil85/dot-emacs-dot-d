@@ -6,7 +6,7 @@
 ;;; Code:
 
 ;; Function keys
-(global-set-key (kbd "<f1>") 'eat)
+(global-set-key (kbd "<f1>") 'vterm)
 (global-set-key (kbd "<f2>") 'magit-status)
 (global-set-key (kbd "<f5>") 'mu4e)
 (global-set-key (kbd "<f6>") 'org-agenda)
@@ -19,16 +19,16 @@
 (global-set-key (kbd "C-<f2>") 'multi-occur-in-this-mode)
 (global-set-key (kbd "C-h C-/") 'which-key-show-major-mode)
 (global-set-key (kbd "C-x ,") 'edit-init-org-file)
-(global-set-key (kbd "C-x <f2>") 'open-in-webstorm)
+(global-set-key (kbd "C-x <f2>") 'open-in-vscode)
 (global-set-key (kbd "C-x <f5>") 'toggle-dark-light-state)
 (global-set-key (kbd "C-x C-,") 'load-init-file)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 (global-set-key (kbd "C-x C-c") 'halt)
 (global-set-key (kbd "C-x d") 'dired-jump)
-(global-set-key (kbd "C-x C-r") 'recentf)
+(global-set-key (kbd "C-x C-r") 'consult-recent-file)
 (global-set-key (kbd "C-x C-d") 'dired)
 (global-set-key (kbd "C-x g") 'magit-status)
-(global-set-key (kbd "C-x k") 'kill-this-buffer)
+(global-set-key (kbd "C-x k") 'kill-current-buffer)
 (global-set-key (kbd "C-x m") 'mu4e-compose-new)
 
 ;; M-prefixed

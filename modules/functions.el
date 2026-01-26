@@ -199,13 +199,13 @@
   (org-schedule nil (format "+%dd" (+ 11 (random 9))))
   (org-set-tags ":chucked:"))
 
-(defun open-in-webstorm ()
-  "Open current file in WebStorm."
+(defun open-in-vscode ()
+  "Open current file in VS Code."
   (interactive)
-  (shell-command (format "webstorm --line %s --column %s %s"
+  (shell-command (format "code --goto %s:%s:%s"
+                         (buffer-file-name)
                          (line-number-at-pos)
-                         (current-column)
-                         (buffer-file-name))))
+                         (current-column))))
 
 (defun get-buffers-matching-mode (mode)
   "Return a list of buffers where major-mode equals MODE."
@@ -260,12 +260,6 @@ With prefix ARG, activate region."
   (interactive "P")
   (exchange-point-and-mark)
   (unless arg (deactivate-mark nil)))
-
-(defun my-clipboard-to-elfeed ()
-  "Add clipboard URL to elfeed."
-  (interactive)
-  (let ((link (pbpaste)))
-    (elfeed-add-feed link)))
 
 (provide 'functions)
 ;;; functions.el ends here

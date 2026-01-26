@@ -59,16 +59,5 @@
   :config
   (corfu-popupinfo-mode))
 
-;; Company (backup/alternative completion)
-(use-package company
-  :ensure t
-  :diminish)
-
-;; Smex - M-x enhancement
-(use-package smex :ensure t :defer t)
-
-;; Swiper - isearch replacement
-(use-package swiper :ensure t)
-
 (provide 'completion)
 ;;; completion.el ends here

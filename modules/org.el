@@ -58,9 +58,9 @@
            "- [ ] %?\n")
           ("r" "rss" entry (file+olp "~/Dropbox/elfeed.org" "feeds" "captures")
            "*** %^C\n")
-          ("j" "journal" entry (file+datetree "~/org/notes.org")
+          ("j" "journal" entry (file+olp+datetree "~/org/notes.org")
            "* %?\n %U\n  %i\n  %a")
-          ("w" "work" entry (file+datetree "~/org/work.org")
+          ("w" "work" entry (file+olp+datetree "~/org/work.org")
            "* %?\n %U\n  %i\n  %a")))
 
   :bind (("C-c l" . org-store-link)

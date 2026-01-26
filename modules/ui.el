@@ -63,7 +63,6 @@
 (use-package page-break-lines
   :diminish ""
   :ensure t
-  :defer t
   :config
   (global-page-break-lines-mode))
 

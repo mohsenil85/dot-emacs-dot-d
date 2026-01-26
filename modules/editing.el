@@ -39,9 +39,6 @@
   :demand t
   :hook (prog-mode . smartscan-mode))
 
-;; Origami - folding
-(use-package origami :ensure t :defer t)
-
 ;; Hide-show cycle functions
 (defun hs-cycle (&optional level)
   "Cycle hide/show for current block."
