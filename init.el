@@ -29,8 +29,11 @@
 
 ;; Languages
 (require 'lang-lisp)
+(require 'lang-clojure)
 (require 'lang-python)
 (require 'lang-typescript)
+(require 'lang-rust)
+(require 'lang-java)
 (require 'lang-misc)
 
 ;; Tools: project, dired, gptel, etc.
