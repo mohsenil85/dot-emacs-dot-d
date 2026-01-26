@@ -48,7 +48,7 @@
 
 ;; Frame configuration: size, position, font
 (setq default-frame-alist
-      '((font . "-*-Monaco-normal-normal-normal-*-16-*-*-*-m-0-iso10646-1")
+      '((font . "Monaco 16")
         (height . 42)
         (width . 144)
         (top . 0)
